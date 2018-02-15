@@ -34,7 +34,7 @@
 
     <!-- 加载 mapper.xml 接口 配置文件 -->
     <bean id="mapperScannerConfigurer" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <property name="basePackage" value="com.tongyuan.testmp1" />
+        <property name="basePackage" value="com.tongyuan.testmp1.dao" />
     </bean>
 
 </beans>

@@ -13,7 +13,7 @@ import java.io.Serializable;
 public class User implements Serializable {
     private Long id;
     private String age;
-    private String name;
+    private String username;
     @TableField(exist = false)
     private String email;
 
@@ -33,13 +33,19 @@ public class User implements Serializable {
         this.age = age;
     }
 
-    public String getName() {
-        return name;
+    public String getUsername() {
+        return username;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
+    public String getEmail() {
+        return email;
+    }
 
+    public void setEmail(String email) {
+        this.email = email;
+    }
 }
