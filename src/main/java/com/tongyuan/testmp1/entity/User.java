@@ -14,8 +14,6 @@ public class User implements Serializable {
     private Long id;
     private String age;
     private String username;
-    @TableField(exist = false)
-    private String email;
 
     public Long getId() {
         return id;
@@ -41,11 +39,12 @@ public class User implements Serializable {
         this.username = username;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", age='" + age + '\'' +
+                ", username='" + username + '\'' +
+                '}';
     }
 }
