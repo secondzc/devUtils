@@ -1,5 +1,7 @@
 package com.tongyuan.testmp1.service;
 
+import com.tongyuan.testmp1.dao.OrderDetailMapper;
+import com.tongyuan.testmp1.entity.OrderDetail;
 import com.tongyuan.testmp1.entity.User;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -18,6 +20,8 @@ public class UserServiceTest {
 
     @Autowired
     private UserService userService;
+    @Autowired
+    private OrderDetailMapper orderDetailMapper;
 
     @Test
     public void queryUser() throws Exception {
@@ -31,4 +35,8 @@ public class UserServiceTest {
         System.out.println(users);
     }
 
+    @Test
+    public void testUpdate() throws Exception{
+        orderDetailMapper.decreaseGoodsId();
+    }
 }

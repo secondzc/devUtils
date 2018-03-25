@@ -14,11 +14,10 @@ import java.util.concurrent.CountDownLatch;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public abstract class ConcurrentTest {
-    private  static final Integer threadNum = 20;
+    private  static final Integer threadNum = 1000;
     private CountDownLatch startCountDownLatch = new CountDownLatch(1);
     private CountDownLatch endCountDownLatch = new CountDownLatch(threadNum);
 
-    @Test
     public void concurrentTest(){
         for(int i=0;i<threadNum;i++){
             new Thread(new Request()).start();

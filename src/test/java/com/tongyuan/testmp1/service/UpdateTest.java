@@ -1,6 +1,7 @@
 package com.tongyuan.testmp1.service;
 
 import com.tongyuan.testmp1.dao.OrderDetailMapper;
+import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
@@ -13,6 +14,11 @@ public class UpdateTest extends ConcurrentTest{
 
     @Override
     protected void invokeMethod() {
-        // TODO: 2018/3/23  
+        orderDetailMapper.decreaseGoodsId();
+    }
+
+    @Test
+    public void testDecrease(){
+        concurrentTest();
     }
 }
