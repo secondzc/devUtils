@@ -30,7 +30,7 @@ public class UserController {
     @GetMapping("/index")
     public String toIndex(){
         System.out.println("hello index");
-        return "index";
+        return "demo";
     }
 
     @GetMapping("/users")

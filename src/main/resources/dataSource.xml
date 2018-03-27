@@ -23,7 +23,7 @@
         <property name="dataSource" ref="dataSource" />
         <property name="configLocation" value="classpath:mybatisplus.xml" />
         <property name="typeAliasesPackage" value="com.tongyuan.testmp1.entity" />
-        <property name="mapperLocations" value="classpath:com/tongyuan/testmp1/dao/xml/*Mapper.xml" />
+        <property name="mapperLocations" value="classpath:mapper/*.xml" />
         <property name="plugins">
             <array>
                 <!-- 分页插件配置 -->
