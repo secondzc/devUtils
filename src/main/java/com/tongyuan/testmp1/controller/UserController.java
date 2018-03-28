@@ -1,13 +1,14 @@
 package com.tongyuan.testmp1.controller;
 
+import com.alibaba.fastjson.JSONObject;
+import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.tongyuan.testmp1.entity.User;
+import com.tongyuan.testmp1.helper.PageDataResult;
+import com.tongyuan.testmp1.helper.PageHandler;
 import com.tongyuan.testmp1.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -16,7 +17,7 @@ import java.util.List;
  */
 @Controller
 @RequestMapping("/user")
-public class UserController {
+public class UserController extends BaseController{
     @Autowired
     private UserService userService;
 
@@ -35,9 +36,8 @@ public class UserController {
 
     @GetMapping("/users")
     @ResponseBody
-    public String uesrs(){
+    public JSONObject uesrs(@RequestParam("page")Integer page,@RequestParam("limit")Integer limit){
         System.out.println("hello users");
-        List<User> users = userService.selectPageByAge();
-        return users.toString();
+        return setSuccessResponse(userService.selectPageByAge(page,limit));
     }
 }

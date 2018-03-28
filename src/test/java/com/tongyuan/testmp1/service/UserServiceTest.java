@@ -29,11 +29,6 @@ public class UserServiceTest {
         System.out.println(user.getAge());
     }
 
-    @Test
-    public void selectPageByAgeTest() throws Exception{
-        List<User> users = userService.selectPageByAge();
-        System.out.println(users);
-    }
 
     @Test
     public void testUpdate() throws Exception{

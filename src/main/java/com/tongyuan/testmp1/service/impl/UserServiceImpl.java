@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.tongyuan.testmp1.dao.UserMapper;
 import com.tongyuan.testmp1.entity.User;
+import com.tongyuan.testmp1.helper.PageDataResult;
+import com.tongyuan.testmp1.helper.PageHandler;
 import com.tongyuan.testmp1.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,7 +25,14 @@ public class UserServiceImpl extends ServiceImpl<UserMapper,User> implements Use
     分页查询年龄在20-30的user
      */
     @Override
-    public List<User> selectPageByAge() {
-        return userMapper.selectPage(new Page<User>(1,3),new EntityWrapper<User>().between("age",20,30));
+    public PageDataResult<User> selectPageByAge(Integer page,Integer limit) {
+        return new PageHandler<User>() {
+
+            @Override
+            protected List<User> doQuery() {
+                return userMapper.selectList(new EntityWrapper<User>().between("age",20,30));
+            }
+        }.getResult(page,limit);
     }
+
 }
