@@ -9,6 +9,8 @@ import com.tongyuan.testmp1.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
@@ -18,6 +20,7 @@ import java.util.List;
 @Controller
 @RequestMapping("/user")
 public class UserController extends BaseController{
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
     @Autowired
     private UserService userService;
 
@@ -39,5 +42,17 @@ public class UserController extends BaseController{
     public JSONObject uesrs(@RequestParam("page")Integer page,@RequestParam("limit")Integer limit){
         System.out.println("hello users");
         return setSuccessResponse(userService.selectPageByAge(page,limit));
+    }
+
+    @GetMapping("/log")
+    @ResponseBody
+    public String getLog(){
+        //日志级别从低到高分为TRACE < DEBUG < INFO < WARN < ERROR < FATAL，如果设置为WARN，则低于WARN的信息都不会输出。
+        logger.trace("日志输出 trace");
+        logger.debug("日志输出 debug");
+        logger.info("日志输出 info");
+        logger.warn("日志输出 warn");
+        logger.error("日志输出 error");
+        return "zcy log";
     }
 }
