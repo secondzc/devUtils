@@ -1,51 +1,78 @@
 package com.tongyuan.testmp1.entity;
 
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import java.sql.Timestamp;
 
 /**
  * Created by zhangcy on 2018/4/6
  */
+@Entity
 public class Trainee {
+    @Id
+    @GeneratedValue
     private Integer id;
+    @Column
     private String name;
     /**
      *工号
      */
+    @Column
     private String jobNumber;
+    @Column
     private String phoneNumber;
+    @Column
     private String sex;
     /**
      * 身份证号
      */
+    @Column
     private String idNumber;
+    @Column
     private String emailAddr;
     /**
      *学历
      */
+    @Column
     private String education;
     /**
      * 毕业学校
      */
+    @Column
     private String graduateCollege;
+    @Column
     private String major;
     /**
      *签约岗位
      */
+    @Column
     private String job;
     /**
      *岗位方向
      */
+    @Column
     private String jobDirection;
     /**
      *入职时间
      */
+    @Column
     private Timestamp hireTime;
+    @Column
     private String firstDept;
+    @Column
     private String secondDept;
+    @Column
     private String hrName;
+    @Column
     private String hrJobNumber;
+    @Column
     private String teacherName;
+    @Column
     private String teacherJobNumber;
+    @Column
     private Timestamp quitTime;
 
     public Integer getId() {
