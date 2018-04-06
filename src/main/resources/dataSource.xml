@@ -21,7 +21,7 @@
     <!-- MyBatis SqlSessionFactoryBean 配置 -->
     <bean id="sqlSessionFactory" class="com.baomidou.mybatisplus.spring.MybatisSqlSessionFactoryBean">
         <property name="dataSource" ref="dataSource" />
-        <property name="configLocation" value="classpath:mybatisplus.xml" />
+        <property name="configLocation" value="classpath:mybatis.xml" />
         <property name="typeAliasesPackage" value="com.tongyuan.testmp1.entity" />
         <property name="mapperLocations" value="classpath:mapper/*.xml" />
         <property name="plugins">
