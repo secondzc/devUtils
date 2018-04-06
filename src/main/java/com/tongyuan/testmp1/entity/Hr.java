@@ -14,11 +14,11 @@ public class Hr {
     @GeneratedValue
     private Integer id;
     @Column
-    private String firstDept;
+    private String first_dept;
     @Column
-    private String secondDept;
+    private String second_dept;
     @Column
-    private String jobNumber;
+    private String job_number;
     @Column
     private String name;
 
@@ -30,28 +30,28 @@ public class Hr {
         this.id = id;
     }
 
-    public String getFirstDept() {
-        return firstDept;
+    public String getFirst_dept() {
+        return first_dept;
     }
 
-    public void setFirstDept(String firstDept) {
-        this.firstDept = firstDept;
+    public void setFirst_dept(String first_dept) {
+        this.first_dept = first_dept;
     }
 
-    public String getSecondDept() {
-        return secondDept;
+    public String getSecond_dept() {
+        return second_dept;
     }
 
-    public void setSecondDept(String secondDept) {
-        this.secondDept = secondDept;
+    public void setSecond_dept(String second_dept) {
+        this.second_dept = second_dept;
     }
 
-    public String getJobNumber() {
-        return jobNumber;
+    public String getJob_number() {
+        return job_number;
     }
 
-    public void setJobNumber(String jobNumber) {
-        this.jobNumber = jobNumber;
+    public void setJob_number(String job_number) {
+        this.job_number = job_number;
     }
 
     public String getName() {
@@ -60,5 +60,16 @@ public class Hr {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        return "Hr{" +
+                "id=" + id +
+                ", first_dept='" + first_dept + '\'' +
+                ", second_dept='" + second_dept + '\'' +
+                ", job_number='" + job_number + '\'' +
+                ", name='" + name + '\'' +
+                '}';
     }
 }

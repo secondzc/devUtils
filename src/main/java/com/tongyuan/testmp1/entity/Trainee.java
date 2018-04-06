@@ -21,18 +21,18 @@ public class Trainee {
      *工号
      */
     @Column
-    private String jobNumber;
+    private String job_umber;
     @Column
-    private String phoneNumber;
+    private String phone_umber;
     @Column
     private String sex;
     /**
      * 身份证号
      */
     @Column
-    private String idNumber;
+    private String id_umber;
     @Column
-    private String emailAddr;
+    private String email_addr;
     /**
      *学历
      */
@@ -42,7 +42,7 @@ public class Trainee {
      * 毕业学校
      */
     @Column
-    private String graduateCollege;
+    private String graduate_college;
     @Column
     private String major;
     /**
@@ -54,26 +54,26 @@ public class Trainee {
      *岗位方向
      */
     @Column
-    private String jobDirection;
+    private String job_direction;
     /**
      *入职时间
      */
     @Column
-    private Timestamp hireTime;
+    private Timestamp hire_time;
     @Column
-    private String firstDept;
+    private String first_dept;
     @Column
-    private String secondDept;
+    private String second_dept;
     @Column
-    private String hrName;
+    private String hr_name;
     @Column
-    private String hrJobNumber;
+    private String hr_job_number;
     @Column
-    private String teacherName;
+    private String teacher_name;
     @Column
-    private String teacherJobNumber;
+    private String teacher_job_number;
     @Column
-    private Timestamp quitTime;
+    private Timestamp quit_time;
 
     public Integer getId() {
         return id;
@@ -91,20 +91,20 @@ public class Trainee {
         this.name = name;
     }
 
-    public String getJobNumber() {
-        return jobNumber;
+    public String getJob_umber() {
+        return job_umber;
     }
 
-    public void setJobNumber(String jobNumber) {
-        this.jobNumber = jobNumber;
+    public void setJob_umber(String job_umber) {
+        this.job_umber = job_umber;
     }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
+    public String getPhone_umber() {
+        return phone_umber;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
+    public void setPhone_umber(String phone_umber) {
+        this.phone_umber = phone_umber;
     }
 
     public String getSex() {
@@ -115,20 +115,20 @@ public class Trainee {
         this.sex = sex;
     }
 
-    public String getIdNumber() {
-        return idNumber;
+    public String getId_umber() {
+        return id_umber;
     }
 
-    public void setIdNumber(String idNumber) {
-        this.idNumber = idNumber;
+    public void setId_umber(String id_umber) {
+        this.id_umber = id_umber;
     }
 
-    public String getEmailAddr() {
-        return emailAddr;
+    public String getEmail_addr() {
+        return email_addr;
     }
 
-    public void setEmailAddr(String emailAddr) {
-        this.emailAddr = emailAddr;
+    public void setEmail_addr(String email_addr) {
+        this.email_addr = email_addr;
     }
 
     public String getEducation() {
@@ -139,12 +139,12 @@ public class Trainee {
         this.education = education;
     }
 
-    public String getGraduateCollege() {
-        return graduateCollege;
+    public String getGraduate_college() {
+        return graduate_college;
     }
 
-    public void setGraduateCollege(String graduateCollege) {
-        this.graduateCollege = graduateCollege;
+    public void setGraduate_college(String graduate_college) {
+        this.graduate_college = graduate_college;
     }
 
     public String getMajor() {
@@ -163,75 +163,101 @@ public class Trainee {
         this.job = job;
     }
 
-    public String getJobDirection() {
-        return jobDirection;
+    public String getJob_direction() {
+        return job_direction;
     }
 
-    public void setJobDirection(String jobDirection) {
-        this.jobDirection = jobDirection;
+    public void setJob_direction(String job_direction) {
+        this.job_direction = job_direction;
     }
 
-    public Timestamp getHireTime() {
-        return hireTime;
+    public Timestamp getHire_time() {
+        return hire_time;
     }
 
-    public void setHireTime(Timestamp hireTime) {
-        this.hireTime = hireTime;
+    public void setHire_time(Timestamp hire_time) {
+        this.hire_time = hire_time;
     }
 
-    public String getFirstDept() {
-        return firstDept;
+    public String getFirst_dept() {
+        return first_dept;
     }
 
-    public void setFirstDept(String firstDept) {
-        this.firstDept = firstDept;
+    public void setFirst_dept(String first_dept) {
+        this.first_dept = first_dept;
     }
 
-    public String getSecondDept() {
-        return secondDept;
+    public String getSecond_dept() {
+        return second_dept;
     }
 
-    public void setSecondDept(String secondDept) {
-        this.secondDept = secondDept;
+    public void setSecond_dept(String second_dept) {
+        this.second_dept = second_dept;
     }
 
-    public String getHrName() {
-        return hrName;
+    public String getHr_name() {
+        return hr_name;
     }
 
-    public void setHrName(String hrName) {
-        this.hrName = hrName;
+    public void setHr_name(String hr_name) {
+        this.hr_name = hr_name;
     }
 
-    public String getHrJobNumber() {
-        return hrJobNumber;
+    public String getHr_job_number() {
+        return hr_job_number;
     }
 
-    public void setHrJobNumber(String hrJobNumber) {
-        this.hrJobNumber = hrJobNumber;
+    public void setHr_job_number(String hr_job_number) {
+        this.hr_job_number = hr_job_number;
     }
 
-    public String getTeacherName() {
-        return teacherName;
+    public String getTeacher_name() {
+        return teacher_name;
     }
 
-    public void setTeacherName(String teacherName) {
-        this.teacherName = teacherName;
+    public void setTeacher_name(String teacher_name) {
+        this.teacher_name = teacher_name;
     }
 
-    public String getTeacherJobNumber() {
-        return teacherJobNumber;
+    public String getTeacher_job_number() {
+        return teacher_job_number;
     }
 
-    public void setTeacherJobNumber(String teacherJobNumber) {
-        this.teacherJobNumber = teacherJobNumber;
+    public void setTeacher_job_number(String teacher_job_number) {
+        this.teacher_job_number = teacher_job_number;
     }
 
-    public Timestamp getQuitTime() {
-        return quitTime;
+    public Timestamp getQuit_time() {
+        return quit_time;
     }
 
-    public void setQuitTime(Timestamp quitTime) {
-        this.quitTime = quitTime;
+    public void setQuit_time(Timestamp quit_time) {
+        this.quit_time = quit_time;
+    }
+
+    @Override
+    public String toString() {
+        return "Trainee{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", job_umber='" + job_umber + '\'' +
+                ", phone_umber='" + phone_umber + '\'' +
+                ", sex='" + sex + '\'' +
+                ", id_umber='" + id_umber + '\'' +
+                ", email_addr='" + email_addr + '\'' +
+                ", education='" + education + '\'' +
+                ", graduate_college='" + graduate_college + '\'' +
+                ", major='" + major + '\'' +
+                ", job='" + job + '\'' +
+                ", job_direction='" + job_direction + '\'' +
+                ", hire_time=" + hire_time +
+                ", first_dept='" + first_dept + '\'' +
+                ", second_dept='" + second_dept + '\'' +
+                ", hr_name='" + hr_name + '\'' +
+                ", hr_job_number='" + hr_job_number + '\'' +
+                ", teacher_name='" + teacher_name + '\'' +
+                ", teacher_job_number='" + teacher_job_number + '\'' +
+                ", quit_time=" + quit_time +
+                '}';
     }
 }
