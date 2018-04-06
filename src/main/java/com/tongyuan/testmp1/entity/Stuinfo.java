@@ -56,6 +56,11 @@ public class Stuinfo {
     @Column
     private String job_direction;
     /**
+     * 工作地
+     */
+    @Column
+    private String place;
+    /**
      *入职时间
      */
     @Column
@@ -74,6 +79,8 @@ public class Stuinfo {
     private String teacher_job_number;
     @Column
     private Timestamp quit_time;
+    @Column
+    private String quit_reason;
 
     public Integer getId() {
         return id;
@@ -235,6 +242,22 @@ public class Stuinfo {
         this.quit_time = quit_time;
     }
 
+    public String getPlace() {
+        return place;
+    }
+
+    public void setPlace(String place) {
+        this.place = place;
+    }
+
+    public String getQuit_reason() {
+        return quit_reason;
+    }
+
+    public void setQuit_reason(String quit_reason) {
+        this.quit_reason = quit_reason;
+    }
+
     @Override
     public String toString() {
         return "Stuinfo{" +
@@ -250,6 +273,7 @@ public class Stuinfo {
                 ", major='" + major + '\'' +
                 ", job='" + job + '\'' +
                 ", job_direction='" + job_direction + '\'' +
+                ", place='" + place + '\'' +
                 ", hire_time=" + hire_time +
                 ", first_dept='" + first_dept + '\'' +
                 ", second_dept='" + second_dept + '\'' +
@@ -258,6 +282,7 @@ public class Stuinfo {
                 ", teacher_name='" + teacher_name + '\'' +
                 ", teacher_job_number='" + teacher_job_number + '\'' +
                 ", quit_time=" + quit_time +
+                ", quit_reason='" + quit_reason + '\'' +
                 '}';
     }
 }

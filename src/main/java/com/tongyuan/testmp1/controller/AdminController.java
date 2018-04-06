@@ -19,8 +19,6 @@ import java.nio.file.Paths;
 @RequestMapping("/admin")
 @Controller
 public class AdminController extends BaseController{
-    @Value("${upload_folder}")
-    private String UPLOADED_FOLDER;
 
     @GetMapping("/test")
     public String test(){
@@ -31,8 +29,6 @@ public class AdminController extends BaseController{
     public void upload(@RequestParam("file") MultipartFile file){
         try{
             byte[] bytes = file.getBytes();
-            Path path = Paths.get(UPLOADED_FOLDER + file.getOriginalFilename());
-            Files.write(path, bytes);
         }catch (IOException e){
             throw new RuntimeException("上传文件失败");
         }
