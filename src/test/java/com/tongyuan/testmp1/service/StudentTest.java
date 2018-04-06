@@ -11,12 +11,19 @@ import org.springframework.test.context.junit4.SpringRunner;
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class TraineeServiceTest {
+public class StudentTest {
     @Autowired
-    private TraineeService traineeService;
+    private StuinfoService traineeService;
+    @Autowired
+    private StusummaryService stusummaryService;
 
     @Test
     public void select(){
         System.out.println(traineeService.selectById(1));
+    }
+
+    @Test
+    public void selectSummary(){
+        System.out.println(stusummaryService.selectById(1));
     }
 }

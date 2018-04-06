@@ -11,7 +11,7 @@ import java.sql.Timestamp;
  * Created by zhangcy on 2018/4/6
  */
 @Entity
-public class Trainee {
+public class Stuinfo {
     @Id
     @GeneratedValue
     private Integer id;
@@ -237,7 +237,7 @@ public class Trainee {
 
     @Override
     public String toString() {
-        return "Trainee{" +
+        return "Stuinfo{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", job_umber='" + job_umber + '\'' +
