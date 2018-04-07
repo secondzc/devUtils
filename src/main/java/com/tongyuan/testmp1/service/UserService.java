@@ -11,4 +11,5 @@ import java.util.List;
  */
 public interface UserService extends IService<User>{
     PageDataResult<User> selectPageByAge(Integer page, Integer limit);
+    void testTrans();
 }

@@ -10,6 +10,7 @@ import com.tongyuan.testmp1.helper.PageHandler;
 import com.tongyuan.testmp1.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -33,6 +34,18 @@ public class UserServiceImpl extends ServiceImpl<UserMapper,User> implements Use
                 return userMapper.selectList(new EntityWrapper<User>().between("age",20,30));
             }
         }.getResult(page,limit);
+    }
+
+    @Transactional
+    @Override
+    public void testTrans() {
+        User user = new User();
+        user.setId(1l);
+        user.setUsername("华中科技");
+        userMapper.updateById(user);
+        System.out.println(userMapper.selectById(1l));
+        Integer a = 1/0;
+        userMapper.deleteById(1l);
     }
 
 }

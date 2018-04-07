@@ -3,7 +3,7 @@
  */
 package com.tongyuan.testmp1.support.security.coder;
 
-import cn.no7player.support.security.SecurityCoder;
+import com.tongyuan.testmp1.support.security.SecurityCoder;
 
 import javax.crypto.*;
 import javax.crypto.spec.DESKeySpec;

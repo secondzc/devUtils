@@ -3,8 +3,8 @@
  */
 package com.tongyuan.testmp1.support.security.coder;
 
-import cn.no7player.support.security.Hex;
-import cn.no7player.support.security.SecurityCoder;
+import com.tongyuan.testmp1.support.security.Hex;
+import com.tongyuan.testmp1.support.security.SecurityCoder;
 
 import javax.crypto.KeyGenerator;
 import javax.crypto.Mac;
