@@ -6,17 +6,29 @@
     <title>teacher</title>
     <link rel="stylesheet" href="../static/layui/css/layui.css"/>
     <style>
-        body{margin: 10px;}
+        body{margin:0px;}
         header{
             width:100%;
             min-width: 1000px;
+            box-shadow: 0 1px 0 0 #ddd;
             height:80px;
-            background:url(../static/bg.gif) repeat;
+            background:#fff;
+            margin-bottom: 40px;
         }
         .top{
             width:1000px;
             margin:0 auto;
-            height:100%;
+            background:url(../static/logo.jpg) no-repeat;
+            /* height:100%; */
+        }
+        .top h1{
+            display:inline-block;
+            margin-left:120px;
+            line-height: 80px;
+        }
+        .top button{
+            display:inline-block;
+            margin-right:0px;
         }
         .content{
             width:80%;
@@ -30,6 +42,7 @@
     <header>
         <div class="top">
             <h1>华为 实习生管理信息系统</h1>
+            
             <button class="layui-btn">退出</button>
         </div>
     </header>

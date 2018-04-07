@@ -157,9 +157,7 @@
 									}
 								});
 							}
-						});
-
-						
+						});						
 						$('delete').on('click',function() {
 								var checkStatus = table.checkStatus('listTable'), data = checkStatus.data;
 								var id = "";
@@ -169,10 +167,7 @@
 								if (id == "") {
 								   layer.msg("最少选择一个进行删除！");
 								} else {
-									     $.ajax({url : '/eems/api'
-												+ base_url
-												+ 'delete?id='
-												+ id,type : 'get',
+									     $.ajax({url : '',
 												dataType : 'JSON',
 												success : function(data) {
 													layer.msg(data.msg);

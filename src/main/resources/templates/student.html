@@ -40,33 +40,60 @@
                   <div class="layui-tab-item layui-show">
                     <form class="layui-form" action="">
  <!-------------------------------个人中心------------------------------------------------>
-                        <div class="layui-form-item">
+                        <div class="layui-form-item" lay-filter="user_message">
                             <label class="layui-form-label">姓名</label>
                             <div class="layui-input-inline">
                             <input type="text" name="username" required class="layui-input" value="originName"/>
                             </div>
 
-                            <label class="layui-form-label">密码</label>
+                            <label class="layui-form-label">登录密码</label>
                             <div class="layui-input-inline">
                             <input type="password" name="password" value="111111" lay-verify="required"  class="layui-input" required/>
                             </div>
                         </div>
 
+                        <div class="layui-form-item"  lay-filter="user_message">
+                            <label class="layui-form-label">工号</label>
+                            <div class="layui-input-inline">
+                            <input type="text" name="username" required class="layui-input" value="originName"/>
+                            </div>
 
-                        <div class="layui-form-item">
+                            <label class="layui-form-label">联系方式</label>
+                            <div class="layui-input-inline">
+                            <input type="text" name="password" value="111111" lay-verify="required"  class="layui-input" required/>
+                            </div>
+                        </div>
+
+                        <div class="layui-form-item" lay-filter="user_message">
                             <label class="layui-form-label">性别</label>
                             <div class="layui-input-inline">
                             <input type="radio" name="sex" value="男" title="男" checked/>
                             <input type="radio" name="sex" value="女" title="女" />
                             </div>
 
-                            <label class="layui-form-label">联系电话</label>
+                            <label class="layui-form-label">身份证号</label>
                             <div class="layui-input-inline">
                                 <input type="text" name="tele" required class="layui-input" value="12345678900"/>
                             </div>
                         </div>
+
+                        <div class="layui-form-item" lay-filter="user_message">
+                            <label class="layui-form-label">邮箱地址</label>
+                            <div class="layui-input-inline">
+                            <input type="text" name="username" required class="layui-input" value="originName"/>
+                            </div>
+
+                            <label class="layui-form-label">学历</label>
+                            <div class="layui-input-inline">
+                                <select name="city" lay-verify="required">
+                                    <option value="0">博士</option>
+                                    <option value="1">硕士</option>
+                                    <option value="2">本科</option>
+                                  </select>
+                            </div>
+                        </div>
                         
-                        <div class="layui-form-item">
+                        <div class="layui-form-item" lay-filter="user_message">
                             <label class="layui-form-label">职业</label>
                             <div class="layui-input-inline">
                                 <input type="text" class="layui-input" name="job" value="font-end">
@@ -79,7 +106,7 @@
                         </div>
 
 
-                        <div class="layui-form-item">
+                        <div class="layui-form-item" lay-filter="user_message">
                             <div class="layui-input-block">
                             <button class="layui-btn" lay-submit lay-filter="formDemo">保存修改</button>
                             <!--<button type="reset" class="layui-btn layui-btn-primary">申请离职</button>-->
@@ -178,7 +205,24 @@
                     laydate.render({
                         elem:"#leave_date"//指定日期元素
                     });
-                
+                    //修改个人信息  提交到后台 并重新渲染页面
+                    form.on('submit(formDemo)',function(data){
+                        $.ajax({
+                        url: '',
+                        dataType: 'json',
+                        method: 'GET',
+                        success: function(data) {
+                            $(data.data).each(function(index){                       
+                                form.render(null, 'user_message');
+                                layer.msg('修改成功');
+                            });
+                        },
+                        error: function(xhr) {
+                            alert('error:请求出错！');
+                        }
+                    });
+                    })
+
                             //方法渲染，执行一个 table 实例
             table.render({
                 elem: '#test'

@@ -151,15 +151,16 @@
                 <div class="mid_context">
                     <div class="login_box">
                         <div class="login_form">
-                            <form action=""  onsubmit="return check()">
-                                  <div class="form_title">
-                                      <p>账号密码登录</p>
-                                  </div>
-                                  <input type="text" id="username" class="form_input" name="username" placeholder="编号" required/>   
-                                  <input type="password" id="password" class="form_input" name="password" placeholder="密码" required/>
-                                  <input type="submit" value="登 录" class="form_button"/>
-                                  <a class="forget_psw" onclick="javascript:alert('请联系管理员')">忘记密码？</a>
-                            </form>
+                            <form name="loginForm" method="post" action="">
+                                <div class="form_title">
+                                    <p>账号密码登录</p>
+                                </div>
+                                <input type="text" id="username" class="form_input" name="username" placeholder="登录账号（工号）" required/>   
+                                <input type="password" id="password" class="form_input" name="password" placeholder="登录密码" required/>
+                                <input type="submit" value="登 录" class="form_button"/>
+                                <a class="forget_psw" onclick="javascript:alert('请联系管理员')">忘记密码？</a>
+                          </form>
+
                         </div>
                         <div class="login_foot">
                             <p>
@@ -190,20 +191,14 @@
         <script src="../static/layui/layui.js"></script>
         <script>
             // layui.use(['layer','form'], function(){
-            //     var form = layui.form;
+            //     var form = layui.form,
+            //         layer=layui.layer;
             //     //监听提交
             //     form.on('submit(formDemo)', function(data){
             //         layer.msg(JSON.stringify(data.field));
             //         return false;
             //     });
             // });
-            function check(){
-    var checkElement=document.getElementsByTagName("input");
-     if(checkElement[0].value==="" || checkElement[1].value==="") {
-         return false;//当用户名或者密码为空时，返回false，此时表单不会提交
-     }
-}
-
         </script>
     </body>
 </html>
