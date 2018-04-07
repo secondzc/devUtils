@@ -4,6 +4,7 @@ import com.tongyuan.testmp1.entity.Hr;
 import com.tongyuan.testmp1.entity.Stuinfo;
 import com.tongyuan.testmp1.entity.Teacher;
 import com.tongyuan.testmp1.service.ExcelService;
+import com.tongyuan.testmp1.util.SecurityUtil;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -77,7 +78,7 @@ public class ExcelServiceImpl implements ExcelService {
                 XSSFCell firstDept = row.getCell(j++);
                 stuinfo.setFirst_dept(firstDept.getStringCellValue());
                 XSSFCell secondDept = row.getCell(j++);
-                stuinfo.setSecond_dept(firstDept.getStringCellValue());
+                stuinfo.setSecond_dept(secondDept.getStringCellValue());
                 XSSFCell hrName = row.getCell(j++);
                 stuinfo.setHr_name(hrName.getStringCellValue());
                 XSSFCell hrJobNum = row.getCell(j++);
@@ -90,6 +91,11 @@ public class ExcelServiceImpl implements ExcelService {
                 stuinfo.setQuit_time(new Timestamp(quitTime.getDateCellValue().getTime()));
                 XSSFCell quitReason = row.getCell(j++);
                 stuinfo.setQuit_reason(quitReason.getStringCellValue());
+
+                //设置初始密码:身份证后六位
+                String idcard = getString(id);
+                String psw = idcard.substring(idcard.length()-6);
+                stuinfo.setEncrypt_password(SecurityUtil.encryptPassword(psw));
                 System.out.println(stuinfo);
             }
         } catch (Exception e) {
@@ -116,6 +122,10 @@ public class ExcelServiceImpl implements ExcelService {
                 XSSFCell jobNum = row.getCell(j++);
                 teacher.setJob_number(getString(jobNum));
 
+                //初始密码：工号后六位
+                String jobNum1 = getString(jobNum);
+                String psw = jobNum1.substring(jobNum1.length()-6);
+                teacher.setEncrypt_password(SecurityUtil.encryptPassword(psw));
                 //System.out.println(teacher);
             }
         } catch (Exception e) {
@@ -141,6 +151,10 @@ public class ExcelServiceImpl implements ExcelService {
                 hr.setName(name.getStringCellValue());
                 XSSFCell jobNum = row.getCell(j++);
                 hr.setJob_number(getString(jobNum));
+
+                String jobNum1 = getString(jobNum);
+                String psw = jobNum1.substring(jobNum1.length()-6);
+                hr.setEncrypt_password(SecurityUtil.encryptPassword(psw));
             }
         } catch (Exception e) {
             throw new RuntimeException("excel解析失败");

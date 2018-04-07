@@ -24,6 +24,16 @@ public class Teacher {
     private String first_dept;
     @Column
     private String second_dept;
+    @Column
+    private String encrypt_password;
+
+    public String getEncrypt_password() {
+        return encrypt_password;
+    }
+
+    public void setEncrypt_password(String encrypt_password) {
+        this.encrypt_password = encrypt_password;
+    }
 
     public Integer getId() {
         return id;
@@ -64,6 +74,7 @@ public class Teacher {
     public void setSecond_dept(String second_dept) {
         this.second_dept = second_dept;
     }
+
 
     @Override
     public String toString() {

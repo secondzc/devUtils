@@ -10,7 +10,7 @@ import java.util.Map;
  * Created by zhangcy on 2018/3/28
  */
 public class BaseController {
-    protected JSONObject setSuccessResponse(Object result){
+    protected JSONObject setQueryResponse(Object result){
         JSONObject jo = new JSONObject();
         if(result instanceof List<?>){
             jo.put("count",((List<?>) result).size());
@@ -21,13 +21,20 @@ public class BaseController {
         }else{
             jo.put("data",result);
         }
-        //状态码，200 404等
         jo.put("code",0);
-        //逻辑上表示是否成功
-        jo.put("flag",true);
-
         jo.put("error",0);
-        jo.put("msg","");
+        jo.put("msg","查询结果!");
+        jo.put("url","");
+        return jo;
+    }
+
+    protected JSONObject setDeleteResponse(Integer count){
+        JSONObject jo = new JSONObject();
+        jo.put("code",0);
+        jo.put("count",count);
+        jo.put("data",null);
+        jo.put("error",0);
+        jo.put("msg","成功删除"+count+"条数据!");
         jo.put("url","");
         return jo;
     }

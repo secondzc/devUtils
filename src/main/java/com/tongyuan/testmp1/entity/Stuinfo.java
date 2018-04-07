@@ -81,6 +81,8 @@ public class Stuinfo {
     private Timestamp quit_time;
     @Column
     private String quit_reason;
+    @Column
+    private String encrypt_password;
 
     public Integer getId() {
         return id;
@@ -256,6 +258,14 @@ public class Stuinfo {
 
     public void setQuit_reason(String quit_reason) {
         this.quit_reason = quit_reason;
+    }
+
+    public String getEncrypt_password() {
+        return encrypt_password;
+    }
+
+    public void setEncrypt_password(String encrypt_password) {
+        this.encrypt_password = encrypt_password;
     }
 
     @Override

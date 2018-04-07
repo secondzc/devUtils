@@ -21,6 +21,16 @@ public class Hr {
     private String job_number;
     @Column
     private String name;
+    @Column
+    private String encrypt_password;
+
+    public String getEncrypt_password() {
+        return encrypt_password;
+    }
+
+    public void setEncrypt_password(String encrypt_password) {
+        this.encrypt_password = encrypt_password;
+    }
 
     public Integer getId() {
         return id;
