@@ -34,4 +34,9 @@ public class UserServiceTest {
     public void testUpdate() throws Exception{
         orderDetailMapper.decreaseGoodsId();
     }
+
+    @Test
+    public void trans() throws Exception{
+        userService.testTrans();
+    }
 }

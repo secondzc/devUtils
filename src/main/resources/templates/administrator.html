@@ -17,9 +17,9 @@
 						<div class="demoTable">
 							名称：
 							<div class="layui-inline">
-								<input class="layui-input" name="title" autocomplete="off">
+								<input class="layui-input" name="title" autocomplete="off"/>
 							</div>
-							<button class="layui-btn" lay-submit lay-filter="search">
+							<button class="layui-btn" lay-filter="search">
 								<i class="layui-icon">&#xe615;</i>搜索</button>
 							<button type="button" class="layui-btn" id="input">导入</button>
 						</div>
@@ -195,7 +195,7 @@
 						//导入导出 
 						upload.render({
 							elem : '#input',//绑定元素
-							url : '',//上传接口
+							url : '/admin/upload/',//上传接口
 							accept : 'file',
 							done : function(res) {
 								//上传完毕回调

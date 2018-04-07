@@ -72,7 +72,7 @@
 		<!--excel-->
 		<dependency>
 			<groupId>org.apache.poi</groupId>
-			<artifactId>poi</artifactId>
+			<artifactId>poi-ooxml</artifactId>
 			<version>3.9</version>
 		</dependency>
 
@@ -92,6 +92,11 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-aop</artifactId>
+		</dependency>
+		<!-- Spring-data-jpa依赖 -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
 
 	</dependencies>
