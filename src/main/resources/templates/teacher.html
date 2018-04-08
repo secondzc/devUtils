@@ -6,7 +6,10 @@
     <title>teacher</title>
     <link rel="stylesheet" href="../static/layui/css/layui.css"/>
     <style>
-        body{margin:0px;}
+        body{
+            margin:0px;
+            background: #f4f4f4;
+        }
         header{
             width:100%;
             min-width: 1000px;
@@ -15,25 +18,45 @@
             background:#fff;
             margin-bottom: 40px;
         }
-        .top{
+        header .top{
             width:1000px;
             margin:0 auto;
             background:url(../static/logo.jpg) no-repeat;
+            background-size: 100px 80px;
             /* height:100%; */
         }
-        .top h1{
+        header .top h1{
             display:inline-block;
             margin-left:120px;
             line-height: 80px;
         }
-        .top button{
-            display:inline-block;
-            margin-right:0px;
+        header .top button{
+            margin-left:450px;
+            margin-top:-10px;
         }
-        .content{
-            width:80%;
+        section{
+            margin-bottom:30px;
+            width:1000px;
             margin:0 auto;
-
+            background:#fff;
+            min-height:300px;
+        }
+        
+        footer{
+            padding-top: 40px;
+            height: 150px;
+            box-sizing: border-box;
+            text-align: center;
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            left: 0;
+            background: #444547;
+            font-size: 12px;
+        }
+        footer p{
+            color: #777;
+            line-height: 24px;
         }
 
     </style>
@@ -43,13 +66,21 @@
         <div class="top">
             <h1>华为 实习生管理信息系统</h1>
             
-            <button class="layui-btn">退出</button>
+            <button class="layui-btn" id="sign_out">退出</button>
         </div>
     </header>
-   <div class="content">
-        <table class="layui-hide" id="test" lay-filter="demo">
+    <section>
+        <div class="content">
+            <table class="layui-hide" id="test" lay-filter="demo">
             </table>
-   </div>
+       </div>
+    </section>
+    <footer>
+        <p>
+            Copyright
+        </p>
+    </footer>
+
 
 
 
@@ -126,7 +157,10 @@
 
                             });
 
-
+                            //退出按钮功能
+                            $('#sign_out').click(function(){
+                                window.open('login.html','_self')
+                            });
         });
     </script>
 </body>
