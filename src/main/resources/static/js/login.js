@@ -39,6 +39,12 @@ layui.use(["jquery","layer"],function(){
                 },function(){
                     window.open('hr','_self');
                 })
+            }else if(jsondata.type==='admin' && jsondata.flag){
+                layer.msg('登入成功',{
+                    time:1000,icon:1
+                },function(){
+                    window.open('administrator','_self');
+                })
             }else{
                 layer.msg('用户名或密码错误，请重新输入！')
             }
