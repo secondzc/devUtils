@@ -9,6 +9,14 @@
         body{
             margin:0px;
             background: #f4f4f4;
+            height:100%; 
+            overflow-y: scroll;
+            min-height:100%;
+            box-sizing:border-box;
+            padding-bottom: 180px;
+            min-width: 1000px;
+            position: relative!important;
+            display: block;
         }
         header{
             width:100%;
@@ -34,15 +42,21 @@
             margin-top:-10px;
         }
         section{
-            margin-bottom:30px;
-            width:1000px;
-            margin:0 auto;
+            
+            width:100%;
+            margin:0 auto;    
+            min-height:600px;
+            display:block;
+            margin-bottom:30px;           
+        }
+        section div#container{
             background:#fff;
-            min-height:300px;
+            width:1000px;
+            margin:0 auto
         }
         footer{
             padding-top: 40px;
-            height: 150px;
+            height: 100px;
             box-sizing: border-box;
             text-align: center;
             position: absolute;
@@ -51,6 +65,8 @@
             left: 0;
             background: #444547;
             font-size: 12px;
+            min-height: 28px;
+            
         }
         footer p{
             color: #777;
@@ -66,7 +82,7 @@
         </div>
     </header>
     <section>
-        <div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
+        <div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief" id="container">
                 <ul class="layui-tab-title">
                   <li class="layui-this">个人中心</li>
                   <li>培养计划</li>
@@ -131,9 +147,30 @@
                                   </select>
                             </div>
                         </div>
-                        
                         <div class="layui-form-item" lay-filter="user_message">
-                            <label class="layui-form-label">职业</label>
+                                <label class="layui-form-label">毕业院校</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" class="layui-input" name="job" value="font-end">
+                                </div>
+    
+                                <label class="layui-form-label">专业</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" class="layui-input" id="date">
+                                </div>
+                        </div>
+                        <div class="layui-form-item" lay-filter="user_message">
+                                <label class="layui-form-label">签约岗位</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" class="layui-input" name="job" value="font-end">
+                                </div>
+    
+                                <label class="layui-form-label">签约方向</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" class="layui-input" id="date">
+                                </div>
+                            </div>
+                        <div class="layui-form-item" lay-filter="user_message">
+                            <label class="layui-form-label">工作地</label>
                             <div class="layui-input-inline">
                                 <input type="text" class="layui-input" name="job" value="font-end">
                             </div>
@@ -143,8 +180,50 @@
                                 <input type="text" class="layui-input" id="date">
                             </div>
                         </div>
+                        <div class="layui-form-item" lay-filter="user_message">
+                                <label class="layui-form-label">所在一级部门</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" class="layui-input" name="job" value="font-end">
+                                </div>
+    
+                                <label class="layui-form-label">所在二级部门</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" class="layui-input" id="date">
+                                </div>
+                        </div>
+                        <div class="layui-form-item" lay-filter="user_message">
+                            <label class="layui-form-label">部门HR姓名</label>
+                            <div class="layui-input-inline">
+                                <input type="text" class="layui-input" name="job" value="font-end">
+                            </div>
 
-
+                            <label class="layui-form-label">部门HR工号</label>
+                            <div class="layui-input-inline">
+                                <input type="text" class="layui-input" id="date">
+                            </div>
+                        </div>
+                        <div class="layui-form-item" lay-filter="user_message">
+                                <label class="layui-form-label">导师姓名</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" class="layui-input" name="job" value="font-end">
+                                </div>
+    
+                                <label class="layui-form-label">导师工号</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" class="layui-input" id="date">
+                                </div>
+                            </div>
+                            <div class="layui-form-item" lay-filter="user_message">
+                                    <label class="layui-form-label">离职时间</label>
+                                    <div class="layui-input-inline">
+                                        <input type="text" class="layui-input" name="job" value="font-end">
+                                    </div>
+        
+                                    <label class="layui-form-label">离职原因</label>
+                                    <div class="layui-input-inline">
+                                        <input type="text" class="layui-input" id="date">
+                                    </div>
+                            </div>
                         <div class="layui-form-item" lay-filter="user_message">
                             <div class="layui-input-block">
                             <button class="layui-btn" lay-submit lay-filter="formDemo">保存修改</button>
@@ -254,11 +333,11 @@
                         $.ajax({
                         url: '',
                         dataType: 'json',
-                        method: 'GET',
+                        method: 'post',
                         success: function(data) {
                             $(data.data).each(function(index){                       
                                 form.render(null, 'user_message');
-                                layer.msg('修改成功');
+                                layer.msg('修改成功',{time:1000});
                             });
                         },
                         error: function(xhr) {

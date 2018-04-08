@@ -18,6 +18,7 @@ layui.use(["jquery","layer"],function(){
         dataType:"json",//返回的类型 json
         success:function(data){
            console.log(data);
+           console.log(typeof(data));
             var jsondata = eval("("+data+")");
             console.log(jsondata);
             if(jsondata.type==='student' && jsondata.flag){
