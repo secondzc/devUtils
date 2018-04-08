@@ -186,56 +186,7 @@
                 <p>学习交流：QQ111111111</p>
         </footer>
 
-
-
         <script src="../static/layui/layui.js"></script>
-        <script>
-              layui.use(["jquery","layer"],function(){
-                window.jQuery = window.$ = layui.jquery;
-                var layer=layui.layer;
-                $("#btn").click(function(){
-                var username=$("#username").val;//获取用户名
-                var password=$("#password").val;//获取密码
-                $.ajax({
-                    type:"post",//提交类型
-                    url:"",//请求的地址
-                    data:{
-                        username:username,
-                        password:password,
-                    },//提交的数据
-                    dataType:"json",//返回的类型 json
-                    success:function(data){
-                        var jsondata = eval("("+data+")");
-
-                        if(jsondata.type==='student' && jsondata.flag){
-                            layer.msg('登入成功',{
-                                time:1000,icon:1
-                            },function(){
-                                window.open('student.html','_self');
-                            })                            
-                        }else if(jsondata==='teacher'  && jsondata.flag){
-                            layer.msg('登入成功',{
-                                time:1000,icon:1
-                            },function(){
-                                window.open('teacher.html','_self');
-                            })
-                        }else if(jsondata==='hr' && jsondata.flag){
-                            layer.msg('登入成功',{
-                                time:1000,icon:1
-                            },function(){
-                                window.open('hr.html','_self');
-                            })
-                        }else{
-                            layer.msg('用户名或密码错误，请重新输入！')
-                        }
-                    },
-                    error:function(){
-                        layer.msg("请求异常，请重试");
-                    }
-                });
-            });
-});
-          
-        </script>
+        <script src='login.js'></script>
     </body>
 </html>
