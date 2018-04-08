@@ -9,7 +9,7 @@ import javax.persistence.Id;
  * Created by zhangcy on 2018/4/6
  */
 @Entity
-public class Teacher {
+public class Teacher implements User{
     @Id
     @GeneratedValue
     private Integer id;
