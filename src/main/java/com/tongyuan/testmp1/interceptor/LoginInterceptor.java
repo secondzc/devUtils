@@ -22,10 +22,10 @@ public class LoginInterceptor implements HandlerInterceptor{
         boolean flag =true;
         String ip = request.getRemoteAddr();
 
-        HandlerMethod handlerMethod = (HandlerMethod) handler;
-        Method method = handlerMethod.getMethod();
-
-        logger.info("用户: "+ip+" ,访问目标: "+method.getDeclaringClass().getName() + "." + method.getName());
+//        HandlerMethod handlerMethod = (HandlerMethod) handler;
+//        Method method = handlerMethod.getMethod();
+//
+//        logger.info("用户: "+ip+" ,访问目标: "+method.getDeclaringClass().getName() + "." + method.getName());
 
         //“user”为登录时存入session中
         User user=(User)request.getSession().getAttribute("user");

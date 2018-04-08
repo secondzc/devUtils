@@ -52,6 +52,7 @@ public class LoginController extends BaseController{
             request.getSession().setAttribute("type","student");
             jo.put("flag",true);
             jo.put("type","student");
+            jo.put("name",stuinfoList.get(0).getName());
             return jo;
         }
 
@@ -61,6 +62,7 @@ public class LoginController extends BaseController{
             request.getSession().setAttribute("type","hr");
             jo.put("flag",true);
             jo.put("type","hr");
+            jo.put("name",hrList.get(0).getName());
             return jo;
         }
 
@@ -70,6 +72,7 @@ public class LoginController extends BaseController{
             request.getSession().setAttribute("type","teacher");
             jo.put("flag",true);
             jo.put("type","teacher");
+            jo.put("name",teacherList.get(0).getName());
             return jo;
         }
 
@@ -79,10 +82,12 @@ public class LoginController extends BaseController{
             request.getSession().setAttribute("type","admin");
             jo.put("flag",true);
             jo.put("type","admin");
+            jo.put("name",adminList.get(0).getJob_number());
             return jo;
         }
         jo.put("flag",false);
         jo.put("type","");
+        jo.put("name","");
         return jo;
     }
 }
