@@ -16,11 +16,17 @@ import java.util.List;
 @Service
 public class StuinfoServiceImpl extends ServiceImpl<StuinfoMapper,Stuinfo> implements StuinfoService {
     @Autowired
-    private StuinfoMapper traineeMapper;
+    private StuinfoMapper stuinfoMapper;
 
     @Override
-    public List<Stuinfo> selectByTeacherNum(String jobNum){
-        return traineeMapper.selectList(
-             new EntityWrapper<Stuinfo>().eq("job_number",jobNum));
+    public List<Stuinfo> selectByTeacherNum(String teacherJobNum){
+        return stuinfoMapper.selectList(
+             new EntityWrapper<Stuinfo>().eq("teacher_job_number",teacherJobNum));
+    }
+
+    @Override
+    public List<Stuinfo> selectByDept(String firstDept, String secondDept) {
+        return stuinfoMapper.selectList(
+                new EntityWrapper<Stuinfo>().eq("first_dept",firstDept).eq("second_dept",secondDept));
     }
 }

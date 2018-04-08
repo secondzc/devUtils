@@ -15,4 +15,12 @@ public interface StuinfoService extends IService<Stuinfo> {
      * @return
      */
     List<Stuinfo> selectByTeacherNum(String jobNum);
+
+    /**
+     * 根据部门查找实习生
+     * @param firstDept
+     * @param secondDept
+     * @return
+     */
+    List<Stuinfo> selectByDept(String firstDept,String secondDept);
 }
