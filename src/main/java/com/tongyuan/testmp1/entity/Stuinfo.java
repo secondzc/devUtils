@@ -11,7 +11,7 @@ import java.sql.Timestamp;
  * Created by zhangcy on 2018/4/6
  */
 @Entity
-public class Stuinfo {
+public class Stuinfo implements User{
     @Id
     @GeneratedValue
     private Integer id;
@@ -21,16 +21,16 @@ public class Stuinfo {
      *工号
      */
     @Column
-    private String job_umber;
+    private String job_number;
     @Column
-    private String phone_umber;
+    private String phone_number;
     @Column
     private String sex;
     /**
      * 身份证号
      */
     @Column
-    private String id_umber;
+    private String id_number;
     @Column
     private String email_addr;
     /**
@@ -100,22 +100,6 @@ public class Stuinfo {
         this.name = name;
     }
 
-    public String getJob_umber() {
-        return job_umber;
-    }
-
-    public void setJob_umber(String job_umber) {
-        this.job_umber = job_umber;
-    }
-
-    public String getPhone_umber() {
-        return phone_umber;
-    }
-
-    public void setPhone_umber(String phone_umber) {
-        this.phone_umber = phone_umber;
-    }
-
     public String getSex() {
         return sex;
     }
@@ -124,12 +108,28 @@ public class Stuinfo {
         this.sex = sex;
     }
 
-    public String getId_umber() {
-        return id_umber;
+    public String getJob_number() {
+        return job_number;
     }
 
-    public void setId_umber(String id_umber) {
-        this.id_umber = id_umber;
+    public void setJob_number(String job_number) {
+        this.job_number = job_number;
+    }
+
+    public String getPhone_number() {
+        return phone_number;
+    }
+
+    public void setPhone_number(String phone_number) {
+        this.phone_number = phone_number;
+    }
+
+    public String getId_number() {
+        return id_number;
+    }
+
+    public void setId_number(String id_number) {
+        this.id_number = id_number;
     }
 
     public String getEmail_addr() {
@@ -273,10 +273,10 @@ public class Stuinfo {
         return "Stuinfo{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", job_umber='" + job_umber + '\'' +
-                ", phone_umber='" + phone_umber + '\'' +
+                ", job_number='" + job_number + '\'' +
+                ", phone_number='" + phone_number + '\'' +
                 ", sex='" + sex + '\'' +
-                ", id_umber='" + id_umber + '\'' +
+                ", id_number='" + id_number + '\'' +
                 ", email_addr='" + email_addr + '\'' +
                 ", education='" + education + '\'' +
                 ", graduate_college='" + graduate_college + '\'' +

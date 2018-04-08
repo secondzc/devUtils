@@ -76,13 +76,13 @@ public class ExcelServiceImpl implements ExcelService {
                 XSSFCell name = row.getCell(j++);
                 stuinfo.setName(name.getStringCellValue());
                 XSSFCell jobNum = row.getCell(j++);
-                stuinfo.setJob_umber(getString(jobNum));
+                stuinfo.setJob_number(getString(jobNum));
                 XSSFCell phone = row.getCell(j++);
-                stuinfo.setPhone_umber(getString(phone));
+                stuinfo.setPhone_number(getString(phone));
                 XSSFCell sex = row.getCell(j++);
                 stuinfo.setSex(sex.getStringCellValue());
                 XSSFCell id = row.getCell(j++);
-                stuinfo.setId_umber(getString(id));
+                stuinfo.setId_number(getString(id));
                 XSSFCell email = row.getCell(j++);
                 stuinfo.setEmail_addr(email.getStringCellValue());
                 XSSFCell education = row.getCell(j++);
