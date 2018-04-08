@@ -77,8 +77,7 @@
 <body>
     <header>
         <div class="top">
-            <h1>华为 实习生管理信息系统</h1>
-            
+            <h1>华为 实习生管理信息系统</h1>   
             <button class="layui-btn" id="sign_out">退出</button>
         </div>
     </header>
@@ -87,24 +86,17 @@
             <table class="layui-hide" id="test" lay-filter="demo">
             </table>
        </div>
+       <script type="text/html" id="barDemo">
+        <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="plan">培养计划</a>
+        <a class="layui-btn layui-btn-xs" lay-event="summary">月度总结</a>
+        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="message">实习留言</a>
+    </script>
     </section>
     <footer>
         <p>
             Copyright
         </p>
     </footer>
-
-
-
-
-    <script type="text/html" id="barDemo">
-        <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="plan">制定培养计划</a>
-        <a class="layui-btn layui-btn-xs" lay-event="message">查看留言</a>
-        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="summary">查看总结</a>
-    </script>
-
-
-
 
     <script src="../static/layui/layui.js"></script>
     <script>
@@ -118,14 +110,13 @@
             table.render({
                 elem: '#test'
                 ,height: 332
-                ,url: '/demo/table/user/' //数据接口
+                ,url: '' //数据接口
                 ,page: true //开启分页
                 ,cols: [[ //表头
-                    {field: 'id', title: 'ID', width:200, align:'center', sort: true, fixed: 'left'}
-                    ,{field: 'username', title: '姓名',align:'center', width:200}
-                    ,{field: 'sex', title: '性别', width:200, align:'center',sort: true}
-                    ,{field: 'job', title: '职位',align:'center', width:200}
-                    ,{field: 'tel', title: '联系方式',align:'center', width: 200}
+                     {field: 'name', title: '姓名',align:'center', width:150,fixed: 'left',width:200,}
+                    ,{field: 'job_number', title: '工号', width:150, align:'center',sort: true}
+                    ,{field: 'first_dept', title: '一级部门',align:'center', width:200}
+                    ,{field: 'second_dept', title: '二级部门',align:'center', width: 200}
                     ,{fixed: 'right',  align:'center', toolbar: '#barDemo'}
                 ]]
             });
@@ -141,7 +132,7 @@
                                         area : [ '700px', '450px' ],
                                         fixed : false, //不固定
                                         maxmin : true,
-                                        content : 'teacher_plan.html'
+                                        content : 'teacher_plan.html?'+'job_number='+data.job_number
                                     });
                                 } else if (layEvent === 'message') {
                                     layer.open({
@@ -149,7 +140,7 @@
                                         area : [ '700px', '450px' ],
                                         fixed : false, //不固定
                                         maxmin : true,
-                                        content : 'teacher_message.html',
+                                        content : 'teacher_message.html?'+'job_number='+data.job_number,
                                         end : function() {
                                             layui.index.render();
                                         }
@@ -161,7 +152,7 @@
                                         area : [ '700px', '450px' ],
                                         fixed : false, //不固定
                                         maxmin : true,
-                                        content : 'teacher_summary.html',
+                                        content : 'teacher_summary.html?'+'job_number='+data.job_number,
                                         end : function() {
                                             layui.index.render();
                                         }
