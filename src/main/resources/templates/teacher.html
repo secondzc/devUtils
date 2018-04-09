@@ -133,7 +133,7 @@
                                         area : [ '700px', '450px' ],
                                         fixed : false, //不固定
                                         maxmin : true,
-                                        content : '../templates/teacher_plan.html?'+'job_number='+data.job_number
+                                        content : '../templates/hr_plan.html?'+'job_number='+data.job_number
                                     });
                                 } else if (layEvent === 'message') {
                                     layer.open({
@@ -141,7 +141,7 @@
                                         area : [ '700px', '450px' ],
                                         fixed : false, //不固定
                                         maxmin : true,
-                                        content : '../templates/teacher_message.html?'+'job_number='+data.job_number,
+                                        content : '../templates/hr_message.html?'+'job_number='+data.job_number,
                                         end : function() {
                                             layui.index.render();
                                         }
@@ -153,7 +153,7 @@
                                         area : [ '700px', '450px' ],
                                         fixed : false, //不固定
                                         maxmin : true,
-                                        content : '../templates/teacher_summary.html?'+'job_number='+data.job_number,
+                                        content : '../templates/hr_summary.html?'+'job_number='+data.job_number,
                                         end : function() {
                                             layui.index.render();
                                         }
@@ -164,7 +164,7 @@
 
                             //退出按钮功能
                             $('#sign_out').click(function(){
-                                window.open('login.html','_self')
+                                window.open('../templates/login.html','_self')
                             });
         });
     </script>
