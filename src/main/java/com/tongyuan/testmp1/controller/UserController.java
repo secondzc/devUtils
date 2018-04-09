@@ -1,12 +1,16 @@
 package com.tongyuan.testmp1.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.tongyuan.testmp1.entity.Stuinfo;
+import com.tongyuan.testmp1.entity.Stuplan;
 import com.tongyuan.testmp1.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * Created by zhangcy on 2018/3/24
@@ -48,5 +52,12 @@ public class UserController extends BaseController{
         logger.warn("日志输出 warn");
         logger.error("日志输出 error");
         return "zcy log";
+    }
+
+    @PostMapping("/info")
+    @ResponseBody
+    public JSONObject getInfo(HttpServletRequest request){
+        Object o = request.getParameter("plan");
+        return null;
     }
 }

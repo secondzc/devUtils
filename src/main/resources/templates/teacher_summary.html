@@ -37,6 +37,7 @@
 
     <script src="../static/layui/layui.js"></script>
     <script>
+        console.log(window.location);
             //注意：选项卡 依赖 element 模块，否则无法进行功能性操作
         layui.use(["table","jquery","laypage"],function(){
             window.jQuery = window.$ = layui.jquery;
@@ -56,7 +57,7 @@
                     $("#month").html('第'+ obj.curr +'个月');
                     $.ajax({
                         type:"get",//提交类型
-                        url:"",//请求的地址
+                        url:"/stusummary/select",//请求的地址
                         data:{
                             month:obj.curr,//月份
                             job_number:job_number,//学生工号
