@@ -84,6 +84,21 @@
         </header>
         <section>
             <div id="container">
+                    <form id="inlineForm" class="layui-form">
+                            <fieldset class="layui-elem-field">
+                                <legend>搜索</legend>
+                                <div class="layui-field-box">
+                                    <div class="demoTable">
+                                        名称：
+                                        <div class="layui-inline">
+                                            <input class="layui-input" name="title" 
+                                                autocomplete="off">
+                                        </div>
+                                        <button class="layui-btn" lay-submit lay-filter="province_search"><i class="layui-icon">&#xe615;</i>搜索</button>
+                                    </div>
+                                </div>
+                            </fieldset>
+                          </form>
                 <table class="layui-hide" id="hr" lay-filter="demo">
                 </table>
                 <script type="text/html" id="barDemo">
@@ -91,6 +106,7 @@
                     <a class="layui-btn layui-btn-xs" lay-event="summary">月度总结</a>
                     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="message">实习留言</a>
                 </script>
+
             </div>    
     </section>
     <footer>

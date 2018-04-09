@@ -23,4 +23,11 @@ public interface StuinfoService extends IService<Stuinfo> {
      * @return
      */
     List<Stuinfo> selectByDept(String firstDept,String secondDept);
+
+    /**
+     * 根据工号查id
+     * @param job_number
+     * @return
+     */
+    Integer selectIdByJobNumber(String job_number);
 }

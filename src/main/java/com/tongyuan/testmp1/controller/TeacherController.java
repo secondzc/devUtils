@@ -17,17 +17,4 @@ import javax.servlet.http.HttpServletRequest;
 @RequestMapping("/teacher")
 @Controller
 public class TeacherController extends BaseController{
-
-    @Autowired
-    private ViewService viewService;
-
-    @GetMapping("/students")
-    @ResponseBody
-    public JSONObject showAllStudents(HttpServletRequest request,
-                                      @RequestParam("page")Integer page,
-                                      @RequestParam("limit")Integer limit){
-        Teacher teacher = (Teacher)request.getSession().getAttribute("user");
-        PageDataResult<StudentView> result = viewService.selectStudentPageByTeacherJobNumber(teacher.getJob_number(),page,limit);
-        return setQueryResponse(result);
-    }
 }

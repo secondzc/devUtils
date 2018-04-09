@@ -94,48 +94,48 @@
                   
                   <div class="layui-tab-item layui-show">
                     <form class="layui-form" action="">
- <!-------------------------------个人中心------------------------------------------------>
+                                   <!--个人中心-->
                         <div class="layui-form-item" lay-filter="user_message">
                             <label class="layui-form-label">姓名</label>
                             <div class="layui-input-inline">
-                            <input type="text" name="name" required class="layui-input" id="name"/>
+                            <input type="text" name="name" required="required" class="layui-input" id="name"/>
                             </div>
 
                             <label class="layui-form-label">登录密码</label>
                             <div class="layui-input-inline">
-                            <input type="password" name="password" lay-verify="required"  class="layui-input" required/>
+                            <input type="password" name="password" lay-verify="required"  class="layui-input" required="required"/>
                             </div>
                         </div>
 
                         <div class="layui-form-item"  lay-filter="user_message">
                             <label class="layui-form-label">工号</label>
                             <div class="layui-input-inline">
-                            <input type="text" name="job_number" required class="layui-input" id="job_number"/>
+                            <input type="text" name="job_number" required="required" class="layui-input" id="job_number"/>
                             </div>
 
                             <label class="layui-form-label">联系方式</label>
                             <div class="layui-input-inline">
-                            <input type="text" name="phone_number" value="111111" lay-verify="required"  class="layui-input" id="phone_number" required/>
+                            <input type="text" name="phone_number" value="111111" lay-verify="required"  class="layui-input" id="phone_number" required="required"/>
                             </div>
                         </div>
 
                         <div class="layui-form-item" lay-filter="user_message">
                             <label class="layui-form-label">性别</label>
                             <div class="layui-input-inline">
-                            <input type="radio" name="sex" value="男" title="男" checked/>
+                            <input type="radio" name="sex" value="男" title="男" checked="checked"/>
                             <input type="radio" name="sex" value="女" title="女" />
                             </div>
 
                             <label class="layui-form-label">身份证号</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="id_number" required class="layui-input"/>
+                                <input type="text" name="id_number" required="required" class="layui-input"/>
                             </div>
                         </div>
 
                         <div class="layui-form-item" lay-filter="user_message">
                             <label class="layui-form-label">邮箱地址</label>
                             <div class="layui-input-inline">
-                            <input type="text" id="email_addr" required class="layui-input" />
+                            <input type="text" id="email_addr" required="required" class="layui-input" />
                             </div>
 
                             <label class="layui-form-label">学历</label>
@@ -155,7 +155,7 @@
     
                                 <label class="layui-form-label">专业</label>
                                 <div class="layui-input-inline">
-                                    <input type="text" class="layui-input" id="major">
+                                    <input type="text" class="layui-input" id="major"/>
                                 </div>
                         </div>
                         <div class="layui-form-item" lay-filter="user_message">
@@ -166,7 +166,7 @@
     
                                 <label class="layui-form-label">签约方向</label>
                                 <div class="layui-input-inline">
-                                    <input type="text" class="layui-input" id="job_direction">
+                                    <input type="text" class="layui-input" id="job_direction"/>
                                 </div>
                         </div>
                         <div class="layui-form-item" lay-filter="user_message">
@@ -177,7 +177,7 @@
 
                             <label class="layui-form-label">入职时间</label>
                             <div class="layui-input-inline">
-                                <input type="text" class="layui-input" id="hire_time" >
+                                <input type="text" class="layui-input" id="hire_time"/>
                             </div>
                         </div>
                         <div class="layui-form-item" lay-filter="user_message">
@@ -188,7 +188,7 @@
     
                                 <label class="layui-form-label">所在二级部门</label>
                                 <div class="layui-input-inline">
-                                    <input type="text" class="layui-input" id="second_dept">
+                                    <input type="text" class="layui-input" id="second_dept"/>
                                 </div>
                         </div>
                         <div class="layui-form-item" lay-filter="user_message">
@@ -199,18 +199,18 @@
 
                             <label class="layui-form-label">部门HR工号</label>
                             <div class="layui-input-inline">
-                                <input type="text" class="layui-input" id="hr_job_number">
+                                <input type="text" class="layui-input" id="hr_job_number"/>
                             </div>
                         </div>
                         <div class="layui-form-item" lay-filter="user_message">
                                 <label class="layui-form-label">导师姓名</label>
                                 <div class="layui-input-inline">
-                                    <input type="text" class="layui-input"  id="teacher_name">
+                                    <input type="text" class="layui-input"  id="teacher_name"/>
                                 </div>
     
                                 <label class="layui-form-label">导师工号</label>
                                 <div class="layui-input-inline">
-                                    <input type="text" class="layui-input" id="teacher_job_number">
+                                    <input type="text" class="layui-input" id="teacher_job_number"/>
                                 </div>
                             </div>
                             <div class="layui-form-item" lay-filter="user_message">
@@ -221,12 +221,12 @@
         
                                     <label class="layui-form-label">离职原因</label>
                                     <div class="layui-input-inline">
-                                        <input type="text" class="layui-input" id="quit_reason">
+                                        <input type="text" class="layui-input" id="quit_reason"/>
                                     </div>
                             </div>
                         <div class="layui-form-item" lay-filter="user_message">
                             <div class="layui-input-block">
-                            <button class="layui-btn" lay-submit lay-filter="formDemo">保存修改</button>
+                            <button class="layui-btn"  lay-filter="formDemo">保存修改</button>
                             <!--<button type="reset" class="layui-btn layui-btn-primary">申请离职</button>-->
                             </div>
                         </div>
@@ -235,7 +235,7 @@
                         
                   </div>
 
-                  <!----------------------------------培养计划------------------------------------>
+                  <!--培养计划-->
                   <div class="layui-tab-item">
                         <table class="layui-table" style="text-align:center;">
                                 <!-- <colgroup>
@@ -280,7 +280,7 @@
                         </table>
                             <div id="pageDemo" style="text-align:center;"></div>
                   </div>
-                  <!--------------------------------------我的留言------------------------------------------------>
+                  <!--我的留言-->
                   <div class="layui-tab-item">
                         <div class="layui-row">
                                 <div class="layui-inline">
@@ -301,7 +301,7 @@
                             </table>
                             
                   </div>
-                  <!-----------------------------------------我的总结---------------------------------------------->
+                  <!--我的总结-->
                   <div class="layui-tab-item">
                         <form class="layui-form  layui-form-pane" action="">
 
@@ -314,19 +314,19 @@
    
                             <div class="layui-form-item">
                                 <div class="layui-input-block">
-                                <button class="layui-btn" lay-submit lay-filter="formDemo" style="float:right;">提交</button>
+                                <button class="layui-btn" lay-filter="formDemo" style="float:right;">提交</button>
                                 </div>
                             </div>
                         </form>
                   </div>
-                    <!---------------------------------申请离职------------------------------------>
+                    <!--申请离职-->
                         <div class="layui-tab-item">
                                 <form class="layui-form  layui-form-pane" action="">
 
                                     <div class="layui-form-item">
                                         <label class="layui-form-label">离职时间</label>
                                         <div class="layui-input-block">
-                                            <input type="text" class="layui-input" id="leave_date">
+                                            <input type="text" class="layui-input" id="leave_date"/>
                                         </div>
                                     </div>
 
@@ -339,7 +339,7 @@
                
                                     <div class="layui-form-item">
                                         <div class="layui-input-block">
-                                            <button class="layui-btn" lay-submit lay-filter="formDemo" style="float:right;">申请</button>
+                                            <button class="layui-btn"  lay-filter="formDemo" style="float:right;">申请</button>
                                         </div>
                                     </div>
                                 </form>

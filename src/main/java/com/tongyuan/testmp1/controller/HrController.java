@@ -23,16 +23,4 @@ import javax.servlet.http.HttpServletRequest;
 @Controller
 public class HrController extends BaseController{
 
-    @Autowired
-    private ViewService viewService;
-
-    @PostMapping("/students")
-    @ResponseBody
-    public JSONObject showAllStudents(HttpServletRequest request,
-                                      @RequestParam("page")Integer page,
-                                      @RequestParam("limit")Integer limit){
-        Hr hr = (Hr)request.getSession().getAttribute("user");
-        PageDataResult<StuTeacherView> result = viewService.selectStuTeaPageByDept(hr.getFirst_dept(),hr.getSecond_dept(),page,limit);
-        return setQueryResponse(result);
-    }
 }
