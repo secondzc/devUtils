@@ -19,7 +19,7 @@ public class Stusummary {
      *工号
      */
     @Column
-    private String job_umber;
+    private String job_number;
     @Column
     private Integer month;
     /**
@@ -55,12 +55,12 @@ public class Stusummary {
         this.name = name;
     }
 
-    public String getJob_umber() {
-        return job_umber;
+    public String getJob_number() {
+        return job_number;
     }
 
-    public void setJob_umber(String job_umber) {
-        this.job_umber = job_umber;
+    public void setJob_number(String job_number) {
+        this.job_number = job_number;
     }
 
     public Integer getMonth() {

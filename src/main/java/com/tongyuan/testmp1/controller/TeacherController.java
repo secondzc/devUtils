@@ -21,7 +21,7 @@ public class TeacherController extends BaseController{
     @Autowired
     private ViewService viewService;
 
-    @PostMapping("/students")
+    @GetMapping("/students")
     @ResponseBody
     public JSONObject showAllStudents(HttpServletRequest request,
                                       @RequestParam("page")Integer page,
