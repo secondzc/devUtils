@@ -29,4 +29,9 @@ public class StuinfoServiceImpl extends ServiceImpl<StuinfoMapper,Stuinfo> imple
         return stuinfoMapper.selectList(
                 new EntityWrapper<Stuinfo>().eq("first_dept",firstDept).eq("second_dept",secondDept));
     }
+
+    @Override
+    public Integer selectIdByJobNumber(String job_number) {
+        return stuinfoMapper.selectList(new EntityWrapper<Stuinfo>().eq("job_number",job_number)).get(0).getId();
+    }
 }

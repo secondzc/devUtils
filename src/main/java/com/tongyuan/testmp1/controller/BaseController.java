@@ -38,4 +38,26 @@ public class BaseController {
         jo.put("url","");
         return jo;
     }
+
+    protected JSONObject setUpdateResponse(){
+        JSONObject jo = new JSONObject();
+        jo.put("count",0);
+        jo.put("code",0);
+        jo.put("data",null);
+        jo.put("error",0);
+        jo.put("msg","更新数据成功!");
+        jo.put("url","");
+        return jo;
+    }
+
+    protected JSONObject setInsertResponse(){
+        JSONObject jo = new JSONObject();
+        jo.put("count",0);
+        jo.put("code",0);
+        jo.put("data",null);
+        jo.put("error",0);
+        jo.put("msg","增加数据成功!");
+        jo.put("url","");
+        return jo;
+    }
 }

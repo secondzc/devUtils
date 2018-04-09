@@ -16,6 +16,8 @@ public class StudentTest {
     private StuinfoService traineeService;
     @Autowired
     private StusummaryService stusummaryService;
+    @Autowired
+    private StuinfoService stuinfoService;
 
     @Test
     public void select(){
@@ -25,5 +27,10 @@ public class StudentTest {
     @Test
     public void selectSummary(){
         System.out.println(stusummaryService.selectById(1));
+    }
+
+    @Test
+    public void selectId(){
+        System.out.println(stuinfoService.selectIdByJobNumber("student"));
     }
 }
