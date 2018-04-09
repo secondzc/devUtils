@@ -132,7 +132,7 @@
                                         area : [ '700px', '450px' ],
                                         fixed : false, //不固定
                                         maxmin : true,
-                                        content : 'teacher_plan.html?'+'job_number='+data.job_number
+                                        content : '../templates/teacher_plan.html?'+'job_number='+data.job_number
                                     });
                                 } else if (layEvent === 'message') {
                                     layer.open({
@@ -140,7 +140,7 @@
                                         area : [ '700px', '450px' ],
                                         fixed : false, //不固定
                                         maxmin : true,
-                                        content : 'teacher_message.html?'+'job_number='+data.job_number,
+                                        content : '../templates/teacher_message.html?'+'job_number='+data.job_number,
                                         end : function() {
                                             layui.index.render();
                                         }
@@ -152,7 +152,7 @@
                                         area : [ '700px', '450px' ],
                                         fixed : false, //不固定
                                         maxmin : true,
-                                        content : 'teacher_summary.html?'+'job_number='+data.job_number,
+                                        content : '../templates/teacher_summary.html?'+'job_number='+data.job_number,
                                         end : function() {
                                             layui.index.render();
                                         }

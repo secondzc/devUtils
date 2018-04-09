@@ -97,7 +97,7 @@ body{
 									</div>
 									<button class="layui-btn" lay-filter="search">
 										<i class="layui-icon">&#xe615;</i>搜索</button>
-									<button type="button" class="layui-btn" id="input">导入</button>
+									<button type="button" class="layui-btn" id="input">上传</button>
 								</div>
 							</div>
 						</fieldset>
@@ -116,20 +116,43 @@ body{
 								<i class="layui-icon">&#x1002;</i>刷新</button>
 						</a>
 					</div>
-		
 				</div>
-		
-		
+				<!-- 三个选项卡 -->
+				<div class="layui-tab" lay-filter="tab">
+						<ul class="layui-tab-title">
+						  <li class="layui-this" lay-id="hr">hr信息</li>
+						  <li lay-id="teacher">导师信息</li>
+						  <li lay-id="student">实习生信息</li>
+
+						</ul>
+						<div class="layui-tab-content">
+							<div class="layui-tab-item  layui-show">
+								<table class="layui-hide" id="hrTable"
+								lay-filter="hrtTable"></table>
+							</div>
+							<div class="layui-tab-item">
+								<table class="layui-hide" id="teacherTable"
+								lay-filter="teacherTable"></table>
+							</div>
+							<div class="layui-tab-item">
+									<table class="layui-hide" id="studentTable"
+									lay-filter="studentTable"></table>
+							</div>
+
+						
+						  
+						</div>
+					  </div>
+
 			<script type="text/html" id="optsbar">
 				<a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
 				<a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
 				<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
 			</script>
 		
-		
-				<table class="layui-hide" id="listTable"
-					lay-filter="listTable"></table>
-		
+			
+				
+			
 		
 			</div>
 		</div>
@@ -150,28 +173,124 @@ body{
 						,form = layui.form
 						,element = layui.element
 						,upload = layui.upload;
-						//方法级渲染
-						table.render({
-							elem : 'listTable',
+					//方法级渲染   hr列表
+					table.render({
+							elem : '#hrTable',
 							url : '', //数据接口
 							cols : [ [ {
 								checkbox : true,
 								fixed : true
 							}, {
-								field : 'username',
-								minWidth : 200,
-								title : '姓名'
+								field : 'name',
+								width : 100,
+								title : 'hr姓名'
 							},  {
-								field : 'tel',
-								minWidth : 200,
-								title : '联系方式',
-								templet : '#format_city'
+								field : 'job_number',
+								width : 200,
+								title : 'hr工号',
+								
 							}, {
-								field : 'job',
-								title : '岗位',
-								width : 80,
+								field : 'first_dept',
+								title : '所在一级部门',
+								width : 200,
 								sort : true,
-								templet : '#format_status'
+							
+							},
+							{
+								field : 'second_dept',
+								title : '所在二级部门',
+								width : 200,
+								sort : true,
+							
+							},
+							{
+								fixed : 'right',
+								minWidth : 200,
+								align : 'center',
+								toolbar : '#optsbar'
+							} ] ],
+							page : true,
+							limits : [ 15, 20, 30, 50, 100, 500 ],
+							limit : 15 //默认采用60
+							,
+							response : {
+								statusName : 'error',
+								statusCode : 0,
+								msgName : 'message',
+								countName : 'count'
+							}
+						});
+	
+					//方法级渲染   导师列表
+					table.render({
+							elem : '#teacherTable',
+							url : '', //数据接口
+							cols : [ [ {
+								checkbox : true,
+								fixed : true
+							}, {
+								field : 'name',
+								width :100,
+								title : '导师姓名'
+							},  {
+								field : 'job_number',
+								width : 200,
+								title : '导师工号',
+								
+							}, {
+								field : ' first_dept',
+								title : '所在一级部门',
+								width : 200,
+								sort : true,
+							
+							}, 
+							{
+								field : 'second_dept',
+								title : '所在二级部门',
+								width : 200,
+								sort : true,
+							
+							},
+							{
+								fixed : 'right',
+								minWidth : 200,
+								align : 'center',
+								toolbar : '#optsbar'
+							} ] ],
+							page : true,
+							limits : [ 15, 20, 30, 50, 100, 500 ],
+							limit : 15 //默认采用60
+							,
+							response : {
+								statusName : 'error',
+								statusCode : 0,
+								msgName : 'message',
+								countName : 'count'
+							}
+						});
+
+						//方法级渲染   学生列表
+						table.render({
+							elem : '#studentTable',
+							url : '', //数据接口
+							cols : [ [ {
+								checkbox : true,
+								fixed : true
+							}, {
+								field : 'name',
+								minWidth : 80,
+								title : '学生姓名'
+							},  {
+								field : 'job_number',
+								minWidth : 80,
+								title : '学生工号',
+								
+							}, {
+								field : 'phone_number',
+								title : '联系方式',
+								width : 100,
+								sort : true,
+							
 							}, {
 								fixed : 'right',
 								minWidth : 200,
@@ -190,14 +309,31 @@ body{
 							}
 						});
 
+						//搜索功能
 						form.on('submit(search)', function(data) {
-							table.reload('listTable', {
-								where : data.field
+							 //监听Tab切换
+							element.on('tab(tab)', function(){
+								var choose=this.getAttribute('lay-id');
+								if(choose==="hr"){
+									table.reload('hrTable', {
+										where : data.field
+									});
+									return false;
+								}else if(choose==="teacher"){
+									table.reload('teacherTable', {
+										where : data.field
+									});
+									return false;
+								}else if(choose==="student"){
+									table.reload('studentTable', {
+										where : data.field
+									});
+									return false;
+								}
 							});
-							return false;
 						});
 
-						table.on('tool(listTable)', function(obj) { //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
+						table.on('tool(studentTable)', function(obj) { //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
 							var data = obj.data //获得当前行数据
 							, layEvent = obj.event; //获得 lay-event 对应的值
 							if (layEvent === 'detail') {
@@ -274,15 +410,19 @@ body{
 								}
 							});
 						});
-						//导入导出 
+
+						//导入
 						upload.render({
 							elem : '#input',//绑定元素
-							url : '/admin/upload/',//上传接口
+							url : '',//上传接口
 							accept : 'file',
 							done : function(res) {
 								//上传完毕回调
 								layer.msg("成功插入" + res + "条数据！");
-								table.reload('listTable');
+								table.reload('hrTable');
+								table.reload('teacherTable');
+								table.reload('studentTable');
+
 							},
 							error : function() {
 								//请求异常回调
@@ -291,7 +431,7 @@ body{
 						})
 						 //退出按钮功能
 						 $('#sign_out').click(function(){
-                                window.open('login.html','_self')
+                                window.open('../templates/login.html','_self')
                             });
 					});
 </script>

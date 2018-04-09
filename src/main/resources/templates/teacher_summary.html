@@ -50,6 +50,9 @@
                 ,next:'下个月'
                 ,skin: '#1E9FFF' //自定义选中色值
                 ,jump: function(obj){
+                    var str=location.search,
+                        i=str.indexOf("=");
+                    var job_number=str.substr(i+1);
                     $("#month").html('第'+ obj.curr +'个月');
                     $.ajax({
                         type:"get",//提交类型
