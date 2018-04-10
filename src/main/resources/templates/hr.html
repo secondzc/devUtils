@@ -84,21 +84,24 @@
         </header>
         <section>
             <div id="container">
-                    <form id="inlineForm" class="layui-form">
-                            <fieldset class="layui-elem-field">
-                                <legend>搜索</legend>
-                                <div class="layui-field-box">
-                                    <div class="demoTable">
-                                        名称：
-                                        <div class="layui-inline">
-                                            <input class="layui-input" name="title" 
-                                                autocomplete="off">
+                    <div class="layui-row">
+                            <form id="inlineForm" class="layui-form">
+                                <fieldset class="layui-elem-field">
+                                    <legend>搜索</legend>
+                                    <div class="layui-field-box">
+                                        <div class="demoTable">
+                                            名称：
+                                            <div class="layui-inline">
+                                                <input class="layui-input" name="title" placeholder="输入姓名或工号" autocomplete="off"/>
+                                            </div>
+                                            <button class="layui-btn" lay-filter="search">
+                                                <i class="layui-icon">&#xe615;</i>搜索</button>
+                                            <button type="button" class="layui-btn" id="input">上传</button>
                                         </div>
-                                        <button class="layui-btn" lay-submit lay-filter="province_search"><i class="layui-icon">&#xe615;</i>搜索</button>
                                     </div>
-                                </div>
-                            </fieldset>
-                          </form>
+                                </fieldset>
+                            </form>
+                        </div>
                 <table class="layui-hide" id="hr" lay-filter="demo">
                 </table>
                 <script type="text/html" id="barDemo">
