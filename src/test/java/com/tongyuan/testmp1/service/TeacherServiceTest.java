@@ -1,5 +1,7 @@
 package com.tongyuan.testmp1.service;
 
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.tongyuan.testmp1.dao.TeacherMapper;
 import com.tongyuan.testmp1.entity.Teacher;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -17,6 +19,8 @@ import java.util.List;
 public class TeacherServiceTest {
     @Autowired
     private TeacherService teacherService;
+    @Autowired
+    private TeacherMapper teacherMapper;
 
     @Test
     public void testSelectByDept(){
@@ -28,5 +32,11 @@ public class TeacherServiceTest {
     public void testSelect(){
         Teacher teacher = teacherService.selectById(1);
         System.out.println(teacher);
+    }
+
+    @Test
+    public void testSelectNull(){
+        List<Teacher> teacherList = teacherMapper.selectList(new EntityWrapper<Teacher>().eq("id",4));
+        System.out.println(teacherList.size());
     }
 }

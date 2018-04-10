@@ -21,41 +21,56 @@ public class StusummaryController extends BaseController{
     @Autowired
     private StusummaryService stusummaryService;
 
+    /*
+    学生查看自己的总结
+     */
     @GetMapping("/select")
     @ResponseBody
     public JSONObject selectByStudent(HttpServletRequest request,@RequestParam("month") Integer month){
         Stuinfo stuinfo = (Stuinfo)request.getSession().getAttribute("user");
-        String job_number = stuinfo.getJob_number();
         List<Stusummary> stusummaryList = stusummaryService.selectList(
-                new EntityWrapper<Stusummary>().eq("month",month).eq("job_number",job_number));
-        return setQueryResponse(stusummaryList);
+                new EntityWrapper<Stusummary>().eq("month",month).eq("stuid",stuinfo.getId()));
+        if(stusummaryList.isEmpty()){
+            return setQueryResponse(null);
+        }else{
+            return setQueryResponse(stusummaryList.get(0));
+        }
+
     }
 
+    /*
+    hr或导师查看学生的总结
+     */
     @GetMapping("/selectByOthers")
     @ResponseBody
-    public JSONObject selectByOthers(@RequestParam("job_number") String job_number,@RequestParam("month") Integer month){
+    public JSONObject selectByOthers(@RequestParam("stuid") Integer stuid,@RequestParam("month") Integer month){
         List<Stusummary> stusummaryList = stusummaryService.selectList(
-                new EntityWrapper<Stusummary>().eq("month",month).eq("job_number",job_number));
-        return setQueryResponse(stusummaryList);
+                new EntityWrapper<Stusummary>().eq("month",month).eq("stuid",stuid));
+        if(stusummaryList.isEmpty()){
+            return setQueryResponse(null);
+        }else{
+            return setQueryResponse(stusummaryList.get(0));
+        }
     }
 
+    /*
+    学生新增总结
+     */
     @PostMapping("/add")
     @ResponseBody
     public JSONObject add(HttpServletRequest request,Stusummary stusummary){
         Stuinfo stuinfo = (Stuinfo)request.getSession().getAttribute("user");
-        String job_number = stuinfo.getJob_number();
-        stusummary.setJob_number(job_number);
+        stusummary.setStuid(stuinfo.getId());
         stusummaryService.insert(stusummary);
         return setInsertResponse();
     }
 
+    /*
+     学生更新总结
+     */
     @PostMapping("/update")
     @ResponseBody
-    public JSONObject update(HttpServletRequest request,Stusummary stusummary){
-        Stuinfo stuinfo = (Stuinfo)request.getSession().getAttribute("user");
-        String job_number = stuinfo.getJob_number();
-        Integer id = stusummaryService.selectIdByJobNumber(job_number);
-        stusummary.setId(id);
+    public JSONObject update(Stusummary stusummary){
         stusummaryService.updateById(stusummary);
         return setUpdateResponse();
     }

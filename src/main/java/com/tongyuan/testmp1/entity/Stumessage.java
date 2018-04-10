@@ -14,10 +14,10 @@ public class Stumessage {
     @GeneratedValue
     private Integer id;
     /**
-     *工号
+     *学生信息id
      */
     @Column
-    private String job_umber;
+    private Integer stuid;
     @Column
     private String type;
     /**
@@ -34,12 +34,12 @@ public class Stumessage {
         this.id = id;
     }
 
-    public String getJob_umber() {
-        return job_umber;
+    public Integer getStuid() {
+        return stuid;
     }
 
-    public void setJob_umber(String job_umber) {
-        this.job_umber = job_umber;
+    public void setStuid(Integer stuid) {
+        this.stuid = stuid;
     }
 
     public String getType() {

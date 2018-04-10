@@ -3,6 +3,7 @@ package com.tongyuan.testmp1.controller;
 import com.alibaba.fastjson.JSONObject;
 import com.tongyuan.testmp1.entity.Teacher;
 import com.tongyuan.testmp1.helper.PageDataResult;
+import com.tongyuan.testmp1.service.TeacherService;
 import com.tongyuan.testmp1.service.ViewService;
 import com.tongyuan.testmp1.viewModel.StudentView;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,4 +18,48 @@ import javax.servlet.http.HttpServletRequest;
 @RequestMapping("/teacher")
 @Controller
 public class TeacherController extends BaseController{
+    @Autowired
+    private TeacherService teacherService;
+
+    /*
+    admin分页查询所有导师
+     */
+    @GetMapping("/select")
+    @ResponseBody
+    public JSONObject select(@RequestParam("page")Integer page,
+                             @RequestParam("limit")Integer limit){
+        PageDataResult<Teacher> result = teacherService.selectPage(page,limit);
+        return setQueryResponse(result);
+    }
+
+    /*
+    admin删除导师
+     */
+    @PostMapping("/delete")
+    @ResponseBody
+    public JSONObject deleteByAdmin(Teacher teacher){
+        return setDeleteResponse(teacherService.deleteById(teacher.getId()));
+    }
+
+    /*
+    admin新增导师
+     */
+    @PostMapping("/add")
+    @ResponseBody
+    public JSONObject insertByAdmin(Teacher teacher){
+        String psw = teacher.getJob_number().substring(teacher.getJob_number().length()-6);
+        teacher.setEncrypt_password(psw);
+        teacherService.insert(teacher);
+        return setInsertResponse();
+    }
+
+    /*
+    admin更改导师
+     */
+    @PostMapping("/update")
+    @ResponseBody
+    public JSONObject updateByAdmin(Teacher teacher){
+        teacherService.updateById(teacher);
+        return setUpdateResponse();
+    }
 }

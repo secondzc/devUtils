@@ -9,5 +9,5 @@ import com.tongyuan.testmp1.viewModel.StudentView;
  */
 public interface ViewService {
     PageDataResult<StudentView> selectStudentPageByTeacherJobNumber(String teacherJobNumber, Integer page, Integer limit);
-    PageDataResult<StuTeacherView> selectStuTeaPageByDept(String firstDept, String secondDept, Integer page, Integer limit);
+    PageDataResult<StuTeacherView> selectStuTeaPageByDept(String firstDept, String secondDept, Integer page, Integer limit,String key);
 }

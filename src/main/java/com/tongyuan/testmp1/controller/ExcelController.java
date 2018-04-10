@@ -1,13 +1,11 @@
 package com.tongyuan.testmp1.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.tongyuan.testmp1.service.ExcelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.ByteArrayInputStream;
@@ -21,23 +19,25 @@ import java.nio.file.Paths;
  */
 @RequestMapping("/admin")
 @Controller
-public class AdminController extends BaseController{
+public class ExcelController extends BaseController{
 
     @Autowired
     private ExcelService excelService;
 
-    @GetMapping("/test")
-    public String test(){
-        return "administrator";
-    }
-
     @PostMapping("/upload")
-    public void upload(@RequestParam("file") MultipartFile file){
+    @ResponseBody
+    public JSONObject upload(@RequestParam("file") MultipartFile file){
+        JSONObject jo = new JSONObject();
         try{
             byte[] bytes = file.getBytes();
             excelService.parse(new ByteArrayInputStream(bytes));
+            jo.put("flag",true);
+            jo.put("msg","excel解析成功");
+            return jo;
         }catch (Exception e){
-            throw new RuntimeException("上传文件失败");
+            jo.put("flag",false);
+            jo.put("msg","excel解析失败");
+            return jo;
         }
     }
 }
