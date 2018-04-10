@@ -93,9 +93,9 @@ body{
 								<div class="demoTable">
 									名称：
 									<div class="layui-inline">
-										<input class="layui-input" name="title" autocomplete="off"/>
+										<input class="layui-input" name="title" placeholder="输入姓名或工号" autocomplete="off" id="title"/>
 									</div>
-									<button class="layui-btn" lay-filter="search">
+									<button class="layui-btn" lay-filter="search" lay-submit="lay-submit">
 										<i class="layui-icon">&#xe615;</i>搜索</button>
 									<button type="button" class="layui-btn" id="input">上传</button>
 								</div>
@@ -311,26 +311,28 @@ body{
 
 						//搜索功能
 						form.on('submit(search)', function(data) {
+							var key=$("#title").val();
+							table.reload('hrTable', {where :{key:key},page:{curr:1}});
 							 //监听Tab切换
 							element.on('tab(tab)', function(){
+								console.log(key);
 								var choose=this.getAttribute('lay-id');
+								console.log(choose);
 								if(choose==="hr"){
 									table.reload('hrTable', {
-										where : data.field
+										where :{key:key},page:{curr:1}
 									});
-									return false;
 								}else if(choose==="teacher"){
 									table.reload('teacherTable', {
-										where : data.field
+										where :{key:key},page:{curr:1}
 									});
-									return false;
 								}else if(choose==="student"){
 									table.reload('studentTable', {
-										where : data.field
+										where :{key:key},page:{curr:1}
 									});
-									return false;
-								}
+								}	
 							});
+							return false;
 						});
 
 						table.on('tool(studentTable)', function(obj) { //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
