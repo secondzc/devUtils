@@ -120,7 +120,8 @@
       <script src="../static/layui/layui.js"></script>
       <script>
       //注意：折叠面板 依赖 element 模块，否则无法进行功能性操作
-      layui.use(['element','table'], function(){
+      layui.use(['element','table','jquery'], function(){
+        window.jQuery = window.$ = layui.jquery;
         var element = layui.element,
             table=layui.table;
 
@@ -152,7 +153,7 @@
                             area : [ '700px', '450px' ],
                             fixed : false, //不固定
                             maxmin : true,
-                            content : '../templates/hr_plan.html?'+'job_number='+data.job_number
+                            content : 'hr/hr_plan.html?'+'job_number='+data.job_number
                         });
                     } else if (layEvent === 'message') {
                         layer.open({
@@ -160,7 +161,7 @@
                             area : [ '700px', '450px' ],
                             fixed : false, //不固定
                             maxmin : true,
-                            content : '../templates/hr_message.html?'+'job_number='+data.job_number,
+                            content : 'hr/hr_message.html?'+'job_number='+data.job_number,
                             end : function() {
                                 layui.index.render();
                             }
@@ -172,7 +173,7 @@
                             area : [ '700px', '450px' ],
                             fixed : false, //不固定
                             maxmin : true,
-                            content : '../templates/hr_summary.html?'+'job_number='+data.job_number,
+                            content : 'hr/hr_summary.html?'+'job_number='+data.job_number,
                             end : function() {
                                 layui.index.render();
                             }
@@ -180,12 +181,8 @@
                     }
 
             });
-
-
-
-            
-                            //退出按钮功能
-                            $('#sign_out').click(function(){
+            //退出按钮功能
+						 $('#sign_out').click(function(){
                                 window.open('../templates/login.html','_self')
                             });
       });

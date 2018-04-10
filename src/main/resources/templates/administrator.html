@@ -255,7 +255,7 @@ body{
 								area : [ '700px', '450px' ],
 								fixed : false, //不固定
 								maxmin : true,
-								content : '../templates/admin_addHr.html',
+								content : 'administrator/admin_addHr.html',
 								end : function() {
 									layui.index.render();
 								}
@@ -335,14 +335,14 @@ body{
 								countName : 'count'
 							}
 						});
-						//hr新增
+						//导师新增
 						$('#addTeacher').on('click', function() {
 							layer.open({
 								type : 2,
 								area : [ '700px', '450px' ],
 								fixed : false, //不固定
 								maxmin : true,
-								content : '../templates/admin_addTeacher.html',
+								content : 'administrator/admin_addTeacher.html',
 								end : function() {
 									layui.index.render();
 								}
@@ -389,7 +389,19 @@ body{
 								countName : 'count'
 							}
 						});
-
+						//实习生新增
+						$('#addStudent').on('click', function() {
+							layer.open({
+								type : 2,
+								area : [ '700px', '450px' ],
+								fixed : false, //不固定
+								maxmin : true,
+								content : 'administrator/admin_addStudent.html',
+								end : function() {
+									layui.index.render();
+								}
+							});
+						});
 						//搜索功能
 						form.on('submit(search)', function(data) {
 							var key=$("#title").val();

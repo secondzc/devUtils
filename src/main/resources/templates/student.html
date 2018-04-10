@@ -247,7 +247,7 @@
                                             月份
                                     </th> -->
                                     <th>培养目标</th>
-                                    <th id="target" colspan="4" style="background:'#fff';"></th>
+                                    <th id="target" colspan="4" style="background:#fff;"></th>
                                 </tr>
                                 <tr>
                                     <th lay-data="{field:'month'}" rowspan="4" id="month">月份</th>
@@ -457,7 +457,7 @@
                     title: ['留言', 'font-size:18px;'],
                     fixed : false, //不固定
                     maxmin : true,
-                    content : '../templates/student_add.html',
+                    content : 'student/student_add.html',
                     // end : function() {
                     //     layui.index.render();
                     // }
@@ -465,7 +465,7 @@
             });
               //退出按钮功能
               $('#sign_out').click(function(){
-                                window.open('login.html','_self')
+                                window.open('../templates/login.html','_self')
                             });
               });
               </script>
