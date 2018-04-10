@@ -54,7 +54,7 @@ public class StuinfoController extends BaseController{
     public JSONObject selectByHr(HttpServletRequest request,
                                       @RequestParam("page")Integer page,
                                       @RequestParam("limit")Integer limit,
-                                      @RequestParam("key")String key){
+                                      @RequestParam(value = "key",required = false)String key){
         Hr hr = (Hr)request.getSession().getAttribute("user");
         PageDataResult<StuTeacherView> result = viewService.selectStuTeaPageByDept(hr.getFirst_dept(),hr.getSecond_dept(),page,limit,key);
         return setQueryResponse(result);
@@ -80,7 +80,7 @@ public class StuinfoController extends BaseController{
     @ResponseBody
     public JSONObject selectByAdmin(@RequestParam("page")Integer page,
                                     @RequestParam("limit")Integer limit,
-                                    @RequestParam("key")String key){
+                                    @RequestParam(value = "key",required = false)String key){
         PageDataResult result = stuinfoService.selectVagueStuPage(page,limit,key);
         return setQueryResponse(result);
     }
