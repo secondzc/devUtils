@@ -2,6 +2,7 @@ package com.tongyuan.testmp1.service;
 
 import com.baomidou.mybatisplus.service.IService;
 import com.tongyuan.testmp1.entity.Teacher;
+import com.tongyuan.testmp1.helper.PageDataResult;
 
 import java.util.List;
 
@@ -16,4 +17,9 @@ public interface TeacherService extends IService<Teacher> {
      * @return
      */
     List<Teacher> selectByDept(String firstDept,String secondDept);
+
+    /*
+    分页查找所有导师
+     */
+    PageDataResult<Teacher> selectPage(Integer page, Integer limit);
 }

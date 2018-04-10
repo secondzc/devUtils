@@ -2,6 +2,7 @@ package com.tongyuan.testmp1.service;
 
 import com.baomidou.mybatisplus.service.IService;
 import com.tongyuan.testmp1.entity.Stuinfo;
+import com.tongyuan.testmp1.helper.PageDataResult;
 
 import java.util.List;
 
@@ -30,4 +31,9 @@ public interface StuinfoService extends IService<Stuinfo> {
      * @return
      */
     Integer selectIdByJobNumber(String job_number);
+
+    /*
+    hr分页查找所有学生+搜索
+     */
+    PageDataResult<Stuinfo> selectVagueStuPage(Integer page,Integer limit,String key);
 }

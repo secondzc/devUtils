@@ -31,11 +31,11 @@ public class ViewServiceImpl implements ViewService{
     }
 
     @Override
-    public PageDataResult<StuTeacherView> selectStuTeaPageByDept(final String firstDept, final String secondDept, Integer page, Integer limit) {
+    public PageDataResult<StuTeacherView> selectStuTeaPageByDept(final String firstDept, final String secondDept, Integer page, Integer limit,final String key) {
         return new PageHandler<StuTeacherView>() {
             @Override
             protected List<StuTeacherView> doQuery() {
-                return viewMapper.selectStuTeaByDept(firstDept,secondDept);
+                return viewMapper.selectStuTeaByDept(firstDept,secondDept,key);
             }
         }.getResult(page,limit);
     }

@@ -31,6 +31,6 @@ public class StudentTest {
 
     @Test
     public void selectId(){
-        System.out.println(stuinfoService.selectIdByJobNumber("student"));
+        System.out.println(stuinfoService.selectList(null));
     }
 }

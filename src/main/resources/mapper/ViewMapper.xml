@@ -30,5 +30,9 @@
         FROM stuinfo
         WHERE first_dept=#{firstDept}
         AND second_dept=#{secondDept}
+        <if test="key!=null and key!=''">
+            AND (name LIKE CONCAT(CONCAT('%',#{key,jdbcType=VARCHAR}),'%')
+            OR job_number LIKE CONCAT(CONCAT('%',#{key,jdbcType=VARCHAR}),'%'))
+        </if>
     </select>
 </mapper>
