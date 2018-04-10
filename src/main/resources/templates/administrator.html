@@ -116,7 +116,7 @@ body{
 									<div class="layui-row">
 											<div class="layui-inline">
 												<button class="layui-btn" data-type="getCheckData" isMaximize="0"
-													id="add" topHeight="600px">
+													id="addTeacher" topHeight="600px">
 													<i class="layui-icon">&#xe654;</i>新增</button>
 												<button class="layui-btn layui-btn-danger" id="delete"
 													isMutiDml="1" isConfirm="1">
@@ -152,7 +152,7 @@ body{
 									<div class="layui-row">
 											<div class="layui-inline">
 												<button class="layui-btn" data-type="getCheckData" isMaximize="0"
-													id="add" topHeight="600px">
+													id="addStudent" topHeight="600px">
 													<i class="layui-icon">&#xe654;</i>新增</button>
 												<button class="layui-btn layui-btn-danger" id="delete"
 													isMutiDml="1" isConfirm="1">
@@ -308,6 +308,19 @@ body{
 								msgName : 'message',
 								countName : 'count'
 							}
+						});
+						//hr新增
+						$('#addTeacher').on('click', function() {
+							layer.open({
+								type : 2,
+								area : [ '700px', '450px' ],
+								fixed : false, //不固定
+								maxmin : true,
+								content : '../templates/admin_addTeacher.html',
+								end : function() {
+									layui.index.render();
+								}
+							});
 						});
 
 						//方法级渲染   学生列表
