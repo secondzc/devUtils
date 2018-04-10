@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, userr-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        <title>Test</title>
+        <link rel="stylesheet" href="../static/layui/css/layui.css">
+        <style>
+            body{margin:10px 20px;}
+        </style>
+    </head>
+
+    <body>
+            <fieldset class="layui-elem-field layui-field-title mt-15">
+                    <legend>新增hr</legend>
+                </fieldset>
+        <form class="layui-form" action="">
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">hr姓名</label>
+                <div class="layui-input-block">
+                    <input type="text" name="title" required  lay-verify="required" placeholder="请输入姓名"
+                           autocomplete="off" class="layui-input">
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">hr工号</label>
+                <div class="layui-input-block">
+                    <input type="text"  required lay-verify="required" placeholder="请输入职位名称"
+                           autocomplete="off" class="layui-input">
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                    <label class="layui-form-label">所在一级部门</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="title" required  lay-verify="required" placeholder="请输入姓名"
+                               autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+    
+                <div class="layui-form-item">
+                    <label class="layui-form-label">所在二级部门</label>
+                    <div class="layui-input-block">
+                        <input type="text"  required lay-verify="required" placeholder="请输入职位名称"
+                               autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
+                    <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                </div>
+            </div>
+
+        </form>
+        <script src="../static/layui/layui.js"></script>
+        <script>
+            //Demo
+            layui.use('form', function(){
+                var form = layui.form;
+
+                //监听提交
+                form.on('submit(formDemo)', function(data){
+                    layer.msg(JSON.stringify(data.field));
+                    return false;
+                });
+            });
+        </script>
+
+    </body>
+</html>
+

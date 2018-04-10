@@ -243,13 +243,14 @@
                     <table class="layui-table" lay-data="{id:'student_plan',page:true}">
                         <thead>
                                 <tr>
-                                    <th rowspan="2" lay-data="{field:'month'}">
+                                    <!-- <th lay-data="{field:'month'}">
                                             月份
-                                    </th>
+                                    </th> -->
                                     <th>培养目标</th>
-                                    <th id="target" colspan="3" style="background:'#fff';"></th>
+                                    <th id="target" colspan="4" style="background:'#fff';"></th>
                                 </tr>
                                 <tr>
+                                    <th lay-data="{field:'month'}" rowspan="4" id="month">月份</th>
                                     <th lay-data="{field:'period'}">时间</th>
                                     <th lay-data="{field:'knowledge'}">知识点及掌握程度</th>
                                     <th lay-data="{field:'material'}">学习材料</th>
