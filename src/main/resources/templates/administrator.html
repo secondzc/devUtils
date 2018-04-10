@@ -94,6 +94,7 @@ body{
 
 						</ul>
 						<div class="layui-tab-content">
+							<!-- hr -->
 							<div class="layui-tab-item  layui-show">
 									<div class="layui-row">
 											<div class="layui-inline">
@@ -112,13 +113,14 @@ body{
 								<table class="layui-hide" id="hrTable"
 								lay-filter="hrTable"></table>
 							</div>
+							<!-- teacher -->
 							<div class="layui-tab-item">
 									<div class="layui-row">
 											<div class="layui-inline">
 												<button class="layui-btn" data-type="getCheckData" isMaximize="0"
 													id="addTeacher" topHeight="600px">
 													<i class="layui-icon">&#xe654;</i>新增</button>
-												<button class="layui-btn layui-btn-danger" id="delete"
+												<button class="layui-btn layui-btn-danger" id="deleteTeacher"
 													isMutiDml="1" isConfirm="1">
 													<i class="layui-icon">&#xe640;</i>批量删除</button>
 												<a href="javascript:;" layadmin-event="refresh" title="刷新">
@@ -130,6 +132,7 @@ body{
 								<table class="layui-hide" id="teacherTable"
 								lay-filter="teacherTable"></table>
 							</div>
+							<!-- student -->
 							<div class="layui-tab-item">
 								<div class="layui-row">
 									<form id="inlineForm" class="layui-form">
@@ -154,7 +157,7 @@ body{
 												<button class="layui-btn" data-type="getCheckData" isMaximize="0"
 													id="addStudent" topHeight="600px">
 													<i class="layui-icon">&#xe654;</i>新增</button>
-												<button class="layui-btn layui-btn-danger" id="delete"
+												<button class="layui-btn layui-btn-danger" id="deleteStudent"
 													isMutiDml="1" isConfirm="1">
 													<i class="layui-icon">&#xe640;</i>批量删除</button>
 												<a href="javascript:;" layadmin-event="refresh" title="刷新">
@@ -177,11 +180,6 @@ body{
 				<a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
 				<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
 			</script>
-		
-			
-				
-			
-		
 			</div>
 		</div>
 	</section>
@@ -348,6 +346,32 @@ body{
 								}
 							});
 						});
+						//导师批量删除
+						$('#deleteTeacher').on('click',function() {
+							var checkStatus = table.checkStatus('teacherTable'), data = checkStatus.data;
+							var id = "";
+							for ( var d in data) {
+								id = id + data[d].id + ",";
+							}
+							if (id == "") {
+								layer.msg("最少选择一个进行删除！");
+							} else {
+								//向服务端发送删除指令
+								$.ajax({
+									url : 'url?id='+ id  ,//接口
+									type : 'get',
+									dataType : 'JSON',
+									success : function(data) {
+										layer.msg(data.msg);
+										layui.index.render();
+									},
+									error : function(e) {
+										layer.msg("服务器繁忙！操作失败，清重试！")
+									}
+								
+								});
+							}
+						});
 
 						//方法级渲染   学生列表
 						table.render({
@@ -401,6 +425,32 @@ body{
 									layui.index.render();
 								}
 							});
+						});
+						//student批量删除
+						$('#deleteStudent').on('click',function() {
+							var checkStatus = table.checkStatus('studentTable'), data = checkStatus.data;
+							var id = "";
+							for ( var d in data) {
+								id = id + data[d].id + ",";
+							}
+							if (id == "") {
+								layer.msg("最少选择一个进行删除！");
+							} else {
+								//向服务端发送删除指令
+								$.ajax({
+									url : 'url?id='+ id  ,//接口
+									type : 'get',
+									dataType : 'JSON',
+									success : function(data) {
+										layer.msg(data.msg);
+										layui.index.render();
+									},
+									error : function(e) {
+										layer.msg("服务器繁忙！操作失败，清重试！")
+									}
+								
+								});
+							}
 						});
 						//搜索功能
 						form.on('submit(search)', function(data) {
