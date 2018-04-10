@@ -204,7 +204,7 @@ body{
 					//方法级渲染   hr列表
 					table.render({
 							elem : '#hrTable',
-							url : '', //数据接口
+							url : '/hr/select', //数据接口
 							cols : [ [ {
 								checkbox : true,
 								fixed : true
@@ -252,7 +252,7 @@ body{
 					//方法级渲染   导师列表
 					table.render({
 							elem : '#teacherTable',
-							url : '', //数据接口
+							url : '/teacher/select', //数据接口
 							cols : [ [ {
 								checkbox : true,
 								fixed : true
@@ -266,7 +266,7 @@ body{
 								title : '导师工号',
 								
 							}, {
-								field : ' first_dept',
+								field : 'first_dept',
 								title : '所在一级部门',
 								width : 200,
 								sort : true,
@@ -300,8 +300,9 @@ body{
 						//方法级渲染   学生列表
 						table.render({
 							elem : '#studentTable',
-							url : '', //数据接口
-							cols : [ [ {
+							url : '/stuinfo/selectByAdmin', //数据接口
+							where:{}
+							,cols : [ [ {
 								checkbox : true,
 								fixed : true
 							}, {
@@ -425,7 +426,7 @@ body{
 						//导入
 						upload.render({
 							elem : '#input',//绑定元素
-							url : '',//上传接口
+							url : '/excel/upload',//上传接口
 							accept : 'file',
 							done : function(res) {
 								//上传完毕回调

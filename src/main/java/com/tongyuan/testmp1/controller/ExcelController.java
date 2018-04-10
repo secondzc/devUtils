@@ -17,7 +17,7 @@ import java.nio.file.Paths;
 /**
  * Created by zhangcy on 2018/4/3
  */
-@RequestMapping("/admin")
+@RequestMapping("/excel")
 @Controller
 public class ExcelController extends BaseController{
 
