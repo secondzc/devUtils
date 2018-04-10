@@ -20,33 +20,11 @@ public class Stuplan {
     private Integer stuid;
     @Column
     private Integer month;
-    @Column
-    private Integer week;
     /**
      * 培养目标
      */
     @Column
     private String target;
-    /**
-     * 时间
-     */
-    @Column
-    private String period;
-    /**
-     * 知识点及掌握程度
-     */
-    @Column
-    private String knowledge;
-    /**
-     * 学习材料
-     */
-    @Column
-    private String material;
-    /**
-     * 输出及其考核方式
-     */
-    @Column
-    private String inspect;
 
     public Integer getId() {
         return id;
@@ -72,51 +50,11 @@ public class Stuplan {
         this.month = month;
     }
 
-    public Integer getWeek() {
-        return week;
-    }
-
-    public void setWeek(Integer week) {
-        this.week = week;
-    }
-
     public String getTarget() {
         return target;
     }
 
     public void setTarget(String target) {
         this.target = target;
-    }
-
-    public String getPeriod() {
-        return period;
-    }
-
-    public void setPeriod(String period) {
-        this.period = period;
-    }
-
-    public String getKnowledge() {
-        return knowledge;
-    }
-
-    public void setKnowledge(String knowledge) {
-        this.knowledge = knowledge;
-    }
-
-    public String getMaterial() {
-        return material;
-    }
-
-    public void setMaterial(String material) {
-        this.material = material;
-    }
-
-    public String getInspect() {
-        return inspect;
-    }
-
-    public void setInspect(String inspect) {
-        this.inspect = inspect;
     }
 }

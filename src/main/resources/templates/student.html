@@ -386,13 +386,13 @@
                             //alert(obj.curr);
                             var month=obj.curr;
                             table.reload('student_plan',{
-                                url:''
+                                url:'/plan/selectDetailByStu'
                                 ,where:{month:month}
                                 });
                             //ajax请求获取 培训目标
                             $.ajax({
                                 type:"get",//提交类型
-                                url:"",//请求的地址
+                                url:"/plan/selectByStu",//请求的地址
                                 data:{
                                     month:month,//月份
                                 },//提交的数据
