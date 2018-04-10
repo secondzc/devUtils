@@ -110,7 +110,7 @@ body{
 											</div>
 										</div>
 								<table class="layui-hide" id="hrTable"
-								lay-filter="hrtTable"></table>
+								lay-filter="hrTable"></table>
 							</div>
 							<div class="layui-tab-item">
 									<div class="layui-row">
@@ -260,6 +260,32 @@ body{
 									layui.index.render();
 								}
 							});
+						});
+						//hr批量删除
+						$('#deleteHr').on('click',function() {
+							var checkStatus = table.checkStatus('hrTable'), data = checkStatus.data;
+							var id = "";
+							for ( var d in data) {
+								id = id + data[d].id + ",";
+							}
+							if (id == "") {
+								layer.msg("最少选择一个进行删除！");
+							} else {
+								//向服务端发送删除指令
+								$.ajax({
+									url : 'url?id='+ id  ,//接口
+									type : 'get',
+									dataType : 'JSON',
+									success : function(data) {
+										layer.msg(data.msg);
+										layui.index.render();
+									},
+									error : function(e) {
+										layer.msg("服务器繁忙！操作失败，清重试！")
+									}
+								
+								});
+							}
 						});
 	
 					//方法级渲染   导师列表
