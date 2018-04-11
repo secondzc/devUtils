@@ -88,7 +88,7 @@
                   <li>培养计划</li>
                   <li>我的留言</li>
                   <li>我的总结</li>
-                  <li>申请离职</li>
+                  <li>修改登录密码</li>
                 </ul>
                 <div class="layui-tab-content">
                   
@@ -99,11 +99,6 @@
                             <label class="layui-form-label">姓名</label>
                             <div class="layui-input-inline">
                             <input type="text" name="name" required="required" class="layui-input" id="name"/>
-                            </div>
-
-                            <label class="layui-form-label">登录密码</label>
-                            <div class="layui-input-inline">
-                            <input type="password" name="password" lay-verify="required"  class="layui-input" required="required"/>
                             </div>
                         </div>
 
@@ -203,31 +198,33 @@
                             </div>
                         </div>
                         <div class="layui-form-item" lay-filter="user_message">
-                                <label class="layui-form-label">导师姓名</label>
-                                <div class="layui-input-inline">
-                                    <input type="text" class="layui-input"  id="teacher_name"/>
-                                </div>
-    
-                                <label class="layui-form-label">导师工号</label>
-                                <div class="layui-input-inline">
-                                    <input type="text" class="layui-input" id="teacher_job_number"/>
-                                </div>
+                            <label class="layui-form-label">导师姓名</label>
+                            <div class="layui-input-inline">
+                                <input type="text" class="layui-input"  id="teacher_name"/>
                             </div>
-                            <div class="layui-form-item" lay-filter="user_message">
-                                    <label class="layui-form-label">离职时间</label>
-                                    <div class="layui-input-inline">
-                                        <input type="text" class="layui-input" id="quit_time"/>
-                                    </div>
-        
-                                    <label class="layui-form-label">离职原因</label>
-                                    <div class="layui-input-inline">
-                                        <input type="text" class="layui-input" id="quit_reason"/>
-                                    </div>
+
+                            <label class="layui-form-label">导师工号</label>
+                            <div class="layui-input-inline">
+                                <input type="text" class="layui-input" id="teacher_job_number"/>
                             </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">离职时间</label>
+                            <div class="layui-input-block">
+                                <input type="text" class="layui-input" id="leave_date"/>
+                            </div>
+                        </div>
+
+                        <div class="layui-form-item  layui-form-text">
+                            <label class="layui-form-label">离职原因</label>
+                            <div class="layui-input-block">
+                                <textarea name="reason" placeholder="请输入内容" class="layui-textarea" style="height:200px;"></textarea>
+                            </div>
+                        </div>
                         <div class="layui-form-item" lay-filter="user_message">
                             <div class="layui-input-block">
-                            <button class="layui-btn"  lay-filter="formDemo">保存修改</button>
-                            <!--<button type="reset" class="layui-btn layui-btn-primary">申请离职</button>-->
+                            <button class="layui-btn" lay-submit="lay-submit" lay-filter="formDemo">保存修改</button>
+                            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
                             </div>
                         </div>
 
@@ -269,18 +266,18 @@
                                 <div class="layui-inline">
                                     <button class="layui-btn" data-type="getCheckData" isMaximize="0"
                                             id="add" topHeight="600px">
-                                    新增
+                                            <i class="layui-icon">&#xe654;</i>新增
                                     </button>
                         
                                     <a href="javascript:;" layadmin-event="refresh" title="刷新">
                                         <button class="layui-btn" id="refresh">
-                                        刷新
+                                                <i class="layui-icon">&#x1002;</i>刷新
                                         </button>
                                     </a>
                                 </div>
                         
                             </div>
-                            <table class="layui-hide" id="test" lay-filter="demo">
+                            <table class="layui-hide" id="message_table" lay-filter="message_table">
                             </table>
                             
                   </div>
@@ -302,30 +299,30 @@
                             </div>
                         </form>
                   </div>
-                    <!--申请离职-->
+                    <!--修改登录密码-->
                         <div class="layui-tab-item">
-                                <form class="layui-form  layui-form-pane" action="">
-
-                                    <div class="layui-form-item">
-                                        <label class="layui-form-label">离职时间</label>
+                                <form>
+                                    <div class="layui-form-item" lay-filter="">
+                                        <label class="layui-form-label">输入密码</label>
                                         <div class="layui-input-block">
-                                            <input type="text" class="layui-input" id="leave_date"/>
+                                            <input type="password" class="layui-input"  id="psw1"/>
                                         </div>
                                     </div>
-
-                                    <div class="layui-form-item  layui-form-text">
-                                        <label class="layui-form-label">离职原因</label>
+                                    <div class="layui-form-item" lay-filter="">
+                                        <label class="layui-form-label">确认密码</label>
                                         <div class="layui-input-block">
-                                            <textarea name="reason" placeholder="请输入内容" class="layui-textarea" style="height:300px;"></textarea>
+                                            <input type="text" class="layui-input" id="psw2"/>
                                         </div>
                                     </div>
-               
-                                    <div class="layui-form-item">
+                                    <div class="layui-form-item" lay-filter="">
                                         <div class="layui-input-block">
-                                            <button class="layui-btn"  lay-filter="formDemo" style="float:right;">申请</button>
+                                        <button class="layui-btn" lay-submit="lay-submit" lay-filter="modifypsw">提交修改</button>
+                                        <button type="reset" class="layui-btn layui-btn-primary">重置</button>
                                         </div>
                                     </div>
-                                </form>
+                                </form>        
+                                    
+                                
                         </div>
 
                 </div>
@@ -350,7 +347,7 @@
                         elem:"#hire_time"//指定日期元素
                     });
                     laydate.render({
-                        elem:"#quit_time"//指定日期元素
+                        elem:"#leave_date"//指定日期元素
                     });
                     //个人中心
                     //通过后台取得个人信息  渲染个人中心
