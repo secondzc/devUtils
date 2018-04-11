@@ -273,7 +273,7 @@ body{
 							} else {
 								//向服务端发送删除指令
 								$.ajax({
-									url : 'url?id='+ id  ,//接口
+									url : '/hr/batchDelete?id='+ id  ,//接口
 									type : 'get',
 									dataType : 'JSON',
 									success : function(data) {

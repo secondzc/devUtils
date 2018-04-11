@@ -105,4 +105,17 @@ public class StuinfoController extends BaseController{
         stuinfoService.insert(stuinfo);
         return  setInsertResponse();
     }
+
+    /*
+    admin批量删除学生
+     */
+    @GetMapping("/batchDelete")
+    @ResponseBody
+    public JSONObject batchDelete(String id){
+        String[] ids = id.split(",");
+        for(String one:ids){
+            stuinfoService.deleteById(Integer.valueOf(one));
+        }
+        return setBatchDeleteResponse();
+    }
 }
