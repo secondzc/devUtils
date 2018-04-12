@@ -87,15 +87,6 @@ public class StuinfoController extends BaseController{
     }
 
     /*
-    admin删除学生
-     */
-    @PostMapping("/delete")
-    @ResponseBody
-    public JSONObject deleteByAdmin(Stuinfo stuinfo){
-        return setDeleteResponse(stuinfoService.deleteById(stuinfo.getId()));
-    }
-
-    /*
     admin新增学生
      */
     @PostMapping("/add")

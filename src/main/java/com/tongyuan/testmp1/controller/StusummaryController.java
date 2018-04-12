@@ -75,4 +75,18 @@ public class StusummaryController extends BaseController{
         stusummaryService.updateById(stusummary);
         return setUpdateResponse();
     }
+
+    /*
+    学生删除总结
+     */
+    @GetMapping("/delete")
+    @ResponseBody
+    public JSONObject delete(String id){
+        String[] ids = id.split(",");
+        for(String one:ids){
+            stusummaryService.deleteById(Integer.valueOf(one));
+        }
+        return setBatchDeleteResponse();
+    }
+
 }

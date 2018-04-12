@@ -73,4 +73,17 @@ public class StumessageController extends BaseController{
         }
     }
 
+    /*
+    学生删除留言
+     */
+    @GetMapping("/delete")
+    @ResponseBody
+    public JSONObject delete(String id){
+        String[] ids = id.split(",");
+        for(String one:ids){
+            stumessageMapper.deleteById(Integer.valueOf(one));
+        }
+        return setBatchDeleteResponse();
+    }
+
 }

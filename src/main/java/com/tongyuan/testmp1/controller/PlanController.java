@@ -80,13 +80,25 @@ public class PlanController extends BaseController{
      */
     @GetMapping("/deletePlan")
     @ResponseBody
-    public JSONObject deletePlan(Integer id){
-        return null;
-        // TODO: 2018/4/12
+    public JSONObject deletePlan(String id){
+        String[] ids = id.split(",");
+        for(String one:ids){
+            stuplanMapper.deleteById(one);
+        }
+        return setBatchDeleteResponse();
     }
     /*
     导师删除培养计划详情
      */
+    @GetMapping("/deletePlandetail")
+    @ResponseBody
+    public JSONObject deletePlandetail(String id){
+        String[] ids = id.split(",");
+        for(String one:ids){
+            plandetailMapper.deleteById(one);
+        }
+        return setBatchDeleteResponse();
+    }
 
     /*
     导师修改培养计划
