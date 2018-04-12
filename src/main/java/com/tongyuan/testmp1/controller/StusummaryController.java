@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.tongyuan.testmp1.entity.Stuinfo;
 import com.tongyuan.testmp1.entity.Stusummary;
+import com.tongyuan.testmp1.helper.Token;
 import com.tongyuan.testmp1.service.StusummaryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -27,7 +28,7 @@ public class StusummaryController extends BaseController{
     @GetMapping("/select")
     @ResponseBody
     public JSONObject selectByStudent(HttpServletRequest request,@RequestParam("month") Integer month){
-        Stuinfo stuinfo = (Stuinfo)request.getSession().getAttribute("user");
+        Token stuinfo = (Token)request.getSession().getAttribute("user");
         List<Stusummary> stusummaryList = stusummaryService.selectList(
                 new EntityWrapper<Stusummary>().eq("month",month).eq("stuid",stuinfo.getId()));
         if(stusummaryList.isEmpty()){
@@ -59,7 +60,7 @@ public class StusummaryController extends BaseController{
     @PostMapping("/add")
     @ResponseBody
     public JSONObject add(HttpServletRequest request,Stusummary stusummary){
-        Stuinfo stuinfo = (Stuinfo)request.getSession().getAttribute("user");
+        Token stuinfo = (Token)request.getSession().getAttribute("user");
         stusummary.setStuid(stuinfo.getId());
         stusummaryService.insert(stusummary);
         return setInsertResponse();

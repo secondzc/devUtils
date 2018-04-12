@@ -7,6 +7,7 @@ import com.tongyuan.testmp1.dao.StuplanMapper;
 import com.tongyuan.testmp1.entity.Plandetail;
 import com.tongyuan.testmp1.entity.Stuinfo;
 import com.tongyuan.testmp1.entity.Stuplan;
+import com.tongyuan.testmp1.helper.Token;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,7 +35,7 @@ public class PlanController extends BaseController{
     @GetMapping("/selectByStu")
     @ResponseBody
     public JSONObject selectByStu(HttpServletRequest request,Integer month){
-        Stuinfo stuinfo = (Stuinfo)request.getSession().getAttribute("user");
+        Token stuinfo = (Token)request.getSession().getAttribute("user");
         List<Stuplan> stuplanList = stuplanMapper.selectList(new EntityWrapper<Stuplan>().
                 eq("stuid",stuinfo.getId()).eq("month",month));
         if(stuplanList.isEmpty()){
@@ -49,7 +50,7 @@ public class PlanController extends BaseController{
     @GetMapping("/selectDetailByStu")
     @ResponseBody
     public JSONObject selectDetailByStu(HttpServletRequest request,Integer month){
-        Stuinfo stuinfo = (Stuinfo)request.getSession().getAttribute("user");
+        Token stuinfo = (Token)request.getSession().getAttribute("user");
         List<Plandetail> plandetailList = plandetailMapper.selectList(
                 new EntityWrapper<Plandetail>().eq("stuid",stuinfo.getId()).eq("month",month));
         return setQueryResponse(plandetailList);

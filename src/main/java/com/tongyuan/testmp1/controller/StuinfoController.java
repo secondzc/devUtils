@@ -5,6 +5,7 @@ import com.tongyuan.testmp1.entity.Hr;
 import com.tongyuan.testmp1.entity.Stuinfo;
 import com.tongyuan.testmp1.entity.Teacher;
 import com.tongyuan.testmp1.helper.PageDataResult;
+import com.tongyuan.testmp1.helper.Token;
 import com.tongyuan.testmp1.service.StuinfoService;
 import com.tongyuan.testmp1.service.ViewService;
 import com.tongyuan.testmp1.viewModel.StuTeacherView;
@@ -42,7 +43,7 @@ public class StuinfoController extends BaseController{
     @GetMapping("/select")
     @ResponseBody
     public JSONObject select(HttpServletRequest request){
-        Stuinfo stuinfo = (Stuinfo)request.getSession().getAttribute("user");
+        Token stuinfo = (Token)request.getSession().getAttribute("user");
         return setQueryResponse(stuinfoService.selectById(stuinfo.getId()));
     }
 

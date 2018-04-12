@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.tongyuan.testmp1.dao.StumessageMapper;
 import com.tongyuan.testmp1.entity.Stuinfo;
 import com.tongyuan.testmp1.entity.Stumessage;
+import com.tongyuan.testmp1.helper.Token;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -49,7 +50,7 @@ public class StumessageController extends BaseController{
     @GetMapping("/select")
     @ResponseBody
     public JSONObject select(HttpServletRequest request){
-        Stuinfo stuinfo = (Stuinfo)request.getSession().getAttribute("user");
+        Token stuinfo = (Token)request.getSession().getAttribute("user");
         List<Stumessage> stumessageList = stumessageMapper.selectList(new EntityWrapper<Stumessage>().eq("stuid",stuinfo.getId()));
         if(stumessageList.isEmpty()){
             return setQueryResponse(null);
