@@ -57,15 +57,6 @@ public class HrController extends BaseController{
     }
 
     /*
-    admin删除hr
-     */
-    @PostMapping("/delete")
-    @ResponseBody
-    public JSONObject delete(Hr hr){
-        return setDeleteResponse(hrService.deleteById(hr.getId()));
-    }
-
-    /*
     admin批量删除hr
      */
     @GetMapping("/batchDelete")

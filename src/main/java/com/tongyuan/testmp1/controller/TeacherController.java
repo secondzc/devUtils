@@ -32,14 +32,6 @@ public class TeacherController extends BaseController{
         return setQueryResponse(result);
     }
 
-    /*
-    admin删除导师
-     */
-    @PostMapping("/delete")
-    @ResponseBody
-    public JSONObject deleteByAdmin(Teacher teacher){
-        return setDeleteResponse(teacherService.deleteById(teacher.getId()));
-    }
 
     /*
     admin新增导师

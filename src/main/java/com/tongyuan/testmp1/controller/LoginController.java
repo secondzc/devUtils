@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.tongyuan.testmp1.entity.*;
+import com.tongyuan.testmp1.helper.Token;
 import com.tongyuan.testmp1.service.AdminService;
 import com.tongyuan.testmp1.service.HrService;
 import com.tongyuan.testmp1.service.StuinfoService;
@@ -47,8 +48,9 @@ public class LoginController extends BaseController{
 
         JSONObject jo = new JSONObject();
         List<Stuinfo> stuinfoList = stuinfoService.selectByMap(map);
-        if(stuinfoList.size()>0){
-            request.getSession().setAttribute("user",stuinfoList.get(0));
+        if(!stuinfoList.isEmpty()){
+            Stuinfo info = stuinfoList.get(0);
+            request.getSession().setAttribute("user",new Token(info.getId(),info.getJob_number(),info.getEncrypt_password()));
             request.getSession().setAttribute("type","student");
             jo.put("flag",true);
             jo.put("type","student");
@@ -57,7 +59,7 @@ public class LoginController extends BaseController{
         }
 
         List<Hr> hrList = hrService.selectByMap(map);
-        if(hrList.size()>0){
+        if(!hrList.isEmpty()){
             request.getSession().setAttribute("user",hrList.get(0));
             request.getSession().setAttribute("type","hr");
             jo.put("flag",true);
@@ -67,7 +69,7 @@ public class LoginController extends BaseController{
         }
 
         List<Teacher> teacherList = teacherService.selectByMap(map);
-        if(teacherList.size()>0){
+        if(!teacherList.isEmpty()){
             request.getSession().setAttribute("user",teacherList.get(0));
             request.getSession().setAttribute("type","teacher");
             jo.put("flag",true);
@@ -77,7 +79,7 @@ public class LoginController extends BaseController{
         }
 
         List<Admin> adminList = adminService.selectByMap(map);
-        if(adminList.size()>0){
+        if(!adminList.isEmpty()){
             request.getSession().setAttribute("user",adminList.get(0));
             request.getSession().setAttribute("type","admin");
             jo.put("flag",true);

@@ -28,17 +28,6 @@ public class BaseController {
         return jo;
     }
 
-    protected JSONObject setDeleteResponse(Boolean success){
-        JSONObject jo = new JSONObject();
-        jo.put("code",0);
-        jo.put("count",success?1:0);
-        jo.put("data",null);
-        jo.put("error",0);
-        jo.put("msg","成功删除"+(success?1:0)+"条数据!");
-        jo.put("url","");
-        return jo;
-    }
-
     protected JSONObject setUpdateResponse(){
         JSONObject jo = new JSONObject();
         jo.put("count",0);
