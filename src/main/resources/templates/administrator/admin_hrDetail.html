@@ -14,43 +14,25 @@
         <div class="layui-form">
             <table class="layui-table">
                  <tr>
-                     <td>hr姓名</td>
-                     <td>$!{vo.name}</td>
+                     <td>导师姓名</td>
+                     <td id="hr_name"></td>
                  </tr>
                  <tr>
-                     <td>hr工号</td>
-                     <td>$!{vo.job_number}</td>
+                     <td>导师工号</td>
+                     <td id="hr_job_number"></td>
                  </tr>
                 <tr>
                     <td>所在一级部门</td>
-                    <td>$!{vo.first_dept}</td>
+                    <td id="first_dept"></td>
                 </tr>
                 <tr>
                     <td>所在二级部门</td>
-                    <td>$!{vo.title}</td>
+                    <td id="second_dept"></td>
                 </tr>
 
             </table>
           </div>
         <script src="../../static/layui/layui.js"></script>
-        <script>
-            layui.use(["table","jquery","laypage"],function(){
-                window.jQuery = window.$ = layui.jquery;
-                 <!--var data=location.search,-->
-                <!--i=data.indexOf("=");-->
-                <!--var data=data.substr(i+1);-->
-                <!--alert();-->
-                $('#btnOk', parent.document).click()
-                console.log(data);
-                  //iframe页面关闭自身
-                var index = parent.layer.getFrameIndex(window.name);//先得到当前iframe层的索引
-                $('#close').on('click', function(){
-                    parent.layer.close(index);//执行关闭
-                });
-            });
-
-        </script>
-
     </body>
 </html>
 

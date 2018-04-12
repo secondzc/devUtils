@@ -9,7 +9,6 @@
             body{margin:10px 20px;}
         </style>
     </head>
-
     <body>
         <fieldset class="layui-elem-field layui-field-title mt-15">
             <legend>编辑学生</legend>
@@ -17,22 +16,139 @@
         <div class="layui-row">
             <div class="layui-col-xs12 layui-col-md8">
                 <form class="layui-form" method="post" action="" lay-filter="pageForm">
-                    <input type="hidden" name="id" value="$!{vo.id}" />
-                
                     <div class="layui-form-item">
-                        <label class="layui-form-label">省份名称</label>
+                        <label class="layui-form-label">姓名</label>
                         <div class="layui-input-inline">
-                            <input type="text" name="title" value="$!{vo.title}" maxlength="200" minlength="1" required lay-verify="required|length" placeholder="请输入省份名称" autocomplete="off" class="layui-input" />
+                            <input type="text" name="name" required="required" class="layui-input" id="name"/>
                         </div>
-                        <div class="layui-form-mid layui-word-aux">1-6个英文或汉字</div>
                     </div>
-                     <div class="layui-form-item">
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">工号</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="job_number" required="required" class="layui-input" id="job_number"/>
+                        </div>
+
+                        <label class="layui-form-label">联系方式</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="phone_number" value="111111" lay-verify="required"  class="layui-input" id="phone_number" required="required"/>
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">性别</label>
+                        <div class="layui-input-inline">
+                            <input type="radio" name="sex" value="男" title="男" checked="checked"/>
+                            <input type="radio" name="sex" value="女" title="女" />
+                        </div>
+
+                        <label class="layui-form-label">身份证号</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="id_number" required="required" class="layui-input"/>
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">邮箱地址</label>
+                        <div class="layui-input-inline">
+                            <input type="text" id="email_addr" required="required" class="layui-input" />
+                        </div>
+
+                        <label class="layui-form-label">学历</label>
+                        <div class="layui-input-inline">
+                            <select name="city" lay-verify="required">
+                                <option value="0">博士</option>
+                                <option value="1">硕士</option>
+                                <option value="2">本科</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">毕业院校</label>
+                        <div class="layui-input-inline">
+                            <input type="text" class="layui-input" id="graduate_college"/>
+                        </div>
+
+                        <label class="layui-form-label">专业</label>
+                        <div class="layui-input-inline">
+                            <input type="text" class="layui-input" id="major"/>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">签约岗位</label>
+                        <div class="layui-input-inline">
+                            <input type="text" class="layui-input" id="job"/>
+                        </div>
+
+                        <label class="layui-form-label">签约方向</label>
+                        <div class="layui-input-inline">
+                            <input type="text" class="layui-input" id="job_direction"/>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">工作地</label>
+                        <div class="layui-input-inline">
+                            <input type="text" class="layui-input" id="place"/>
+                        </div>
+
+                        <label class="layui-form-label">入职时间</label>
+                        <div class="layui-input-inline">
+                            <input type="text" class="layui-input" id="hire_time"/>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">所在一级部门</label>
+                        <div class="layui-input-inline">
+                            <input type="text" class="layui-input" id="first_dept"/>
+                        </div>
+
+                        <label class="layui-form-label">所在二级部门</label>
+                        <div class="layui-input-inline">
+                            <input type="text" class="layui-input" id="second_dept"/>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">部门HR姓名</label>
+                        <div class="layui-input-inline">
+                            <input type="text" class="layui-input" id="hr_name"/>
+                        </div>
+
+                        <label class="layui-form-label">部门HR工号</label>
+                        <div class="layui-input-inline">
+                            <input type="text" class="layui-input" id="hr_job_number"/>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">导师姓名</label>
+                        <div class="layui-input-inline">
+                            <input type="text" class="layui-input"  id="teacher_name"/>
+                        </div>
+
+                        <label class="layui-form-label">导师工号</label>
+                        <div class="layui-input-inline">
+                            <input type="text" class="layui-input" id="teacher_job_number"/>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">离职时间</label>
                         <div class="layui-input-block">
-                            <button class="layui-btn" lay-submit="lay-submit" lay-filter="pageForm">立即提交</button>
+                            <input type="text" class="layui-input" id="leave_date"/>
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item  layui-form-text">
+                        <label class="layui-form-label">离职原因</label>
+                        <div class="layui-input-block">
+                            <textarea name="reason" placeholder="请输入内容" class="layui-textarea" style="height:50px;"></textarea>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <div class="layui-input-block">
+                            <button class="layui-btn" lay-submit="lay-submit" lay-filter="pageForm" id="update">立即提交</button>
                             <button type="reset" class="layui-btn layui-btn-primary">重置</button>
                         </div>
                     </div>
-                   
+
                 </form>
             </div>
         </div>

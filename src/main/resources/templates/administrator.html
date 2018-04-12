@@ -199,23 +199,16 @@ body{
 						,form = layui.form
 						,element = layui.element
 						,upload = layui.upload;
-					//方法级渲染   hr列表
+
+
+//方法级渲染hr列表
 					table.render({
 							elem : '#hrTable',
 							url : '/hr/select', //数据接口
-							cols : [ [ {
-								checkbox : true,
-								fixed : true
-							}, {
-								field : 'name',
-								width : 100,
-								title : 'hr姓名'
-							},  {
-								field : 'job_number',
-								width : 200,
-								title : 'hr工号',
-								
-							},
+							cols : [ [
+							{checkbox : true,fixed : true},
+							{field : 'name',width : 100,title : 'hr姓名'},
+							{field : 'job_number',width : 200,title : 'hr工号',},
 							{field : 'first_dept',title : '所在一级部门',width : 200,sort : true,},
 							{field : 'second_dept',title : '所在二级部门',width : 200,ort : true,},
 							{fixed : 'right',minWidth : 200,align : 'center',toolbar : '#optsbar'}
@@ -261,7 +254,7 @@ body{
 									dataType : 'JSON',
 									success : function(data) {
 										layer.msg(data.msg);
-										layui.index.render();
+										table.reload('hrTable', {url: '/hr/select'});
 									},
 									error : function(e) {
 										layer.msg("服务器繁忙！操作失败，清重试！")
@@ -274,7 +267,7 @@ body{
 						table.on('tool(hrTable)', function(obj) { //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
 							var data = obj.data //获得当前行数据
 							,layEvent = obj.event; //获得 lay-event 对应的值
-							console.log(data);
+							console.log(data.name);
 							//查看详情
 							if (layEvent === 'detail') {
 								layer.open({
@@ -282,22 +275,28 @@ body{
 									area : [ '700px', '450px' ],
 									fixed : false, //不固定
 									maxmin : true,
-									where:data,
-									content : '../templates/administrator/admin_hrDetail.html'
+									content : '../templates/administrator/admin_hrDetail.html',
+									success:function(layero,index){
+										var body=layer.getChildFrame('body',index);//获取iframe页的DOM
+										body.find('#hr_name').text(data.name);
+										body.find('#hr_job_number').text(data.job_number);
+										body.find('#first_dept').text(data.first_dept);
+										body.find('#second_dept').text(data.second_dept);
+									}
 								});
 							} else if (layEvent === 'del'){
 								//删除
 								layer.confirm('真的删除行么', function(index) {
+									var delid=data.id;
 									// obj.del(); //删除对应行（tr）的DOM结构
 									layer.close(index);
 									$.ajax({
-										url : '',//数据接口
+										url : '/hr/batchDelete?id='+delid,//数据接口
 										type : 'get',
 										dataType : 'JSON',
 										success : function(data) {
 											layer.msg(data.msg);
-											layui.index.render();
-
+											table.reload('hrTable', {url: '/hr/select'});
 										},
 										error : function(e) {
 											layer.msg("服务器繁忙！操作失败，清重试！")
@@ -314,13 +313,15 @@ body{
 									maxmin : true,
 									content : '../templates/administrator/admin_hrEdit.html',
 									end : function() {
-										layui.index.render();
+										table.reload('hrTable', {url: '/hr/select'});
 									}
 								});
 							}
 						});
-	
-					//方法级渲染   导师列表
+
+
+
+//方法级渲染   导师列表
 					table.render({
 							elem : '#teacherTable',
 							url : '/teacher/select', //数据接口
@@ -340,14 +341,12 @@ body{
 								field : 'first_dept',
 								title : '所在一级部门',
 								width : 200,
-								sort : true,
 							
 							}, 
 							{
 								field : 'second_dept',
 								title : '所在二级部门',
 								width : 200,
-								sort : true,
 							
 							},
 							{
@@ -392,12 +391,12 @@ body{
 							} else {
 								//向服务端发送删除指令
 								$.ajax({
-									url : 'url?id='+ id  ,//接口
+									url : '/teacher/batchDelete?id='+ id  ,//接口
 									type : 'get',
 									dataType : 'JSON',
 									success : function(data) {
 										layer.msg(data.msg);
-										layui.index.render();
+										table.reload('teacherTable', {url: '/teacher/select'});
 									},
 									error : function(e) {
 										layer.msg("服务器繁忙！操作失败，清重试！")
@@ -417,20 +416,28 @@ body{
 									area : [ '700px', '450px' ],
 									fixed : false, //不固定
 									maxmin : true,
-									content : '../templates/administrator/admin_hrDetail.html'
+									content : '../templates/administrator/admin_teacherDetail.html',
+									success:function(layero,index){
+										var body=layer.getChildFrame('body',index);//获取iframe页的DOM
+										body.find('#teacher_name').text(data.name);
+										body.find('#teacher_job_number').text(data.job_number);
+										body.find('#first_dept').text(data.first_dept);
+										body.find('#second_dept').text(data.second_dept);
+									}
 								});
 							} else if (layEvent === 'del') {
 								//删除
 								layer.confirm('真的删除行么', function(index) {
+									var delid=data.id;
 									// obj.del(); //删除对应行（tr）的DOM结构
 									layer.close(index);
 									$.ajax({
-										url : '',//数据接口
+										url :  '/teacher/batchDelete?id='+ delid  ,//接口
 										type : 'get',
 										dataType : 'JSON',
 										success : function(data) {
 											layer.msg(data.msg);
-											layui.index.render();
+											table.reload('teacherTable', {url: '/teacher/select'});
 
 										},
 										error : function(e) {
@@ -446,21 +453,24 @@ body{
 									area : [ '700px', '450px' ],
 									fixed : false, //不固定
 									maxmin : true,
-									content : '../templates/administrator/admin_hrEdit.html',
+									content : '../templates/administrator/admin_teacherEdit.html',
 									end : function() {
-										layui.index.render();
+										table.reload('teacherTable', {url: '/teacher/select'});
 									}
 								});
 							}
 						});
 
-						//方法级渲染   学生列表
+
+
+
+//方法级渲染   学生列表
 						table.render({
 							elem : '#studentTable',
 							url : '/stuinfo/selectByAdmin', //数据接口
 							page:true
 							,cols : [ [ 
-								{checkbox : true,fixed : true}, 
+								{checkbox : true,fixed : 'left'},
 								{field : 'name',minWidth : 80,title : '学生姓名'}, 
 								{field : 'job_number',minWidth : 80,title : '学生工号'},
 								{field : 'phone_number',title : '联系方式',width : 100},
@@ -482,17 +492,8 @@ body{
 								{field : 'teacher_job_number',title : '导师工号',width : 100,},
 								{field : 'quit_time',minWidth : 80,title : '离职时间'}, 
 								{field : 'quit_reason',minWidth : 80,title : '离职原因'},      
-								{fixed : 'right',minWidth : 200,align : 'center',toolbar : '#optsbar'} 
+								{width : 200,align : 'center',toolbar : '#optsbar',fixed : 'right'}
 							] ],
-							limits : [ 15, 20, 30, 50, 100, 500 ],
-							limit : 15 //默认采用60
-							,
-							response : {
-								statusName : 'error',
-								statusCode : 0,
-								msgName : 'message',
-								countName : 'count'
-							}
 						});
 						//实习生新增
 						$('#addStudent').on('click', function() {
@@ -519,12 +520,12 @@ body{
 							} else {
 								//向服务端发送删除指令
 								$.ajax({
-									url : 'url?id='+ id  ,//接口
+									url : '/stuinfo/batchDelete?id='+ id  ,//接口
 									type : 'get',
 									dataType : 'JSON',
 									success : function(data) {
 										layer.msg(data.msg);
-										layui.index.render();
+										table.reload('studentTable', {url: '/stuinfo/selectByAdmin'});
 									},
 									error : function(e) {
 										layer.msg("服务器繁忙！操作失败，清重试！")
@@ -550,21 +551,44 @@ body{
 									area : [ '700px', '450px' ],
 									fixed : false, //不固定
 									maxmin : true,
-									content : '../templates/administrator/admin_studentDetail.html'
+									content : '../templates/administrator/admin_studentDetail.html',
+									success:function(layero,index){
+										var body=layer.getChildFrame('body',index);//获取iframe页的DOM
+										body.find('#name').text(data.name);
+										body.find('#job_number').text(data.job_number);
+										body.find('#phone_number').text(data.phone_number);
+										body.find('#sex').text(data.sex);
+										body.find('#id_number').text(data.id_number);
+										body.find('#email_addr').text(data.email_addr);
+										body.find('#education').text(data.education);
+										body.find('#graduate_college').text(data.graduate_college);
+										body.find('#major').text(data.major);
+										body.find('#job').text(data.job);
+										body.find('#job_direction').text(data.job_direction);
+										body.find('#place').text(data.place);
+										body.find('#hire_time').text(data.hire_time);
+										body.find('#first_dept').text(data.first_dept);
+										body.find('#second_dept').text(data.second_dept);
+										body.find('#hr_name').text(data.hr_name);
+										body.find('#hr_job_number').text(data.hr_job_number);
+										body.find('#teacher_name').text(data.teacher_name);
+										body.find('#teacher_job_number').text(data.teacher_job_number);
+										body.find('#quit_time').text(data.quit_time);
+										body.find('#quit_reason').text(data.quit_reason);
+									}
 								});
 							} else if (layEvent === 'del') {
 								//删除
 								layer.confirm('真的删除行么', function(index) {
-									// obj.del(); //删除对应行（tr）的DOM结构
+									var delid=data.id;
 									layer.close(index);
 									$.ajax({
-										url : '',//数据接口
+										url :'/stuinfo/batchDelete?id='+ delid  ,//接口
 										type : 'get',
 										dataType : 'JSON',
 										success : function(data) {
 											layer.msg(data.msg);
-											layui.index.render();
-
+											table.reload('studentTable', {url: '/stuinfo/selectByAdmin'});
 										},
 										error : function(e) {
 											layer.msg("服务器繁忙！操作失败，清重试！")
@@ -581,7 +605,7 @@ body{
 									maxmin : true,
 									content : '../templates/administrator/admin_studentEdit.html',
 									end : function() {
-										layui.index.render();
+										table.reload('studentTable', {url: '/stuinfo/selectByAdmin'});
 									}
 								});
 							}
