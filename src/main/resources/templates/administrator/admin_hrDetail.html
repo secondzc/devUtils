@@ -14,31 +14,41 @@
         <div class="layui-form">
             <table class="layui-table">
                  <tr>
-                     <td>省份编号</td>
-                     <td>$!{vo.id}</td>
+                     <td>hr姓名</td>
+                     <td>$!{vo.name}</td>
                  </tr>
                  <tr>
-                     <td>省份名称</td>
-                     <td>$!{vo.title}</td>
+                     <td>hr工号</td>
+                     <td>$!{vo.job_number}</td>
                  </tr>
-                  <tr>
-                     <td>状态</td>
-                     <td>
-                         #if( $vo.status == 1 )
-                             启用
-                         #else 
-                             禁用
-                         #end
-                     </td>
-                 </tr>
+                <tr>
+                    <td>所在一级部门</td>
+                    <td>$!{vo.first_dept}</td>
+                </tr>
+                <tr>
+                    <td>所在二级部门</td>
+                    <td>$!{vo.title}</td>
+                </tr>
+
             </table>
           </div>
         <script src="../../static/layui/layui.js"></script>
         <script>
-            var index = parent.layer.getFrameIndex(window.name);
-            $('#close').on('click', function(){
-                parent.layer.close(index);
+            layui.use(["table","jquery","laypage"],function(){
+                window.jQuery = window.$ = layui.jquery;
+                 <!--var data=location.search,-->
+                <!--i=data.indexOf("=");-->
+                <!--var data=data.substr(i+1);-->
+                <!--alert();-->
+                $('#btnOk', parent.document).click()
+                console.log(data);
+                  //iframe页面关闭自身
+                var index = parent.layer.getFrameIndex(window.name);//先得到当前iframe层的索引
+                $('#close').on('click', function(){
+                    parent.layer.close(index);//执行关闭
+                });
             });
+
         </script>
 
     </body>
