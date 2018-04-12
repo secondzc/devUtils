@@ -62,4 +62,17 @@ public class TeacherController extends BaseController{
         teacherService.updateById(teacher);
         return setUpdateResponse();
     }
+
+    /*
+    admin批量删除导师
+     */
+    @GetMapping("/batchDelete")
+    @ResponseBody
+    public JSONObject batchDelete(String id){
+        String[] ids = id.split(",");
+        for(String one:ids){
+            teacherService.deleteById(Integer.valueOf(one));
+        }
+        return setBatchDeleteResponse();
+    }
 }

@@ -64,4 +64,17 @@ public class HrController extends BaseController{
     public JSONObject delete(Hr hr){
         return setDeleteResponse(hrService.deleteById(hr.getId()));
     }
+
+    /*
+    admin批量删除hr
+     */
+    @GetMapping("/batchDelete")
+    @ResponseBody
+    public JSONObject batchDelete(String id){
+        String[] ids = id.split(",");
+        for(String one:ids){
+            hrService.deleteById(Integer.valueOf(one));
+        }
+        return setBatchDeleteResponse();
+    }
 }

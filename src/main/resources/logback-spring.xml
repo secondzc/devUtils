@@ -16,7 +16,7 @@
     <appender name="file" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <file>${log.path}</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>logback.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <fileNamePattern>/Users/zhangcy/Documents/test/log/logback.%d{yyyy-MM-dd}.log</fileNamePattern>
             <!--只保留最近30天的日志-->
             <maxHistory>30</maxHistory>
             <!--若达到这个大小，则删除之前的日志-->
@@ -26,6 +26,7 @@
             <pattern>%d{HH:mm:ss.SSS} %contextName [%thread] %-5level %logger{36} - %msg%n</pattern>
         </encoder>
     </appender>
+
 
     <!--部署的时候这里改成error-->
     <root level="info">
