@@ -12,42 +12,39 @@
 
 <body>
 <fieldset class="layui-elem-field layui-field-title mt-15">
-    <legend>编辑hr</legend>
+    <legend>编辑teacher</legend>
 </fieldset>
 <div class="layui-row">
     <div class="layui-col-xs12 layui-col-md8">
         <form class="layui-form" method="post" action="" lay-filter="pageForm">
-            <input type="hidden" name="id" value="$!{vo.id}" />
-
             <div class="layui-form-item">
-                <label class="layui-form-label">hr姓名</label>
+                <label class="layui-form-label">导师姓名</label>
                 <div class="layui-input-inline">
-                    <input type="text" name="title" value="$!{vo.title}" maxlength="200" minlength="1" required lay-verify="required|length" placeholder="请输入省份名称" autocomplete="off" class="layui-input" />
+                    <input type="text" name="name" maxlength="200" minlength="1" required lay-verify="required|length" placeholder="请输入导师姓名" autocomplete="off" class="layui-input" />
                 </div>
-                <div class="layui-form-mid layui-word-aux">1-6个英文或汉字</div>
             </div>
 
             <div class="layui-form-item">
-                <label class="layui-form-label">hr工号</label>
+                <label class="layui-form-label">导师工号</label>
                 <div class="layui-input-inline">
-                    <input type="text" name="title" value="$!{vo.title}" maxlength="200" minlength="1" required lay-verify="required|length" placeholder="请输入省份名称" autocomplete="off" class="layui-input" />
+                    <input type="text" name="job_number"  maxlength="200" minlength="1" required lay-verify="required|length" placeholder="请输入导师工号" autocomplete="off" class="layui-input" />
                 </div>
-                <div class="layui-form-mid layui-word-aux">1-6个英文或汉字</div>
+                <div class="layui-form-mid layui-word-aux">不少于6个字符</div>
             </div>
 
             <div class="layui-form-item">
                 <label class="layui-form-label">所在一级部门</label>
                 <div class="layui-input-inline">
-                    <input type="text" name="" value="$!{vo.title}" maxlength="200" minlength="1" required lay-verify="required|length" placeholder="请输入省份名称" autocomplete="off" class="layui-input" />
+                    <input type="text" name="first_dept" maxlength="200" minlength="1" required lay-verify="required|length" placeholder="所在一级部门" autocomplete="off" class="layui-input" />
                 </div>
-                <div class="layui-form-mid layui-word-aux">1-6个英文或汉字</div>
             </div>
 
-            <div class="layui-form-item">所在二级部门</label>
+            <div class="layui-form-item">
+                <label class="layui-form-label">所在二级部门</label>
                 <div class="layui-input-inline">
-                    <input type="text" name="" value="$!{vo.title}" maxlength="200" minlength="1" required lay-verify="required|length" placeholder="请输入省份名称" autocomplete="off" class="layui-input" />
+                    <input type="text" name="second_dept" maxlength="200" minlength="1" required lay-verify="required|length" placeholder="请输入所在二级部门" autocomplete="off" class="layui-input" />
                 </div>
-                <div class="layui-form-mid layui-word-aux">1-6个英文或汉字</div>
+
             </div>
 
 

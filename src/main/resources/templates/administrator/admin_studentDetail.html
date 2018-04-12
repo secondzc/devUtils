@@ -13,34 +13,30 @@
     <body>
         <div class="layui-form">
             <table class="layui-table">
-                 <tr>
-                     <td>省份编号</td>
-                     <td>$!{vo.id}</td>
-                 </tr>
-                 <tr>
-                     <td>省份名称</td>
-                     <td>$!{vo.title}</td>
-                 </tr>
-                  <tr>
-                     <td>状态</td>
-                     <td>
-                         #if( $vo.status == 1 )
-                             启用
-                         #else 
-                             禁用
-                         #end
-                     </td>
-                 </tr>
+                <tr><td>实习生姓名</td><td id="name"></td></tr>
+                <tr><td>实习生工号</td><td id="job_number"></td></tr>
+                <tr><td>联系方式</td><td id="phone_number"></td></tr>
+                <tr><td>性别</td><td id="sex"></td></tr>
+                <tr><td>身份证号</td><td id="id_number"></td></tr>
+                <tr><td>邮箱地址</td><td id="email_addr"></td></tr>
+                <tr><td>学历</td><td id="education"></td></tr>
+                <tr><td>毕业院校</td><td id="graduate_college"></td></tr>
+                <tr><td>专业</td><td id="major"></td></tr>
+                <tr><td>签约岗位</td><td id="job"></td></tr>
+                <tr><td>岗位方向</td><td id="job_direction"></td></tr>
+                <tr><td>工作地</td><td id="place"></td></tr>
+                <tr><td>入职时间</td><td id="hire_time"></td></tr>
+                <tr><td>所在一级部门</td><td id="first_dept"></td></tr>
+                <tr><td>所在二级部门</td><td id="second_dept"></td></tr>
+                <tr><td>部门HR姓名</td><td id="hr_name"></td></tr>
+                <tr><td>部门HR工号</td><td id="hr_job_number"></td></tr>
+                <tr><td>导师姓名</td><td id="teacher_name"></td></tr>
+                <tr><td>导师工号</td><td id="teacher_job_number"></td></tr>
+                <tr><td>离职时间</td><td id="quit_time"></td></tr>
+                <tr><td>离职原因</td><td id="quit_reason"></td></tr>
             </table>
-          </div>
+        </div>
         <script src="../../static/layui/layui.js"></script>
-        <script>
-            var index = parent.layer.getFrameIndex(window.name);
-            $('#close').on('click', function(){
-                parent.layer.close(index);
-            });
-        </script>
-
     </body>
 </html>
 
