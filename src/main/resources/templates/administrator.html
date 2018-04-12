@@ -256,6 +256,7 @@ body{
 								content : '../templates/administrator/admin_addHr.html',
 								end : function() {
 									layui.index.render();
+									table.reload('hrTable');
 								}
 							});
 						});
@@ -377,32 +378,32 @@ body{
 						table.render({
 							elem : '#studentTable',
 							url : '/stuinfo/selectByAdmin', //数据接口
-							where:{}
-							,cols : [ [ {
-								checkbox : true,
-								fixed : true
-							}, {
-								field : 'name',
-								minWidth : 80,
-								title : '学生姓名'
-							},  {
-								field : 'job_number',
-								minWidth : 80,
-								title : '学生工号',
-								
-							}, {
-								field : 'phone_number',
-								title : '联系方式',
-								width : 100,
-								sort : true,
-							
-							}, {
-								fixed : 'right',
-								minWidth : 200,
-								align : 'center',
-								toolbar : '#optsbar'
-							} ] ],
-							page : true,
+							page:true
+							,cols : [ [ 
+								{checkbox : true,fixed : true}, 
+								{field : 'name',minWidth : 80,title : '学生姓名'}, 
+								{field : 'job_number',minWidth : 80,title : '学生工号'},
+								{field : 'phone_number',title : '联系方式',width : 100},
+								{field : 'sex',minWidth : 80,title : '性别'}, 
+								{field : 'id_number',minWidth : 80,title : '身份证号'},
+								{field : 'email_addr',title : '邮箱地址',width : 100,},
+								{field : 'education',minWidth : 80,title : '学历'}, 
+								{field : 'graduate_college',minWidth : 80,title : '毕业院校'},
+								{field : 'major',title : '专业',width : 100,}, 
+								{field : 'job',minWidth : 80,title : '签约岗位'},
+								{field : 'job_direction',minWidth : 80,title : '岗位方向'}, 
+								{field : 'place',minWidth : 80,title : '工作地'},
+								{field : 'hire_time',title : '入职时间',width : 100,},
+								{field : 'first_dept',minWidth : 80,title : '所在一级部门'}, 
+								{field : 'second_dept',minWidth : 80,title : '所在二级部门'},
+								{field : 'hr_name',title : '部门HR姓名',width : 100,},
+								{field : 'hr_job_number',minWidth : 80,title : '部门HR工号'}, 
+								{field : 'teacher_name',minWidth : 80,title : '导师姓名'},
+								{field : 'teacher_job_number',title : '导师工号',width : 100,},
+								{field : 'quit_time',minWidth : 80,title : '离职时间'}, 
+								{field : 'quit_reason',minWidth : 80,title : '离职原因'},      
+								{fixed : 'right',minWidth : 200,align : 'center',toolbar : '#optsbar'} 
+							] ],
 							limits : [ 15, 20, 30, 50, 100, 500 ],
 							limit : 15 //默认采用60
 							,
@@ -458,24 +459,26 @@ body{
 							table.reload('studentTable', {where :{key:key},page:{curr:1}});
 							return false;
 						});
-
+						//studentTable工具条
 						table.on('tool(studentTable)', function(obj) { //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
 							var data = obj.data //获得当前行数据
 							, layEvent = obj.event; //获得 lay-event 对应的值
+							//查看详情
 							if (layEvent === 'detail') {
 								layer.open({
 									type : 2,
 									area : [ '700px', '450px' ],
 									fixed : false, //不固定
 									maxmin : true,
-									content : ''
+									content : '../templates/administrator/admin_studentDetail.html'
 								});
 							} else if (layEvent === 'del') {
+								//删除
 								layer.confirm('真的删除行么', function(index) {
 									// obj.del(); //删除对应行（tr）的DOM结构
 									layer.close(index);
 									$.ajax({
-										url : '',
+										url : '',//数据接口
 										type : 'get',
 										dataType : 'JSON',
 										success : function(data) {
@@ -490,12 +493,13 @@ body{
 									});
 								});
 							} else if (layEvent === 'edit') {
+								//编辑
 								layer.open({
 									type : 2,
 									area : [ '700px', '450px' ],
 									fixed : false, //不固定
 									maxmin : true,
-									content : '',
+									content : '../templates/administrator/admin_studentEdit.html',
 									end : function() {
 										layui.index.render();
 									}
@@ -503,41 +507,7 @@ body{
 							}
 						});
 
-						$('delete').on('click',function() {
-								var checkStatus = table.checkStatus('listTable'), data = checkStatus.data;
-								var id = "";
-								for ( var d in data) {
-								     id = id + data[d].id + ",";
-								}
-								if (id == "") {
-								   layer.msg("最少选择一个进行删除！");
-								} else {
-									     $.ajax({url : '',
-												dataType : 'JSON',
-												success : function(data) {
-													layer.msg(data.msg);
-													layui.index.render();
-													},
-													error : function(e) {
-														layer.msg("服务器繁忙！操作失败，清重试！")
-													}
-								//向服务端发送删除指令
-										});
-								}
-						});
-						$('#add').on('click', function() {
-							layer.open({
-								type : 2,
-								area : [ '700px', '450px' ],
-								fixed : false, //不固定
-								maxmin : true,
-								content : '',
-								end : function() {
-									layui.index.render();
-								}
-							});
-						});
-
+						
 						//导入
 						upload.render({
 							elem : '#input',//绑定元素
