@@ -10,6 +10,7 @@ import com.tongyuan.testmp1.entity.Stuplan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -33,11 +34,14 @@ public class PlanController extends BaseController{
     @GetMapping("/selectByStu")
     @ResponseBody
     public JSONObject selectByStu(HttpServletRequest request,Integer month){
-        //return setQueryResponse("this is target"+month);
         Stuinfo stuinfo = (Stuinfo)request.getSession().getAttribute("user");
         List<Stuplan> stuplanList = stuplanMapper.selectList(new EntityWrapper<Stuplan>().
                 eq("stuid",stuinfo.getId()).eq("month",month));
-        return setQueryResponse(stuinfo);
+        if(stuplanList.isEmpty()){
+            return setQueryResponse(null);
+        }else{
+            return setQueryResponse(stuplanList.get(0));
+        }
     }
     /*
     学生查看培养计划详情
@@ -45,21 +49,86 @@ public class PlanController extends BaseController{
     @GetMapping("/selectDetailByStu")
     @ResponseBody
     public JSONObject selectDetailByStu(HttpServletRequest request,Integer month){
-//        Plandetail plandetail = new Plandetail();
-//        plandetail.setPeriod("period"+month);
-//        plandetail.setInspect("inspect");
-//        plandetail.setKnowledge("knowledge");
-//        plandetail.setMaterial("material");
-//        plandetail.setMonth(month);
-//        plandetail.setId(1);
-//        plandetail.setId(1);
-//        List<Plandetail> plandetails = new ArrayList<>();
-//        plandetails.add(plandetail);
-//        return setQueryResponse(plandetails);
         Stuinfo stuinfo = (Stuinfo)request.getSession().getAttribute("user");
         List<Plandetail> plandetailList = plandetailMapper.selectList(
                 new EntityWrapper<Plandetail>().eq("stuid",stuinfo.getId()).eq("month",month));
         return setQueryResponse(plandetailList);
     }
+
+    /*
+    导师新增培养计划
+     */
+    @PostMapping("/addPlan")
+    @ResponseBody
+    public JSONObject addPlan(Stuplan stuplan){
+        stuplanMapper.insert(stuplan);
+        return setInsertResponse();
+    }
+    /*
+    导师新增培养计划详情
+     */
+    @PostMapping("/addDetail")
+    @ResponseBody
+    public JSONObject addDetail(Plandetail plandetail){
+        plandetailMapper.insert(plandetail);
+        return setInsertResponse();
+    }
+
+    /*
+    导师删除培养计划
+     */
+    @GetMapping("/deletePlan")
+    @ResponseBody
+    public JSONObject deletePlan(Integer id){
+        return null;
+        // TODO: 2018/4/12
+    }
+    /*
+    导师删除培养计划详情
+     */
+
+    /*
+    导师修改培养计划
+     */
+    @PostMapping("/updatePlan")
+    @ResponseBody
+    public JSONObject updatePlan(Stuplan stuplan){
+        stuplanMapper.updateById(stuplan);
+        return setUpdateResponse();
+    }
+    /*
+    导师修改培养计划详情
+     */
+    @PostMapping("/updateDetail")
+    @ResponseBody
+    public JSONObject updateDetail(Plandetail plandetail){
+        plandetailMapper.updateById(plandetail);
+        return setUpdateResponse();
+    }
+    /*
+    导师或hr查看培养计划
+     */
+    @GetMapping("/selectPlanByOthers")
+    @ResponseBody
+    public JSONObject selectPlanByOthers(Integer stuid,Integer month){
+        List<Stuplan> stuplanList = stuplanMapper.selectList(new EntityWrapper<Stuplan>().
+                eq("stuid",stuid).eq("month",month));
+        if(stuplanList.isEmpty()){
+            return setQueryResponse(null);
+        }else{
+            return setQueryResponse(stuplanList.get(0));
+        }
+    }
+    /*
+    导师或hr查看培养计划详情
+     */
+    @GetMapping("/selectDetailByOthers")
+    @ResponseBody
+    public JSONObject selectDetailByOthers(Integer stuid,Integer month){
+        List<Plandetail> plandetailList = plandetailMapper.selectList(
+                new EntityWrapper<Plandetail>().eq("stuid",stuid).eq("month",month));
+        return setQueryResponse(plandetailList);
+    }
+
 
 }
