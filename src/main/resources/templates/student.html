@@ -87,7 +87,7 @@
                   <li class="layui-this">个人中心</li>
                   <li>培养计划</li>
                   <li>我的留言</li>
-                  <li>我的总结</li>
+                  <li>月度总结</li>
                   <li>修改登录密码</li>
                 </ul>
                 <div class="layui-tab-content">
@@ -218,7 +218,7 @@
                         <div class="layui-form-item  layui-form-text">
                             <label class="layui-form-label">离职原因</label>
                             <div class="layui-input-block">
-                                <textarea name="reason" placeholder="请输入内容" class="layui-textarea" style="height:200px;"></textarea>
+                                <textarea name="reason" placeholder="请输入内容" class="layui-textarea" style="height:100px;"></textarea>
                             </div>
                         </div>
                         <div class="layui-form-item" lay-filter="user_message">
@@ -281,18 +281,26 @@
                             </table>
                             
                   </div>
-                  <!--我的总结-->
+                  <!--月度总结-->
                   <div class="layui-tab-item">
                         <form class="layui-form  layui-form-pane" action="">
-
-                            <div class="layui-form-item  layui-form-text">
+                                <div class="layui-form-item  layui-form-pane">
+                                        <label class="layui-form-label">个人总结</label>
+                                        <div class="layui-input-block">
+                                            <input type="text" name="summary" placeholder="请输入内容" />
+                                        </div>
+                                        <label class="layui-form-label">个人总结</label>
+                                        <div class="layui-input-block">
+                                            <input type="text" name="summary" placeholder="请输入内容" />
+                                        </div>
+                                    </div>
+                            <div class="layui-form-item  layui-form-pane">
                                 <label class="layui-form-label">个人总结</label>
                                 <div class="layui-input-block">
-                                    <textarea name="summary" placeholder="请输入内容" class="layui-textarea" style="height:300px;"></textarea>
+                                    <textarea name="summary" placeholder="请输入内容" class="layui-textarea"></textarea>
                                 </div>
                             </div>
-   
-                            <div class="layui-form-item">
+                               <div class="layui-form-item">
                                 <div class="layui-input-block">
                                 <button class="layui-btn" lay-filter="formDemo" style="float:right;">提交</button>
                                 </div>
@@ -349,10 +357,10 @@
                     laydate.render({
                         elem:"#leave_date"//指定日期元素
                     });
-                    //个人中心
+                //个人中心
                     //通过后台取得个人信息  渲染个人中心
                     form.render();
-                    //修改个人信息  提交到后台 并重新渲染页面
+                     //修改个人信息  提交到后台 并重新渲染页面
                     
                     form.on('submit(formDemo)',function(data){
                         $.ajax({
@@ -371,7 +379,7 @@
                         }
                     });
                     })
-                    //培养计划 
+                //培养计划 
                     //分页实例
                     laypage.render({
                         elem: 'plan_page' //分页容器的id
@@ -403,26 +411,41 @@
                                     layer.msg("请求异常，请重试");
                                 }
                             });
-                            // table.render({
-                            //     elem:"#plan"
-                            //     ,page:true
-                            //     ,url:""//数据接口
-                            //     ,where:{month:month}
-                            //     ,cols:  [[ //表头
-                            //         {field: 'month', title: '月份', width: 80, rowspan: 2} //rowspan即纵向跨越的单元格数
-                            //         ,{field: 'target', title: '培养目标', width: 100}
-                            //         //colspan即横跨的单元格数，这种情况下不用设置field和width
-                            //     ], [
-                            //         {field: 'period', title: '时间', width:100}
-                            //         ,{field: 'knowledge', title: '知识点及掌握程度', width: 300}
-                            //         ,{field: 'material', title: '学习材料', width: 300}
-                            //         ,{field: 'inspect', title: '输出及考核方式',width:300}
-                            //     ]]
-                            // });
 
-        }
-       });
-//我的留言
+
+                        }
+                    });
+                //我的留言
+                    //方法渲染，执行一个 table留言 实例
+                    table.render({
+                        elem: '#message_table'
+                        ,url: '' //数据接口
+                        ,page: true //开启分页
+                        ,cols: [[ //表头                   
+                            {field: 'type', title: '留言类型', width:150, align:'center',fixed: 'left'}
+                            ,{fixed: 'message', title:'勇敢星有话说', align:'center',fixed:'right'}
+                        ]]
+                    });
+                    //新增留言
+                    $('#add').on('click', function() {
+                        //layer.msg('Hello World');
+                        layer.open({
+                            type : 2,
+                            area : [ '600px', '400px' ],
+                            title: ['留言', 'font-size:18px;'],
+                            fixed : false, //不固定
+                            maxmin : true,
+                            content : '../templates/student/student_addMessage.html',
+                            end : function() {
+                                layui.index.render();
+                            }
+                        });
+                    });
+
+
+
+
+
                             //方法渲染，执行一个 table 实例
             table.render({
                 elem: '#test'
@@ -445,21 +468,7 @@
             });
 
 
-            //新增留言
-            $('#add').on('click', function() {
-                //layer.msg('Hello World');
-                layer.open({
-                    type : 2,
-                    area : [ '600px', '400px' ],
-                    title: ['留言', 'font-size:18px;'],
-                    fixed : false, //不固定
-                    maxmin : true,
-                    content : 'student/student_add.html',
-                    // end : function() {
-                    //     layui.index.render();
-                    // }
-                });
-            });
+
               //退出按钮功能
               $('#sign_out').click(function(){
                                 window.open('../templates/login.html','_self')

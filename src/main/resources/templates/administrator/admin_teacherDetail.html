@@ -1,0 +1,46 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, userr-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>admin_hrDetail</title>
+    <link rel="stylesheet" href="../../static/layui/css/layui.css">
+    <style>
+            body{margin:10px 20px;}
+        </style>
+</head>
+
+<body>
+<div class="layui-form">
+    <table class="layui-table">
+        <tr>
+            <td>省份编号</td>
+            <td>$!{vo.id}</td>
+        </tr>
+        <tr>
+            <td>省份名称</td>
+            <td>$!{vo.title}</td>
+        </tr>
+        <tr>
+            <td>状态</td>
+            <td>
+                #if( $vo.status == 1 )
+                启用
+                #else
+                禁用
+                #end
+            </td>
+        </tr>
+    </table>
+</div>
+<script src="../../static/layui/layui.js"></script>
+<script>
+            var index = parent.layer.getFrameIndex(window.name);
+            $('#close').on('click', function(){
+                parent.layer.close(index);
+            });
+        </script>
+
+</body>
+</html>

@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, userr-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-        <title>Test</title>
+        <title>admin_addTeacher</title>
         <link rel="stylesheet" href="../../static/layui/css/layui.css">
         <style>
             body{margin:10px 20px;}
@@ -14,7 +14,7 @@
         <fieldset class="layui-elem-field layui-field-title mt-15">
                 <legend>新增导师</legend>
         </fieldset>
-        <form class="layui-form" method="post" action="" lay-filter="pageForm">
+        <form class="layui-form" method="post" action="/teacher/add" lay-filter="pageForm">
 
             <div class="layui-form-item">
                 <label class="layui-form-label">导师姓名</label>
@@ -49,7 +49,7 @@
             </div>
             <div class="layui-form-item">
                 <div class="layui-input-block">
-                    <button class="layui-btn" lay-submit="lay-submit" lay-filter="pageForm">立即提交</button>
+                    <button class="layui-btn" lay-submit="lay-submit" lay-filter="pageForm" id="update">立即提交</button>
                     <button type="reset" class="layui-btn layui-btn-primary">重置</button>
                 </div>
             </div>
@@ -57,36 +57,18 @@
         </form>
         <script src="../../static/layui/layui.js"></script>
         <script>
-            // //Demo
-            // layui.use('form', function(){
-            //     var form = layui.form;
-
-            //     //监听提交
-            //     form.on('submit(formDemo)', function(data){
-            //         layer.msg(JSON.stringify(data.field));
-            //         return false;
-            //     });
-            // });
-            layui.use(['form', 'layer', 'element'], function () {
+                      layui.use(['form', 'layer', 'element','jquery'], function () {
+                    window.jQuery = window.$ = layui.jquery;
                     var form = layui.form
                     , layer = layui.layer
                     ,element = layui.element;
-                    form.on('submit(pageForm)', function (data) {
-                    app.post($(data.form).attr('action'), data.field,
-                        function (res) {
-                            if (res.error != '0') {
-                                var index = parent.layer.getFrameIndex(window.name); 
-                                parent.layer.close(index);
-                                
-                            } else {
-                                layer.msg(res.message);
-                                var index = parent.layer.getFrameIndex(window.name); 
-                                parent.layer.close(index);
-                            }
-                        });
-                    return false;
-    });
- });
+                    $('#update').click(function(){
+                        //iframe页面关闭自身
+                        var index = parent.layer.getFrameIndex(window.name);//先得到当前iframe层的索引
+                         parent.layer.close(index);//执行关闭
+                    });
+
+            });
         </script>
 
     </body>
