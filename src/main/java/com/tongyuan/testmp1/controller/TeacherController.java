@@ -67,4 +67,14 @@ public class TeacherController extends BaseController{
         }
         return setBatchDeleteResponse();
     }
+
+    /*
+    admin获取导师信息
+     */
+    @GetMapping("/selectById")
+    @ResponseBody
+    public JSONObject selectById(Integer id){
+        return setQueryResponse(teacherService.selectById(id));
+    }
+
 }
