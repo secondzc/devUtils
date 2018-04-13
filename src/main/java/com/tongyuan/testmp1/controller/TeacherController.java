@@ -69,7 +69,7 @@ public class TeacherController extends BaseController{
     }
 
     /*
-    admin获取导师信息
+    修改之前：admin获取导师信息
      */
     @GetMapping("/selectById")
     @ResponseBody
