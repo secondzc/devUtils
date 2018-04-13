@@ -32,7 +32,8 @@
 
                         <label class="layui-form-label">联系方式</label>
                         <div class="layui-input-inline">
-                            <input type="text" name="phone_number" value="111111" lay-verify="required"  class="layui-input" id="phone_number" required="required"/>
+                            <input type="text" name="phone_number" value="111111" lay-verify="required"  class="layui-input"
+                                   id="phone_number" required="required"/>
                         </div>
                     </div>
 
@@ -45,7 +46,7 @@
 
                         <label class="layui-form-label">身份证号</label>
                         <div class="layui-input-inline">
-                            <input type="text" name="id_number" required="required" class="layui-input"/>
+                            <input type="text" name="id_number" required="required" class="layui-input" id="id_number"/>
                         </div>
                     </div>
 
@@ -57,7 +58,7 @@
 
                         <label class="layui-form-label">学历</label>
                         <div class="layui-input-inline">
-                            <select name="city" lay-verify="required">
+                            <select name="education" lay-verify="required" id="education">
                                 <option value="0">博士</option>
                                 <option value="1">硕士</option>
                                 <option value="2">本科</option>
@@ -67,80 +68,81 @@
                     <div class="layui-form-item">
                         <label class="layui-form-label">毕业院校</label>
                         <div class="layui-input-inline">
-                            <input type="text" class="layui-input" id="graduate_college"/>
+                            <input type="text" name="graduate_college" class="layui-input" id="graduate_college"/>
                         </div>
 
                         <label class="layui-form-label">专业</label>
                         <div class="layui-input-inline">
-                            <input type="text" class="layui-input" id="major"/>
+                            <input type="text" name="major" class="layui-input" id="major"/>
                         </div>
                     </div>
                     <div class="layui-form-item">
                         <label class="layui-form-label">签约岗位</label>
                         <div class="layui-input-inline">
-                            <input type="text" class="layui-input" id="job"/>
+                            <input type="text" name="job" class="layui-input" id="job"/>
                         </div>
 
                         <label class="layui-form-label">签约方向</label>
                         <div class="layui-input-inline">
-                            <input type="text" class="layui-input" id="job_direction"/>
+                            <input type="text" name="job_direction" class="layui-input" id="job_direction"/>
                         </div>
                     </div>
                     <div class="layui-form-item">
                         <label class="layui-form-label">工作地</label>
                         <div class="layui-input-inline">
-                            <input type="text" class="layui-input" id="place"/>
+                            <input type="text" name="place" class="layui-input" id="place"/>
                         </div>
 
                         <label class="layui-form-label">入职时间</label>
                         <div class="layui-input-inline">
-                            <input type="text" class="layui-input" id="hire_time"/>
+                            <input type="text" name="hire_time" class="layui-input" id="hire_time"/>
                         </div>
                     </div>
                     <div class="layui-form-item">
                         <label class="layui-form-label">所在一级部门</label>
                         <div class="layui-input-inline">
-                            <input type="text" class="layui-input" id="first_dept"/>
+                            <input type="text" name="first_dept" class="layui-input" id="first_dept"/>
                         </div>
 
                         <label class="layui-form-label">所在二级部门</label>
                         <div class="layui-input-inline">
-                            <input type="text" class="layui-input" id="second_dept"/>
+                            <input type="text" name="second_dept" class="layui-input" id="second_dept"/>
                         </div>
                     </div>
                     <div class="layui-form-item">
                         <label class="layui-form-label">部门HR姓名</label>
                         <div class="layui-input-inline">
-                            <input type="text" class="layui-input" id="hr_name"/>
+                            <input type="text" name="hr_name" class="layui-input" id="hr_name"/>
                         </div>
 
                         <label class="layui-form-label">部门HR工号</label>
                         <div class="layui-input-inline">
-                            <input type="text" class="layui-input" id="hr_job_number"/>
+                            <input type="text" name="hr_job_number" class="layui-input" id="hr_job_number"/>
                         </div>
                     </div>
                     <div class="layui-form-item">
                         <label class="layui-form-label">导师姓名</label>
                         <div class="layui-input-inline">
-                            <input type="text" class="layui-input"  id="teacher_name"/>
+                            <input type="text" class="layui-input" name="teacher_name" id="teacher_name"/>
                         </div>
 
                         <label class="layui-form-label">导师工号</label>
                         <div class="layui-input-inline">
-                            <input type="text" class="layui-input" id="teacher_job_number"/>
+                            <input type="text" class="layui-input" name="teacher_job_number" id="teacher_job_number"/>
                         </div>
                     </div>
                     <div class="layui-form-item">
                         <label class="layui-form-label">离职时间</label>
                         <div class="layui-input-block">
-                            <input type="text" class="layui-input" id="leave_date"/>
+                            <input type="text" class="layui-input" name="quit_time" id="quit_time"/>
                         </div>
                     </div>
 
                     <div class="layui-form-item  layui-form-text">
                         <label class="layui-form-label">离职原因</label>
                         <div class="layui-input-block">
-                            <textarea name="reason" placeholder="请输入内容" class="layui-textarea" style="height:50px;"></textarea>
+                            <textarea name="quit_reason" id="quit_reason" placeholder="请输入内容" class="layui-textarea" style="height:50px;">
+                            </textarea>
                         </div>
                     </div>
                     <div class="layui-form-item">
@@ -156,22 +158,24 @@
         
         <script src="../../static/layui/layui.js"></script>
         <script>
-            layui.use(['form', 'layer', 'element','jquery'], function () {
+            layui.use(['form', 'layer', 'element','jquery','laydate'], function () {
                     window.jQuery = window.$ = layui.jquery;
                     var form = layui.form
                     , layer = layui.layer
-                    ,element = layui.element;
+                    ,element = layui.element,
+                     laydate=layui.laydate;//日期操作
+                    laydate.render({
+                        elem:"#hire_time"//指定日期元素
+                    });
+                    laydate.render({
+                        elem:"#quit_time"//指定日期元素
+                    });
 
                     $('#update').click(function(){
-
                         //iframe页面关闭自身
                         var index = parent.layer.getFrameIndex(window.name);//先得到当前iframe层的索引
                          parent.layer.close(index);//执行关闭
                     });
-
-
-
-
             });
         </script>
 

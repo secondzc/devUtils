@@ -212,14 +212,14 @@
                         <div class="layui-form-item">
                             <label class="layui-form-label">离职时间</label>
                             <div class="layui-input-block">
-                                <input type="text" class="layui-input" id="leave_date"/>
+                                <input type="text" class="layui-input" id="quit_time"/>
                             </div>
                         </div>
 
                         <div class="layui-form-item  layui-form-text">
                             <label class="layui-form-label">离职原因</label>
                             <div class="layui-input-block">
-                                <textarea name="reason" placeholder="请输入内容" class="layui-textarea" style="height:100px;"></textarea>
+                                <textarea name="quit_reason" placeholder="请输入内容" class="layui-textarea" style="height:100px;"></textarea>
                             </div>
                         </div>
                         <div class="layui-form-item" lay-filter="user_message">
@@ -356,7 +356,7 @@
                         elem:"#hire_time"//指定日期元素
                     });
                     laydate.render({
-                        elem:"#leave_date"//指定日期元素
+                        elem:"#quit_time"//指定日期元素
                     });
                 //个人中心
                     //通过后台取得个人信息  渲染个人中心

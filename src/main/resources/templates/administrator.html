@@ -43,7 +43,6 @@
             margin-top:-10px;
         }
         section{
-            
             width:100%;
             margin:0 auto;    
             min-height:600px;
@@ -53,7 +52,8 @@
         section div.container{
             background:#fff;
             width:1000px;
-            margin:0 auto
+            margin:0 auto;
+position:relative;
         }
         footer{
             padding-top: 40px;
@@ -83,7 +83,9 @@
 		</div>
 	</header>
 	<section>
+
 	<div class="layui-fluid container" id="LAY-app-message" >
+		<button class="layui-btn layui-btn-normal" id="input" style="position:absolute;right:15px;top:5px;">上传</button>
 			<div class="layui-card" style="padding: 5px;">
 				<!-- 三个选项卡 -->
 				<div class="layui-tab" lay-filter="tab">
@@ -146,7 +148,7 @@
 													</div>
 													<button class="layui-btn" lay-filter="search" lay-submit="lay-submit">
 														<i class="layui-icon">&#xe615;</i>搜索</button>
-													<button type="button" class="layui-btn" id="input">上传</button>
+
 												</div>
 											</div>
 										</fieldset>
@@ -166,9 +168,9 @@
 												</a>
 											</div>
 										</div>
-									<table class="layui-hide" id="studentTable"
-									lay-filter="studentTable"></table>
-							</div>
+										<table class="layui-hide" id="studentTable"
+										lay-filter="studentTable"></table>
+									</div>
 
 						
 						  
@@ -627,10 +629,10 @@
 										body.find('#name').val(data.name);
 										body.find('#job_number').val(data.job_number);
 										body.find('#phone_number').val(data.phone_number);
-										body.find('#sex').val(data.sex);
+										//body.find('#sex').val(data.sex);
 										body.find('#id_number').val(data.id_number);
 										body.find('#email_addr').val(data.email_addr);
-										body.find('#education').val(data.education);
+										//body.find('#education option:selected').val(data.education);
 										body.find('#graduate_college').val(data.graduate_college);
 										body.find('#major').val(data.major);
 										body.find('#job').val(data.job);
@@ -654,7 +656,7 @@
 						});
 
 						
-						//导入
+						//上传
 						upload.render({
 							elem : '#input',//绑定元素
 							url : '/excel/upload',//上传接口
