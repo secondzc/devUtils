@@ -16,7 +16,7 @@
 </fieldset>
 <div class="layui-row">
     <div class="layui-col-xs12 layui-col-md8">
-        <form class="layui-form" method="post" action="" lay-filter="pageForm">
+        <form class="layui-form" method="get" action="/teacher/selectById" lay-filter="pageForm">
             <!--<input type="hidden" name="id" id="teacherId"/>-->
             <div class="layui-form-item">
                 <label class="layui-form-label">导师姓名</label>
@@ -62,6 +62,21 @@
 
 <script src="../../static/layui/layui.js"></script>
 <script>
+layui.use("jquery",function(){
+    window.jQuery = window.$ = layui.jquery;
+    var str=location.search,
+        i=str.indexOf("=");
+    var id=str.substr(i+1)*1;
+    $.ajax(
+        {
+        url:'/teacher/selectById',
+        type:'get',
+        data:{'id':id},
+        }
+    )
+
+});
+
 
 </script>
 

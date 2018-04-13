@@ -83,14 +83,14 @@
     </header>
     <section>
         <div class="content" id="container">
-            <table class="layui-hide" id="test" lay-filter="demo">
+            <table class="layui-hide" id="tea" lay-filter="tea">
             </table>
        </div>
        <script type="text/html" id="barDemo">
-        <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="plan">培养计划</a>
-        <a class="layui-btn layui-btn-xs" lay-event="summary">月度总结</a>
-        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="message">实习留言</a>
-    </script>
+            <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="plan">培养计划</a>
+            <a class="layui-btn layui-btn-xs" lay-event="summary">月度总结</a>
+            <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="message">实习留言</a>
+       </script>
     </section>
     <footer>
         <p>
@@ -108,9 +108,8 @@
 
             //方法渲染，执行一个 table 实例
             table.render({
-                elem: '#test'
-                ,height: 332
-                ,url: '/teacher/students' //数据接口
+                elem: '#tea'
+                ,url: '/stuinfo/selectByTeacher' //数据接口
                 ,page: true //开启分页
                 ,cols: [[ //表头
                      {field: 'name', title: '姓名',align:'center', width:150,fixed: 'left',width:200,}
@@ -123,7 +122,7 @@
 
             //监听工具条
 
-            table.on('tool(demo)', function(obj) { //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
+            table.on('tool(tea)', function(obj) { //注：tool是工具条事件名，tea是table原始容器的属性 lay-filter="对应的值"
                                 var data = obj.data //获得当前行数据
                                 , layEvent = obj.event; //获得 lay-event 对应的值
                                 //console.log(obj);
@@ -141,9 +140,9 @@
                                         area : [ '700px', '450px' ],
                                         fixed : false, //不固定
                                         maxmin : true,
-                                        content : '../templates/teacher/teacher_message.html?'+'job_number='+data.job_number,
+                                        content : '../templates/teacher/teacher_message.html?job_number='+data.job_number,
                                         end : function() {
-                                            layui.index.render();
+                                            //table.reload('tea', {url: '/teacher/students'});
                                         }
                                     });
                                     
@@ -155,7 +154,7 @@
                                         maxmin : true,
                                         content : '../templates/teacher/teacher_summary.html?'+'job_number='+data.job_number,
                                         end : function() {
-                                            layui.index.render();
+                                            //table.reload('tea', {url: '/teacher/students'});
                                         }
                                     });
                                 }
