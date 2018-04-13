@@ -267,7 +267,7 @@
 						table.on('tool(hrTable)', function(obj) { //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
 							var data = obj.data //获得当前行数据
 							,layEvent = obj.event; //获得 lay-event 对应的值
-							console.log(data.name);
+							//console.log(data.name);
 							//查看详情
 							if (layEvent === 'detail') {
 								layer.open({
@@ -312,6 +312,14 @@
 									fixed : false, //不固定
 									maxmin : true,
 									content : '../templates/administrator/admin_hrEdit.html',
+									success:function(layero,index){
+										var body=layer.getChildFrame('body',index);//获取iframe页的DOM
+										body.find('#hrId').val(data.id);
+										body.find('#hr_name').val(data.name);
+										body.find('#hr_job_number').val(data.job_number);
+										body.find('#first_dept').val(data.first_dept);
+										body.find('#second_dept').val(data.second_dept);
+									},
 									end : function() {
 										table.reload('hrTable', {url: '/hr/select'});
 									}
@@ -453,11 +461,16 @@
 									area : [ '700px', '450px' ],
 									fixed : false, //不固定
 									maxmin : true,
-									content : '../templates/administrator/admin_teacherEdit.html?id='+data.id,
-									//success:function(layero,index){
-										//var body=layer.getChildFrame('body',index);//获取iframe页的DOM
-										//body.find('#teacherId').val(data.id);
-									//},
+									content : '../templates/administrator/admin_teacherEdit.html',
+									success:function(layero,index){
+										var body=layer.getChildFrame('body',index);//获取iframe页的DOM
+										//console.log(data);
+										body.find('#teacherId').val(data.id);
+										body.find('#teacher_name').val(data.name);
+										body.find('#teacher_job_number').val(data.job_number);
+										body.find('#first_dept').val(data.first_dept);
+										body.find('#second_dept').val(data.second_dept);
+									},
 									end : function() {
 										table.reload('teacherTable', {url: '/teacher/select'});
 									}
@@ -608,6 +621,31 @@
 									fixed : false, //不固定
 									maxmin : true,
 									content : '../templates/administrator/admin_studentEdit.html',
+									success:function(layero,index){
+										var body=layer.getChildFrame('body',index);//获取iframe页的DOM
+										body.find('#studentId').val(data.id);
+										body.find('#name').val(data.name);
+										body.find('#job_number').val(data.job_number);
+										body.find('#phone_number').val(data.phone_number);
+										body.find('#sex').val(data.sex);
+										body.find('#id_number').val(data.id_number);
+										body.find('#email_addr').val(data.email_addr);
+										body.find('#education').val(data.education);
+										body.find('#graduate_college').val(data.graduate_college);
+										body.find('#major').val(data.major);
+										body.find('#job').val(data.job);
+										body.find('#job_direction').val(data.job_direction);
+										body.find('#place').val(data.place);
+										body.find('#hire_time').val(data.hire_time);
+										body.find('#first_dept').val(data.first_dept);
+										body.find('#second_dept').val(data.second_dept);
+										body.find('#hr_name').val(data.hr_name);
+										body.find('#hr_job_number').val(data.hr_job_number);
+										body.find('#teacher_name').val(data.teacher_name);
+										body.find('#teacher_job_number').val(data.teacher_job_number);
+										body.find('#quit_time').val(data.quit_time);
+										body.find('#quit_reason').val(data.quit_reason);
+									},
 									end : function() {
 										table.reload('studentTable', {url: '/stuinfo/selectByAdmin'});
 									}

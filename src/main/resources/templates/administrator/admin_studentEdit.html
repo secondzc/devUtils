@@ -15,8 +15,8 @@
         </fieldset>
         <div class="layui-row">
             <div class="layui-col-xs12 layui-col-md8">
-                <form class="layui-form" method="post" action="" lay-filter="pageForm">
-                    <input type="hidden" name="id" />
+                <form class="layui-form" method="post" action="/stuinfo/update" lay-filter="pageForm">
+                    <input type="hidden" name="id" id="studentId"/>
                     <div class="layui-form-item">
                         <label class="layui-form-label">姓名</label>
                         <div class="layui-input-inline">
@@ -156,7 +156,23 @@
         
         <script src="../../static/layui/layui.js"></script>
         <script>
+            layui.use(['form', 'layer', 'element','jquery'], function () {
+                    window.jQuery = window.$ = layui.jquery;
+                    var form = layui.form
+                    , layer = layui.layer
+                    ,element = layui.element;
 
+                    $('#update').click(function(){
+
+                        //iframe页面关闭自身
+                        var index = parent.layer.getFrameIndex(window.name);//先得到当前iframe层的索引
+                         parent.layer.close(index);//执行关闭
+                    });
+
+
+
+
+            });
         </script>
 
     </body>

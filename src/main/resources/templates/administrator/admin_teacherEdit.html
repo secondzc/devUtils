@@ -16,19 +16,20 @@
 </fieldset>
 <div class="layui-row">
     <div class="layui-col-xs12 layui-col-md8">
-        <form class="layui-form" method="get" action="/teacher/selectById" lay-filter="pageForm">
-            <!--<input type="hidden" name="id" id="teacherId"/>-->
+        <form class="layui-form" id="myForm" method="post" action="/teacher/update" lay-filter="pageForm">
+            <input type="hidden" name="id" id="teacherId"/>
             <div class="layui-form-item">
                 <label class="layui-form-label">导师姓名</label>
                 <div class="layui-input-inline">
-                    <input type="text" name="name" maxlength="200" minlength="1" required lay-verify="required|length" placeholder="请输入导师姓名" autocomplete="off" class="layui-input" />
+                    <input type="text" name="name" maxlength="200" minlength="1" required="required" id="teacher_name" placeholder="请输入导师姓名" autocomplete="off" class="layui-input" />
                 </div>
             </div>
 
             <div class="layui-form-item">
                 <label class="layui-form-label">导师工号</label>
                 <div class="layui-input-inline">
-                    <input type="text" name="job_number"  maxlength="200" minlength="1" required lay-verify="required|length" placeholder="请输入导师工号" autocomplete="off" class="layui-input" />
+                    <input type="text" name="job_number"  maxlength="200" minlength="1" required="required"
+                           id="teacher_job_number" placeholder="请输入导师工号" autocomplete="off" class="layui-input" />
                 </div>
                 <div class="layui-form-mid layui-word-aux">不少于6个字符</div>
             </div>
@@ -36,14 +37,16 @@
             <div class="layui-form-item">
                 <label class="layui-form-label">所在一级部门</label>
                 <div class="layui-input-inline">
-                    <input type="text" name="first_dept" maxlength="200" minlength="1" required lay-verify="required|length" placeholder="所在一级部门" autocomplete="off" class="layui-input" />
+                    <input type="text" name="first_dept" maxlength="200" minlength="1" required lay-verify="required|length"  id="first_dept"
+                           placeholder="所在一级部门" autocomplete="off" class="layui-input" />
                 </div>
             </div>
 
             <div class="layui-form-item">
                 <label class="layui-form-label">所在二级部门</label>
                 <div class="layui-input-inline">
-                    <input type="text" name="second_dept" maxlength="200" minlength="1" required lay-verify="required|length" placeholder="请输入所在二级部门" autocomplete="off" class="layui-input" />
+                    <input type="text" name="second_dept" maxlength="200" minlength="1" required lay-verify="required|length" id="second_dept"
+                           placeholder="请输入所在二级部门" autocomplete="off" class="layui-input" />
                 </div>
 
             </div>
@@ -51,7 +54,7 @@
 
             <div class="layui-form-item">
                 <div class="layui-input-block">
-                    <button class="layui-btn" lay-submit="lay-submit" lay-filter="pageForm">立即提交</button>
+                    <button class="layui-btn" lay-submit="lay-submit" lay-filter="pageForm" id="update">立即提交</button>
                     <button type="reset" class="layui-btn layui-btn-primary">重置</button>
                 </div>
             </div>
@@ -61,25 +64,20 @@
 </div>
 
 <script src="../../static/layui/layui.js"></script>
-<script>
-layui.use("jquery",function(){
-    window.jQuery = window.$ = layui.jquery;
-    var str=location.search,
-        i=str.indexOf("=");
-    var id=str.substr(i+1)*1;
-    $.ajax(
-        {
-        url:'/teacher/selectById',
-        type:'get',
-        data:{'id':id},
-        }
-    )
+    <script>
+        layui.use(['form', 'layer', 'element','jquery'], function () {
+                window.jQuery = window.$ = layui.jquery;
+                var form = layui.form
+                , layer = layui.layer
+                ,element = layui.element;
+                $('#update').click(function(){
+                    //iframe页面关闭自身
+                    var index = parent.layer.getFrameIndex(window.name);//先得到当前iframe层的索引
+                     parent.layer.close(index);//执行关闭
+                });
 
-});
-
-
-</script>
-
+        });
+        </script>
 </body>
 </html>
 
