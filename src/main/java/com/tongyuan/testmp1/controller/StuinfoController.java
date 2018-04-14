@@ -50,7 +50,7 @@ public class StuinfoController extends BaseController{
     /*
     hr分页查看所有部门所有学生+搜索
      */
-    @PostMapping("/selectByHr")
+    @GetMapping("/selectByHr")
     @ResponseBody
     public JSONObject selectByHr(HttpServletRequest request,
                                       @RequestParam("page")Integer page,

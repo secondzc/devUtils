@@ -53,14 +53,14 @@
                 ,jump: function(obj){
                     var str=location.search,
                         i=str.indexOf("=");
-                    var job_number=str.substr(i+1);
+                    var id=str.substr(i+1)*1;
                     $("#month").html('第'+ obj.curr +'个月');
                     $.ajax({
                         type:"get",//提交类型
-                        url:"/stusummary/select",//请求的地址
+                        url:"/stusummary/selectByOthers",//请求的地址
                         data:{
                             month:obj.curr,//月份
-                            job_number:job_number,//学生工号
+                            id:id,//学生id
                         },//提交的数据
                         dataType:"json",//返回的类型 json
                         success:function(data){

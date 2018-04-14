@@ -14,6 +14,8 @@
         layui.use(['table',"laypage"], function(){
             var table = layui.table,
                 laypage=layui.laypage;//分页
+                //获取id值
+
             //渲染 laypage分页 实例
             laypage.render({
                 elem: 'plan_page' //分页容器的id
@@ -27,8 +29,8 @@
                     table.render({
                         elem:"#teacher_plan"
                         ,page:true
-                        ,url:""//数据接口
-                        ,where:{month:month}
+                        ,url:"/plan/selectPlanByOthers"//数据接口
+                        ,where:{month:month,id:id}
                         ,cols:  [[ //表头
                             {field: 'month', title: '月份', width: 80, rowspan: 2} //rowspan即纵向跨越的单元格数
                             ,{field: 'target', title: '培养目标', width: 100}
