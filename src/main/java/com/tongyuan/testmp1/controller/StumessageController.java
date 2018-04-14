@@ -66,11 +66,7 @@ public class StumessageController extends BaseController{
     @ResponseBody
     public JSONObject selectByOthers(Integer id){
         List<Stumessage> stumessageList = stumessageMapper.selectList(new EntityWrapper<Stumessage>().eq("stuid",id));
-        if(stumessageList.isEmpty()){
-            return setQueryResponse(null);
-        }else{
-            return setQueryResponse(stumessageList.get(0));
-        }
+        return setQueryResponse(stumessageList);
     }
 
     /*
