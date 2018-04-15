@@ -276,7 +276,7 @@
                   </div>
                   <!--月度总结-->
                   <div class="layui-tab-item">
-                        <form class="layui-form layui-form-pane" action="" method="post" id="summaryForm">
+                        <form class="layui-form layui-form-pane" id="summaryForm">
                             <div class="layui-form-item">
                                 <label class="layui-form-label">时间</label>
                                 <div class="layui-input-block">
@@ -304,7 +304,7 @@
                             </div>
                             <div class="layui-form-item" lay-filter="">
                                 <div class="layui-input-block">
-                                    <button class="layui-btn" lay-submit="lay-submit" lay-filter="" style="float:right;">提交</button>
+                                    <button class="layui-btn" lay-submit="lay-submit" lay-filter="summary_update" style="float:right;">提交</button>
                                 </div>
                             </div>
                         </form>
@@ -539,6 +539,22 @@
             });
 
             //月度总结
+            //学生编辑月度总结
+            form.on('submit(summary_update)',function(data){
+                console.log(data.field);//当前容器的全部表单字段
+                $.ajax({
+                   type:'post',
+                   data:data.field,
+                    url:'/stusummary/update',
+                    success:function(data){
+                        layer.msg(data.msg);
+                    },
+                    error : function(e) {
+                        layer.msg("服务器繁忙！操作失败，清重试！")
+                    }
+                });
+                return false;//阻止表单跳转
+            });
               //学生查看自己的月度总结
               laypage.render({
                 elem: 'summary_page' //分页容器的id
@@ -548,7 +564,8 @@
                 ,skin: '#1E9FFF' //自定义选中色值
                 ,jump: function(obj){
                     var month=obj.curr;
-                    $("#summaryMonth").val('第'+ month +'个月');
+                    //$("#summaryMonth").val('第'+ month +'个月');
+                    $("#summaryMonth").val(month);
                         $.ajax({
                             url:"/stusummary/select",
                             type:"get",
