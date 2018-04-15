@@ -93,8 +93,9 @@
                 <div class="layui-tab-content">
                   
                   <div class="layui-tab-item layui-show">
-                    <form class="layui-form" action="">
-                                   <!--个人中心-->
+                    <form class="layui-form" action="/stuinfo/update" method="post" id="myForm">
+                        <!--<input type="hidden" name="id" id="1"/>    &lt;!&ndash;个人中心&ndash;&gt;-->
+
                         <div class="layui-form-item" lay-filter="user_message">
                             <label class="layui-form-label">姓名</label>
                             <div class="layui-input-inline">
@@ -114,16 +115,15 @@
                             </div>
                         </div>
 
-                        <div class="layui-form-item" lay-filter="user_message">
+                        <div class="layui-form-item" lay-filter="">
                             <label class="layui-form-label">性别</label>
                             <div class="layui-input-inline">
-                            <input type="radio" name="sex" value="男" title="男" checked="checked"/>
-                            <input type="radio" name="sex" value="女" title="女" />
+                                <input type="radio" name="sex" value="男" title="男" id="male"/>
+                                <input type="radio" name="sex" value="女" title="女" id="female"/>
                             </div>
-
                             <label class="layui-form-label">身份证号</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="id_number" required="required" class="layui-input"/>
+                                <input type="text" name="id_number" required="required" class="layui-input" id="id_number"/>
                             </div>
                         </div>
 
@@ -135,91 +135,91 @@
 
                             <label class="layui-form-label">学历</label>
                             <div class="layui-input-inline">
-                                <select name="city" lay-verify="required">
-                                    <option value="0">请选择学历</option>
-                                    <option value="1">博士</option>
-                                    <option value="2">硕士</option>
-                                    <option value="3">本科</option>
+                                <select name="education" lay-verify="required" id="education" autocomplete="off">
+                                    <option value="请选择学历">请选择学历</option>
+                                    <option value="博士">博士</option>
+                                    <option value="硕士">硕士</option>
+                                    <option value="本科">本科</option>
                                   </select>
                             </div>
                         </div>
                         <div class="layui-form-item" lay-filter="user_message">
                                 <label class="layui-form-label">毕业院校</label>
                                 <div class="layui-input-inline">
-                                    <input type="text" class="layui-input" id="graduate_college"/>
+                                    <input type="text" class="layui-input" id="graduate_college" name="graduate_college"/>
                                 </div>
     
                                 <label class="layui-form-label">专业</label>
                                 <div class="layui-input-inline">
-                                    <input type="text" class="layui-input" id="major"/>
+                                    <input type="text" name="major" class="layui-input" id="major"/>
                                 </div>
                         </div>
                         <div class="layui-form-item" lay-filter="user_message">
                                 <label class="layui-form-label">签约岗位</label>
                                 <div class="layui-input-inline">
-                                    <input type="text" class="layui-input" id="job"/>
+                                    <input type="text" name="job" class="layui-input" id="job"/>
                                 </div>
     
                                 <label class="layui-form-label">签约方向</label>
                                 <div class="layui-input-inline">
-                                    <input type="text" class="layui-input" id="job_direction"/>
+                                    <input type="text" name="job_direction" class="layui-input" id="job_direction"/>
                                 </div>
                         </div>
                         <div class="layui-form-item" lay-filter="user_message">
                             <label class="layui-form-label">工作地</label>
                             <div class="layui-input-inline">
-                                <input type="text" class="layui-input" id="place"/>
+                                <input type="text" class="layui-input" id="place" name="place"/>
                             </div>
 
                             <label class="layui-form-label">入职时间</label>
                             <div class="layui-input-inline">
-                                <input type="text" class="layui-input" id="hire_time"/>
+                                <input type="text" class="layui-input" id="hire_time" name="hire_time"/>
                             </div>
                         </div>
                         <div class="layui-form-item" lay-filter="user_message">
                                 <label class="layui-form-label">所在一级部门</label>
                                 <div class="layui-input-inline">
-                                    <input type="text" class="layui-input" id="first_dept"/>
+                                    <input type="text" class="layui-input" id="first_dept" name="first_dept"/>
                                 </div>
     
                                 <label class="layui-form-label">所在二级部门</label>
                                 <div class="layui-input-inline">
-                                    <input type="text" class="layui-input" id="second_dept"/>
+                                    <input type="text" class="layui-input" id="second_dept" name="second_dept"/>
                                 </div>
                         </div>
                         <div class="layui-form-item" lay-filter="user_message">
                             <label class="layui-form-label">部门HR姓名</label>
                             <div class="layui-input-inline">
-                                <input type="text" class="layui-input" id="hr_name"/>
+                                <input type="text" class="layui-input" id="hr_name" name="hr_name"/>
                             </div>
 
                             <label class="layui-form-label">部门HR工号</label>
                             <div class="layui-input-inline">
-                                <input type="text" class="layui-input" id="hr_job_number"/>
+                                <input type="text" class="layui-input" id="hr_job_number" name="hr_job_number"/>
                             </div>
                         </div>
                         <div class="layui-form-item" lay-filter="user_message">
                             <label class="layui-form-label">导师姓名</label>
                             <div class="layui-input-inline">
-                                <input type="text" class="layui-input"  id="teacher_name"/>
+                                <input type="text" class="layui-input"  id="teacher_name" name="teacher_name"/>
                             </div>
 
                             <label class="layui-form-label">导师工号</label>
                             <div class="layui-input-inline">
-                                <input type="text" class="layui-input" id="teacher_job_number"/>
+                                <input type="text" class="layui-input" id="teacher_job_number" name="teacher_job_number"/>
                             </div>
                         </div>
                         <div class="layui-form-item">
                             <label class="layui-form-label">离职时间</label>
                             <div class="layui-input-block">
-                                <input type="text" class="layui-input" id="quit_time"/>
+                                <input type="text" class="layui-input" id="quit_time" name="quit_time"/>
                             </div>
                         </div>
 
                         <div class="layui-form-item  layui-form-text">
                             <label class="layui-form-label">离职原因</label>
                             <div class="layui-input-block">
-                                <textarea name="quit_reason" placeholder="请输入内容" class="layui-textarea" style="height:100px;"></textarea>
+                                <textarea name="quit_reason" id="quit_reason" placeholder="请输入内容" class="layui-textarea" style="height:100px;"></textarea>
                             </div>
                         </div>
                         <div class="layui-form-item" lay-filter="user_message">
@@ -235,30 +235,19 @@
 
                   <!--培养计划-->
                   <div class="layui-tab-item">
-                    <!-- <table id="plan" lay-filter="plan"></table>
-                    <div id="plan_page" style="text-align:center"></div> -->
-                    <!-- 测试 -->
-                    <table class="layui-table" lay-data="{id:'student_plan',page:true}">
-                        <thead>
-                                <tr>
-                                    <!-- <th lay-data="{field:'month'}">
-                                            月份
-                                    </th> -->
-                                    <th>培养目标</th>
-                                    <th id="target" colspan="4" style="background:#fff;"></th>
-                                </tr>
-                                <tr>
-                                    <th lay-data="{field:'month'}" rowspan="4" id="month">月份</th>
-                                    <th lay-data="{field:'period'}">时间</th>
-                                    <th lay-data="{field:'knowledge'}">知识点及掌握程度</th>
-                                    <th lay-data="{field:'material'}">学习材料</th>
-                                    <th lay-data="{field:'inspect'}">输出及考核方式</th>
-                                </tr>
-                        </thead>
-                        
-                    </table>
-                    <div id="plan_page" style="text-align:center"></div>
-                    <!--测试-->
+                      <table class="layui-table">
+                          <tr>
+                              <th style="width:70px;">月份</th>
+                              <td id="month"></td>
+                          </tr>
+                          <tr>
+                              <th style="width:70px;">培养目标</th>
+                              <td id="target"></td>
+                          </tr>
+
+                      </table>
+                      <table id="hr_plan" lay-filter="hr_plan"></table>
+                      <div id="plan_page" style="text-align:center"></div>
                   </div>
                   
                   <!--我的留言-->
@@ -270,69 +259,83 @@
                                             <i class="layui-icon">&#xe654;</i>新增
                                     </button>
                         
-                                    <a href="javascript:;" layadmin-event="refresh" title="刷新">
+
                                         <button class="layui-btn" id="refresh">
                                                 <i class="layui-icon">&#x1002;</i>刷新
                                         </button>
-                                    </a>
+
                                 </div>
                         
                             </div>
                             <table class="layui-hide" id="message_table" lay-filter="message_table">
-                            </table>
-                            
+                                </table>
+                              <script type="text/html" id="optsbar">
+                                  <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+                                  <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+                              </script>
                   </div>
                   <!--月度总结-->
                   <div class="layui-tab-item">
-                        <form class="layui-form  layui-form-pane" action="">
-                                <div class="layui-form-item  layui-form-pane">
-                                        <label class="layui-form-label">个人总结</label>
-                                        <div class="layui-input-block">
-                                            <input type="text" name="summary" placeholder="请输入内容" />
-                                        </div>
-                                        <label class="layui-form-label">个人总结</label>
-                                        <div class="layui-input-block">
-                                            <input type="text" name="summary" placeholder="请输入内容" />
-                                        </div>
-                                    </div>
-                            <div class="layui-form-item  layui-form-pane">
-                                <label class="layui-form-label">个人总结</label>
+                        <form class="layui-form layui-form-pane" action="" method="post" id="summaryForm">
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">时间</label>
                                 <div class="layui-input-block">
-                                    <textarea name="summary" placeholder="请输入内容" class="layui-textarea"></textarea>
+                                    <input type="text" name="month" id="summaryMonth" class="layui-input" readonly="true"/>
                                 </div>
-                            </div>
-                               <div class="layui-form-item">
+
+                                <label class="layui-form-label" style="height:100px;border-top:0px;">月度工作<br/>学习总结</label>
                                 <div class="layui-input-block">
-                                <button class="layui-btn" lay-filter="formDemo" style="float:right;">提交</button>
+                                    <textarea name="summary" placeholder="请输入内容" class="layui-textarea"
+                                         id="summary"  style="resize:none;border-top:0px;"></textarea>
+                                </div>
+
+                                <label class="layui-form-label" style="height:100px;border-top:0px;">问题和困难</label>
+                                <div class="layui-input-block">
+                                    <textarea name="question" placeholder="请输入内容" class="layui-textarea" id="question"
+                                              style="resize:none;border-top:0px;"></textarea>
+                                </div>
+
+                                <label class="layui-form-label" style="height:100px;border-top:0px;">下个月计划</label>
+                                <div class="layui-input-block">
+                                    <textarea name="plan" placeholder="请输入内容" class="layui-textarea" id="plan"
+                                              style="resize:none;border-top:0px;"></textarea>
+                                </div>
+
+                            </div>
+                            <div class="layui-form-item" lay-filter="">
+                                <div class="layui-input-block">
+                                    <button class="layui-btn" lay-submit="lay-submit" lay-filter="" style="float:right;">提交</button>
                                 </div>
                             </div>
                         </form>
+                        <div id="summary_page" style="text-align:center"></div>
                   </div>
                     <!--修改登录密码-->
                         <div class="layui-tab-item">
-                                <form>
-                                    <div class="layui-form-item" lay-filter="">
-                                        <label class="layui-form-label">输入密码</label>
-                                        <div class="layui-input-block">
-                                            <input type="password" class="layui-input"  id="psw1"/>
-                                        </div>
+                            <form action="" onsubmit="return check()">
+                                <div class="layui-form-item" >
+                                    <label class="layui-form-label">输入密码</label>
+                                    <div class="layui-input-block">
+                                        <input type="password" class="layui-input" name="password" id="psw1"
+                                               placeholder="由英文或数字组成，且不少于6个字符" required="required"/>
                                     </div>
-                                    <div class="layui-form-item" lay-filter="">
-                                        <label class="layui-form-label">确认密码</label>
-                                        <div class="layui-input-block">
-                                            <input type="text" class="layui-input" id="psw2"/>
-                                        </div>
+
+                                </div>
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label">确认密码</label>
+                                    <div class="layui-input-block">
+                                        <input type="password" class="layui-input" id="psw2" required="required" lay-verify="required"/>
                                     </div>
-                                    <div class="layui-form-item" lay-filter="">
-                                        <div class="layui-input-block">
-                                        <button class="layui-btn" lay-submit="lay-submit" lay-filter="modifypsw">提交修改</button>
+                                    <!--<div class="layui-form-mid layui-word-aux">1-6个英文或汉字</div>-->
+                                </div>
+                                <div class="layui-form-item">
+                                    <div class="layui-input-block">
+                                        <button class="layui-btn" type="submit">提交修改</button>
                                         <button type="reset" class="layui-btn layui-btn-primary">重置</button>
-                                        </div>
                                     </div>
-                                </form>        
-                                    
-                                
-                        </div>
+                                </div>
+                            </form>
+                       </div>
 
                 </div>
               </div>
@@ -347,25 +350,55 @@
               //注意：选项卡 依赖 element 模块，否则无法进行功能性操作
               layui.use(['element', 'form','laydate',"table","jquery","laypage"],function(){
                 window.jQuery = window.$ = layui.jquery;
+                //扩展一个jquery的setform方法
+                             (function ($) {
+                                $.fn.setform = function (jsonValue) {
+                                     var obj=this;
+                                    $.each(jsonValue, function (id, ival) {obj.find("#" + id).val(ival); })
+                                }
+                             })(jQuery)
                 var element = layui.element,//元素操作
                     form=layui.form,//表单操作
                     laydate=layui.laydate,//日期操作
                     table = layui.table,//表格
                     laypage=layui.laypage;//分页
-                    laydate.render({
+                    /*laydate.render({
                         elem:"#hire_time"//指定日期元素
                     });
                     laydate.render({
                         elem:"#quit_time"//指定日期元素
-                    });
+                    });*/
                 //个人中心
-                    //通过后台取得个人信息  渲染个人中心
-                    form.render();
+                //学生查看自己的基本信息
+                $.ajax({
+                    url:"/stuinfo/select",
+                    type:"get",
+                    dataType:"json",
+                    success:function(data){
+                        console.log(data);
+
+                        //获取到值放入到表单中
+                        $("#myForm").setform(data.data);
+
+                        if(data.data.sex=='女'){
+                            $("input:radio[value='女']").prop('checked',true);
+                            //alert($('#female').prop('checked'));
+                        }else{
+
+                            $('#male').attr('checked','checked');
+                        }
+                   },
+                    error : function(e) {
+										layer.msg("服务器繁忙！操作失败，清重试！")
+									}
+                });
+                    //通过后台取得个人信息
+
                      //修改个人信息  提交到后台 并重新渲染页面
                     
-                    form.on('submit(formDemo)',function(data){
+                   /* form.on('submit(formDemo)',function(data){
                         $.ajax({
-                        url: '',
+                        url: '/stuinfo/update',
                         dataType: 'json',
                         method: 'post',
                         success: function(data) {
@@ -379,52 +412,65 @@
                             alert('error:请求出错！');
                         }
                     });
-                    })
+                    })*/
                 //培养计划 
-                    //分页实例
-                    laypage.render({
-                        elem: 'plan_page' //分页容器的id
-                        ,count: 60 //总页数
-                        ,prev:'上个月'
-                        ,next:'下个月'
-                        ,skin: '#1E9FFF' //自定义选中色值
-                        ,jump: function(obj){
-                            //alert(obj.curr);
-                            var month=obj.curr;
-                            table.reload('student_plan',{
-                                url:'/plan/selectDetailByStu'
-                                ,where:{month:month}
-                                });
-                            //ajax请求获取 培训目标
-                            $.ajax({
-                                type:"get",//提交类型
-                                url:"/plan/selectByStu",//请求的地址
-                                data:{
-                                    month:month,//月份
-                                },//提交的数据
-                                dataType:"json",//返回的类型 json
-                                success:function(data){
-                                    //需要返回该学生的计划中的培训目标
-                                    $('#target').html(data.target);
-
-                                },
-                                error:function(){
-                                    layer.msg("请求异常，请重试");
-                                }
-                            });
-
-
+                 //渲染 laypage分页 实例
+            laypage.render({
+                elem: 'plan_page' //分页容器的id
+                ,count: 60 //总页数
+                ,prev:'上个月'
+                ,next:'下个月'
+                ,skin: '#1E9FFF' //自定义选中色值
+                ,jump: function(obj){
+                    var month=obj.curr;
+                    $("#month").html('第'+ month +'个月');
+                    $.ajax({
+                        type:"get",//提交类型
+                        url:"/plan/selectByStu",//请求的地址
+                        data:{
+                            month:obj.curr,//月份
+                            //stuid:id,//学生id
+                        },//提交的数据
+                        dataType:"json",//返回的类型 json
+                        success:function(data){
+                           if(data.data){
+                                $('#target').text(data.data.target);
+                           }else{
+                                 $('#target').text('');
+                           }
+                        },
+                        error:function(){
+                            layer.msg("请求异常，请重试");
                         }
+
                     });
+                    table.render({
+                        elem:"#hr_plan"
+                       ,page:true
+                        ,url:"/plan/selectDetailByStu"//数据接口
+                        ,where:{month:month}
+                        ,cols:  [[ //表头
+                            //{field: 'month', title: '月份', width: 80, rowspan: 4} //rowspan即纵向跨越的单元格数
+                           // colspan即横跨的单元格数，这种情况下不用设置field和width
+                            {field: 'period', title: '时间', width:100}
+                           ,{field: 'knowledge', title: '知识点及掌握程度', width: 300}
+                            ,{field: 'material', title: '学习材料', width: 300}
+                           ,{field: 'inspect', title: '输出及考核方式',width:300}
+
+                        ]]
+                   });
+                }
+            });
                 //我的留言
                     //方法渲染，执行一个 table留言 实例
                     table.render({
                         elem: '#message_table'
-                        ,url: '' //数据接口
+                        ,url: '/message/select' //数据接口
                         ,page: true //开启分页
                         ,cols: [[ //表头                   
                             {field: 'type', title: '留言类型', width:150, align:'center',fixed: 'left'}
-                            ,{fixed: 'message', title:'勇敢星有话说', align:'center',fixed:'right'}
+                            ,{field: 'message', title:'勇敢星有话说', align:'center',fixed:'right'}
+                            ,{fixed : 'right',width : 200,align : 'center',toolbar : '#optsbar'}
                         ]]
                     });
                     //新增留言
@@ -438,35 +484,101 @@
                             maxmin : true,
                             content : '../templates/student/student_addMessage.html',
                             end : function() {
-                                layui.index.render();
+                                table.reload('message_table',{url:'/message/select'});
                             }
                         });
                     });
-
-
-
-
-
-                            //方法渲染，执行一个 table 实例
-            table.render({
-                elem: '#test'
-                ,height: 332
-                ,url: '/demo/table/user/' //数据接口
-                ,page: true //开启分页
-                ,cols: [[ //表头
-                    {field: 'id', title: 'ID', width:200, align:'center', sort: true, fixed: 'left'}
-                    ,{fixed: 'right', title:'留言', align:'center', toolbar: '#barDemo'}
-                ]]
-            });
-
-            //监听工具条
-            table.on('tool(demo)', function(obj){ //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
-                var data = obj.data //获得当前行数据
+            //监听留言工具条message_table
+                table.on('tool(message_table)', function(obj) {
+                    var data = obj.data //获得当前行数据
                     ,layEvent = obj.event; //获得 lay-event 对应的值
-                if(layEvent === 'detail'){
-                    layer.msg('查看操作');
-                }
+                    //console.log(data.name);
+                    if (layEvent === 'del'){
+                        //删除
+                        layer.confirm('真的删除行么', function(index) {
+                            var delid=data.id;
+                            // obj.del(); //删除对应行（tr）的DOM结构
+                            layer.close(index);
+                            $.ajax({
+                                url : '/message/delete?id='+delid,//数据接口
+                                type : 'get',
+                                dataType : 'JSON',
+                                success : function(data) {
+                                    layer.msg(data.msg);
+                                     table.reload('message_table',{url:'/message/select'});
+                                },
+                                error : function(e) {
+                                    layer.msg("服务器繁忙！操作失败，清重试！")
+                                }
+                            //向服务端发送删除指令
+                            });
+                        });
+                    } else if (layEvent === 'edit') {
+                        //编辑
+                        layer.open({
+                            type : 2,
+                            area : [ '700px', '450px' ],
+                            fixed : false, //不固定
+                            maxmin : true,
+                            content : '../templates/student/student_editMessage.html',
+                            success:function(layero,index){
+                                var body=layer.getChildFrame('body',index);//获取iframe页的DOM
+                                body.find('#messageId').val(data.id);
+                                body.find('#type').val(data.type);
+                                body.find('#message').val(data.message);
+                            },
+                            end : function() {
+                                table.reload('message_table',{url:'/message/select'});
+                            }
+                        });
+                    }
+                });
+            //刷新留言
+            $('#refresh').click(function(){
+                table.reload('message_table',{url:'/message/select'});
             });
+
+            //月度总结
+              //学生查看自己的月度总结
+              laypage.render({
+                elem: 'summary_page' //分页容器的id
+                ,count: 60 //总页数
+                ,prev:'上个月'
+                ,next:'下个月'
+                ,skin: '#1E9FFF' //自定义选中色值
+                ,jump: function(obj){
+                    var month=obj.curr;
+                    $("#summaryMonth").val('第'+ month +'个月');
+                        $.ajax({
+                            url:"/stusummary/select",
+                            type:"get",
+                            dataType:"json",
+                            data:{month:month},
+                            success:function(data){
+                                //console.log(data.data);
+                                if(data.data){
+                                    //使用jquery的setform 扩展方法,获取到值放入到表单中
+                                    $("#summaryForm").setform(data.data);
+                                }else{
+                                    $("#summaryForm").setform({summary:'',question:'',plan:''});
+                                }
+                           },
+                           error : function(e) {
+                                layer.msg("服务器繁忙！操作失败，清重试！")
+                            }
+                    });
+                }
+              })
+
+
+               //修改登录密码
+                /*function check(){
+                    if($('#psw1').val()){
+                        alert();
+                        return false;
+                    }
+
+                }*/
 
 
 

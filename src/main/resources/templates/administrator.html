@@ -581,6 +581,7 @@
 							table.reload('studentTable', {where :{key:key},page:{curr:1}});
 							return false;
 						});
+						//刷新
 						$('#refreshStu').click(function(){
 							table.reload('studentTable', {url: '/stuinfo/selectByAdmin'});
 						});

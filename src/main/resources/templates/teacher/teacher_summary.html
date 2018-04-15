@@ -1,10 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-        <meta charset="utf-8"/>
-        <meta name="viewport" content="width=device-width, userr-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
-        <link rel="stylesheet" href="../../static/layui/css/layui.css"/>
-        <title>月度总结</title>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+    <link rel="stylesheet" href="../../static/layui/css/layui.css"/>
+    <title>月度总结</title>
+    <style>
+        body{margin:10px 20px;}
+    </style>
 </head>
 <body>
     <table class="layui-table">
@@ -60,14 +63,22 @@
                         url:"/stusummary/selectByOthers",//请求的地址
                         data:{
                             month:obj.curr,//月份
-                            id:id,//学生工号
+                            stuid:id,//学生工号
                         },//提交的数据
                         dataType:"json",//返回的类型 json
                         success:function(data){
                             //需要返回该学生的月度总结month_summary、问题和困难problem、下个月计划next_plan
-                            $('#month_summary').html(data.month_summary);
-                            $('#problem').html(data.problem);
-                            $('#next_plan').html(data.next_plan);
+                            //console.log(data.data);
+                            if(data.data){
+                                $('#month_summary').html(data.data.summary);
+                                $('#problem').html(data.data.question);
+                                $('#next_plan').html(data.data.plan);
+                            }else{
+                                $('#month_summary').html('');
+                                $('#problem').html('');
+                                $('#next_plan').html('');
+                            }
+
                         },
                         error:function(){
                             layer.msg("请求异常，请重试");

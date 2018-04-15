@@ -54,11 +54,7 @@ public class StumessageController extends BaseController{
     public JSONObject select(HttpServletRequest request){
         Token stuinfo = (Token)request.getSession().getAttribute("user");
         List<Stumessage> stumessageList = stumessageMapper.selectList(new EntityWrapper<Stumessage>().eq("stuid",stuinfo.getId()));
-        if(stumessageList.isEmpty()){
-            return setQueryResponse(null);
-        }else{
-            return setQueryResponse(stumessageList.get(0));
-        }
+        return setQueryResponse(stumessageList);
     }
 
     /*
