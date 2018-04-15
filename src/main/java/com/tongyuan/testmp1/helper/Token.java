@@ -5,6 +5,9 @@ package com.tongyuan.testmp1.helper;
  * student的token（studentInfo信息太多了）
  */
 public class Token {
+    /*
+    与stuinfo的id相同
+     */
     private Integer id;
     private String jobNumber;
     private String encrptPwd;
