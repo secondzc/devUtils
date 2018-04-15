@@ -350,6 +350,13 @@
               //注意：选项卡 依赖 element 模块，否则无法进行功能性操作
               layui.use(['element', 'form','laydate',"table","jquery","laypage"],function(){
                 window.jQuery = window.$ = layui.jquery;
+                //扩展一个jquery的setform方法
+                             (function ($) {
+                                $.fn.setform = function (jsonValue) {
+                                     var obj=this;
+                                    $.each(jsonValue, function (id, ival) {obj.find("#" + id).val(ival); })
+                                }
+                             })(jQuery)
                 var element = layui.element,//元素操作
                     form=layui.form,//表单操作
                     laydate=layui.laydate,//日期操作
@@ -369,13 +376,7 @@
                     dataType:"json",
                     success:function(data){
                         console.log(data);
-                        //扩展一个jquery的setform方法
-                             (function ($) {
-                                $.fn.setform = function (jsonValue) {
-                                     var obj=this;
-                                    $.each(jsonValue, function (id, ival) {obj.find("#" + id).val(ival); })
-                                }
-                             })(jQuery)
+
                         //获取到值放入到表单中
                         $("#myForm").setform(data.data);
 
@@ -571,16 +572,14 @@
 
 
                //修改登录密码
-                function check(){
-                    if($("#psw1").val().length<6){
-                        layer.msg('不能少于6个字符');
-                        return false;
-                    }else if($('#psw1').val()!==$('#psw2').val()){
-                        layer.msg('两次输入密码不一致，请重新输入！');
+                /*function check(){
+                    if($('#psw1').val()){
+                        alert();
                         return false;
                     }
 
-                }
+                }*/
+
 
 
               //退出按钮功能
