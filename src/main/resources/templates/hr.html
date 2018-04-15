@@ -84,23 +84,25 @@
         </header>
         <section>
             <div id="container" class="layui-fluid ">
-                    <div class="layui-row">
-                            <form id="inlineForm" class="layui-form">
-                                <fieldset class="layui-elem-field">
-                                    <legend>搜索</legend>
-                                    <div class="layui-field-box">
-                                        <div class="demoTable">
-                                            名称：
-                                            <div class="layui-inline">
-                                                <input class="layui-input" name="title" placeholder="输入姓名或工号" autocomplete="off"/>
-                                            </div>
-                                            <button class="layui-btn" lay-filter="search">
-                                                <i class="layui-icon">&#xe615;</i>搜索</button>
-                                        </div>
+
+                <div class="layui-row">
+                    <form id="inlineForm" class="layui-form">
+                        <fieldset class="layui-elem-field">
+                            <legend>搜索</legend>
+                            <div class="layui-field-box">
+                                <div class="demoTable">
+                                    名称：
+                                    <div class="layui-inline">
+                                        <input class="layui-input" name="title" placeholder="输入姓名或工号" autocomplete="off" id="title"/>
                                     </div>
-                                </fieldset>
-                            </form>
-                        </div>
+                                    <button class="layui-btn" lay-filter="search" lay-submit="lay-submit">
+                                        <i class="layui-icon">&#xe615;</i>搜索</button>
+
+                                </div>
+                            </div>
+                        </fieldset>
+                    </form>
+                </div>
                 <table class="layui-hide" id="hr" lay-filter="hr"></table>
                 <script type="text/html" id="barDemo">
                     <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="plan">培养计划</a>
@@ -118,10 +120,11 @@
       <script src="../static/layui/layui.js"></script>
       <script>
       //注意：折叠面板 依赖 element 模块，否则无法进行功能性操作
-      layui.use(['element','table','jquery'], function(){
+      layui.use(['element','table','jquery','form'], function(){
         window.jQuery = window.$ = layui.jquery;
         var element = layui.element,
-            table=layui.table;
+            table=layui.table,
+            form = layui.form;
            // layer = layui.layer; //弹层
 
              //方法渲染，执行一个 table 实例
@@ -151,7 +154,7 @@
                             area : [ '700px', '450px' ],
                             fixed : false, //不固定
                             maxmin : true,
-                            content : 'hr/hr_plan.html?'+'id='+data.id,
+                            content : '../templates/hr/hr_plan.html?id='+data.id,
                         });
                     } else if (layEvent === 'message') {
                         layer.open({
@@ -159,7 +162,7 @@
                             area : [ '700px', '450px' ],
                             fixed : false, //不固定
                             maxmin : true,
-                            content : 'hr/hr_message.html?id='+data.id,
+                            content : '../templates/hr/hr_message.html?id='+data.id,
                             end : function() {
                                 //layui.index.render();
                             }
@@ -171,7 +174,7 @@
                             area : [ '700px', '450px' ],
                             fixed : false, //不固定
                             maxmin : true,
-                            content : 'hr/hr_summary.html?id='+data.id,
+                            content : '../templates/hr/hr_summary.html?id='+data.id,
                             end : function() {
                                 //layui.index.render();
                             }
@@ -179,6 +182,16 @@
                     }
 
             });
+            //搜索功能
+						form.on('submit(search)', function(data) {
+							var key=$("#title").val();
+							table.reload('hr', {where :{key:key},page:{curr:1}});
+							return false;
+						});
+						//刷新
+						//$('#refresh').click(function(){
+							//table.reload('hr', {url: '/stuinfo/selectByHr'});
+						//});
             //退出按钮功能
 						 $('#sign_out').click(function(){
                                 window.open('../templates/login.html','_self')

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>Test</title>
+    <link rel="stylesheet" href="../../static/layui/css/layui.css">
+    <style>
+            body{margin:10px 20px;}
+        </style>
+</head>
+
+<body>
+<fieldset class="layui-elem-field layui-field-title mt-15">
+    <legend>新增留言</legend>
+</fieldset>
+<form class="layui-form" method="post" action="/message/update" lay-filter="pageForm">
+    <input type="hidden" name="id" id="messageId"/>
+    <div class="layui-form-item">
+        <label class="layui-form-label">留言类型</label>
+        <div class="layui-input-block">
+            <select name="type" id="type">
+                <option value="选择留言类型">选择留言类型</option>
+                <option value="学习类">学习类</option>
+                <option value="工作类">工作类</option>
+                <option value="生活类">生活类</option>
+                <option value="招聘类">招聘类</option>
+                <option value="其它">其它</option>
+            </select>
+        </div>
+    </div>
+    <div class="layui-form-item  layui-form-text">
+        <label class="layui-form-label">勇敢星有话说</label>
+        <div class="layui-input-block">
+            <textarea name="message" id="message" placeholder="请输入留言" class="layui-textarea" style="height:100px;"></textarea>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button class="layui-btn" lay-submit="lay-submit" lay-filter="pageForm" id="update">立即提交</button>
+            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+        </div>
+    </div>
+
+</form>
+<script src="../../static/layui/layui.js"></script>
+<script>
+            layui.use(['form', 'layer', 'element','jquery'], function () {
+                    window.jQuery = window.$ = layui.jquery;
+                    var form = layui.form
+                    , layer = layui.layer
+                    ,element = layui.element;
+                    $('#update').click(function(){
+                        //iframe页面关闭自身
+                        var index = parent.layer.getFrameIndex(window.name);//先得到当前iframe层的索引
+                         parent.layer.close(index);//执行关闭
+                    });
+
+            });
+        </script>
+
+</body>
+</html>
+

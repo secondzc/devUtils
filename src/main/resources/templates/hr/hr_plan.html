@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,  initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+    <link rel="stylesheet" href="../../static/layui/css/layui.css"/>
+    <title>培养计划</title>
+    <style>
+        body{margin:10px 20px;}
+    </style>
+</head>
+<body>
+<table class="layui-table">
+    <tr>
+        <th style="width:70px;">月份</th>
+        <td id="month"></td>
+    </tr>
+    <tr>
+        <th style="width:70px;">培养目标</th>
+        <td id="target"></td>
+    </tr>
+
+</table>
+<table id="hr_plan" lay-filter="hr_plan"></table>
+<div id="plan_page" style="text-align:center"></div>
+<script src="../../static/layui/layui.js"></script>
+<script>
+        layui.use(['table',"laypage","jquery"], function(){
+            window.jQuery = window.$ = layui.jquery;
+            var table = layui.table,
+                laypage=layui.laypage;//分页
+                //获取id值
+
+            //渲染 laypage分页 实例
+            laypage.render({
+                elem: 'plan_page' //分页容器的id
+                ,count: 60 //总页数
+                ,prev:'上个月'
+                ,next:'下个月'
+                ,skin: '#1E9FFF' //自定义选中色值
+                ,jump: function(obj){
+                    var str=location.search,
+                        i=str.indexOf("=");
+                    var id=str.substr(i+1);
+                    var month=obj.curr;
+                    $("#month").html('第'+ month +'个月');
+                    $.ajax({
+                        type:"get",//提交类型
+                        url:"/plan/selectPlanByOthers",//请求的地址
+                        data:{
+                            month:obj.curr,//月份
+                            stuid:id,//学生id
+                        },//提交的数据
+                        dataType:"json",//返回的类型 json
+                        success:function(data){
+                           if(data.data){
+                                $('#target').text(data.data.target);
+                           }else{
+                                 $('#target').text('');
+                           }
+                        },
+                        error:function(){
+                            layer.msg("请求异常，请重试");
+                        }
+
+                    });
+                    table.render({
+                        elem:"#hr_plan"
+                       ,page:true
+                        ,url:"/plan/selectDetailByOthers"//数据接口
+                        ,where:{month:month,stuid:id}
+                        ,cols:  [[ //表头
+                            //{field: 'month', title: '月份', width: 80, rowspan: 4} //rowspan即纵向跨越的单元格数
+                           // colspan即横跨的单元格数，这种情况下不用设置field和width
+                            {field: 'period', title: '时间', width:100}
+                           ,{field: 'knowledge', title: '知识点及掌握程度', width: 300}
+                            ,{field: 'material', title: '学习材料', width: 300}
+                           ,{field: 'inspect', title: '输出及考核方式',width:300}
+                        ]]
+                   });
+                }
+            });
+       });
+
+    </script>
+</body>
+
+</html>

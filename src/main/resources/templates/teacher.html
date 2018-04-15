@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
     <title>teacher</title>
     <link rel="stylesheet" href="../static/layui/css/layui.css"/>
     <style>
@@ -132,7 +132,7 @@
                                         area : [ '700px', '450px' ],
                                         fixed : false, //不固定
                                         maxmin : true,
-                                        content : '../templates/teacher/teacher_plan.html?'+'id='+data.id
+                                        content : '../templates/teacher/teacher_plan.html?id='+data.id,
                                     });
                                 } else if (layEvent === 'message') {
                                     layer.open({
@@ -141,9 +141,7 @@
                                         fixed : false, //不固定
                                         maxmin : true,
                                         content : '../templates/teacher/teacher_message.html?id='+data.id,
-                                        end : function() {
-                                            //table.reload('tea', {url: '/teacher/students'});
-                                        }
+
                                     });
                                     
                                 } else if (layEvent === 'summary') {
@@ -152,10 +150,7 @@
                                         area : [ '700px', '450px' ],
                                         fixed : false, //不固定
                                         maxmin : true,
-                                        content : '../templates/teacher/teacher_summary.html?'+'id='+data.id,
-                                        end : function() {
-                                            //table.reload('tea', {url: '/teacher/students'});
-                                        }
+                                        content : '../templates/teacher/teacher_summary.html?id='+data.id,
                                     });
                                 }
 
