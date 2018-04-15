@@ -31,7 +31,9 @@ public class StumessageController extends BaseController{
      */
     @PostMapping("/add")
     @ResponseBody
-    public JSONObject insert(Stumessage stumessage){
+    public JSONObject insert(HttpServletRequest request,Stumessage stumessage){
+        Token stuinfo = (Token)request.getSession().getAttribute("user");
+        stumessage.setStuid(stuinfo.getId());
         stumessageMapper.insert(stumessage);
         return setInsertResponse();
     }
