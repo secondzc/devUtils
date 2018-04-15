@@ -38,7 +38,11 @@ public class PlanController extends BaseController{
         Token stuinfo = (Token)request.getSession().getAttribute("user");
         List<Stuplan> stuplanList = stuplanMapper.selectList(new EntityWrapper<Stuplan>().
                 eq("stuid",stuinfo.getId()).eq("month",month));
-        return setQueryResponse(stuplanList);
+        if(stuplanList.isEmpty()){
+            return setQueryResponse(null);
+        }else{
+            return setQueryResponse(stuplanList.get(0));
+        }
     }
     /*
     学生查看培养计划详情

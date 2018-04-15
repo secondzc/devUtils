@@ -8,6 +8,7 @@ import com.tongyuan.testmp1.helper.PageDataResult;
 import com.tongyuan.testmp1.helper.Token;
 import com.tongyuan.testmp1.service.StuinfoService;
 import com.tongyuan.testmp1.service.ViewService;
+import com.tongyuan.testmp1.util.SecurityUtil;
 import com.tongyuan.testmp1.viewModel.StuTeacherView;
 import com.tongyuan.testmp1.viewModel.StudentView;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -109,5 +110,32 @@ public class StuinfoController extends BaseController{
             stuinfoService.deleteById(Integer.valueOf(one));
         }
         return setBatchDeleteResponse();
+    }
+
+    /*
+    学生修改密码
+     */
+    @PostMapping("/updatePwd")
+    @ResponseBody
+    public JSONObject updatePwd(HttpServletRequest request,@RequestParam("password") String pwd){
+        Token token = (Token)request.getSession().getAttribute("user");
+        Integer id = token.getId();
+        Stuinfo stuinfo = stuinfoService.selectById(id);
+        stuinfo.setEncrypt_password(SecurityUtil.encryptPassword(pwd));
+        stuinfoService.updateById(stuinfo);
+        return setUpdateResponse();
+    }
+
+    /*
+    管理员重置密码
+     */
+    @PostMapping("/resetPwd")
+    @ResponseBody
+    public JSONObject resetPwd(Integer id){
+        Stuinfo stuinfo = stuinfoService.selectById(id);
+        String idNumber = stuinfo.getId_number();
+        String pwd = idNumber.substring(idNumber.length()-6);
+        stuinfo.setEncrypt_password(SecurityUtil.encryptPassword(pwd));
+        return setUpdateResponse();
     }
 }
