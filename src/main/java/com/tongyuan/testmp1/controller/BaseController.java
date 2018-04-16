@@ -26,7 +26,7 @@ public class BaseController {
         jo.put("error",0);
         jo.put("msg","查询结果!");
         jo.put("url","");
-        String joString = JSONObject.toJSONStringWithDateFormat(jo,"yyyy-MM-dd HH:mm:ss", SerializerFeature.PrettyFormat);
+        String joString = JSONObject.toJSONStringWithDateFormat(jo,"yyyy-MM-dd", SerializerFeature.PrettyFormat);
         return JSONObject.parseObject(joString);
     }
 

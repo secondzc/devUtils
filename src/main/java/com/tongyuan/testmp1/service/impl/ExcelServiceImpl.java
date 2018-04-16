@@ -18,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 
 import java.io.InputStream;
+import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
@@ -98,7 +99,7 @@ public class ExcelServiceImpl implements ExcelService {
                 XSSFCell place = row.getCell(j++);
                 stuinfo.setPlace(place.getStringCellValue());
                 XSSFCell hireTime = row.getCell(j++);
-                stuinfo.setHire_time(new Timestamp(hireTime.getDateCellValue().getTime()));
+                stuinfo.setHire_time(new Date(hireTime.getDateCellValue().getTime()));
                 XSSFCell firstDept = row.getCell(j++);
                 stuinfo.setFirst_dept(firstDept.getStringCellValue());
                 XSSFCell secondDept = row.getCell(j++);
@@ -112,7 +113,7 @@ public class ExcelServiceImpl implements ExcelService {
                 XSSFCell teacherJobNum = row.getCell(j++);
                 stuinfo.setTeacher_job_number(getString(teacherJobNum));
                 XSSFCell quitTime = row.getCell(j++);
-                stuinfo.setQuit_time(new Timestamp(quitTime.getDateCellValue().getTime()));
+                stuinfo.setQuit_time(new Date(quitTime.getDateCellValue().getTime()));
                 XSSFCell quitReason = row.getCell(j++);
                 stuinfo.setQuit_reason(quitReason.getStringCellValue());
 

@@ -5,7 +5,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import java.sql.Timestamp;
+import java.sql.Date;
 
 /**
  * Created by zhangcy on 2018/4/6
@@ -64,7 +64,7 @@ public class Stuinfo implements User{
      *入职时间
      */
     @Column
-    private Timestamp hire_time;
+    private Date hire_time;
     @Column
     private String first_dept;
     @Column
@@ -78,7 +78,7 @@ public class Stuinfo implements User{
     @Column
     private String teacher_job_number;
     @Column
-    private Timestamp quit_time;
+    private Date quit_time;
     @Column
     private String quit_reason;
     @Column
@@ -180,13 +180,6 @@ public class Stuinfo implements User{
         this.job_direction = job_direction;
     }
 
-    public Timestamp getHire_time() {
-        return hire_time;
-    }
-
-    public void setHire_time(Timestamp hire_time) {
-        this.hire_time = hire_time;
-    }
 
     public String getFirst_dept() {
         return first_dept;
@@ -236,11 +229,19 @@ public class Stuinfo implements User{
         this.teacher_job_number = teacher_job_number;
     }
 
-    public Timestamp getQuit_time() {
+    public Date getHire_time() {
+        return hire_time;
+    }
+
+    public void setHire_time(Date hire_time) {
+        this.hire_time = hire_time;
+    }
+
+    public Date getQuit_time() {
         return quit_time;
     }
 
-    public void setQuit_time(Timestamp quit_time) {
+    public void setQuit_time(Date quit_time) {
         this.quit_time = quit_time;
     }
 
