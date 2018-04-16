@@ -11,7 +11,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by zhangcy on 2018/4/8
@@ -71,7 +73,19 @@ public class StusummaryController extends BaseController{
      */
     @PostMapping("/update")
     @ResponseBody
-    public JSONObject update(Stusummary stusummary){
+    public JSONObject update(HttpServletRequest request,Stusummary stusummary){
+        Integer month = stusummary.getMonth();
+        Token token = (Token) request.getSession().getAttribute("user");
+        Integer stuid = token.getId();
+        Map<String,Object> map = new HashMap<>();
+        map.put("month",month);
+        map.put("stuid",stuid);
+        List<Stusummary> stusummaryList = stusummaryService.selectByMap(map);
+        Integer summaryId =0;
+        if(!stusummaryList.isEmpty() && stusummaryList.size()==1){
+            summaryId = stusummaryList.get(0).getId();
+        }
+        stusummary.setId(summaryId);
         stusummaryService.updateById(stusummary);
         return setUpdateResponse();
     }

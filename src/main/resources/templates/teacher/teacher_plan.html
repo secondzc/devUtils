@@ -10,85 +10,196 @@
     </style>
 </head>
 <body>
-<table class="layui-table">
-    <tr>
-        <td style="width:70px;">月份</td>
-        <td id="month"></td>
-    </tr>
-    <tr>
-        <td style="width:70px;">培养目标</td>
-        <td id="target"></td>
-    </tr>
-</table>
-        <table id="teacher_plan" lay-filter="teacher_plan"></table>
-                    <div id="plan_page" style="text-align:center"></div>
+        <form class="layui-form layui-form-pane" id="summaryForm">
+            <div class="layui-form-item">
+                <label class="layui-form-label">月份</label>
+                <div class="layui-input-block">
+                    <input type="text" name="month" id="month" class="layui-input" readonly="true"/>
+                </div>
+
+                <label class="layui-form-label">培养目标</label>
+                <div class="layui-input-block">
+                    <input type="text" name="target" id="target" class="layui-input" />
+                </div>
+            </div>
+
+            <div class="layui-form-item" id="period1">
+                <label class="layui-form-label">时间</label>
+                <div class="layui-input-block">
+                    <input type="text" name="period" class="layui-input"/>
+                </div>
+
+                <label class="layui-form-label">知识点及掌握程度</label>
+                <div class="layui-input-block">
+                    <input type="text" name="knowledge" class="layui-input"/>
+                </div>
+
+                <label class="layui-form-label">学习材料</label>
+                <div class="layui-input-block">
+                    <input type="text" name="metarial" class="layui-input"/>
+                </div>
+
+                <label class="layui-form-label">输出及考核方式</label>
+                <div class="layui-input-block">
+                    <input type="text" name="inspect" class="layui-input"/>
+                </div>
+            </div>
+
+            <div class="layui-form-item" id="period2">
+                <label class="layui-form-label">时间</label>
+                <div class="layui-input-block">
+                    <input type="text" name="period" class="layui-input"/>
+                </div>
+
+                <label class="layui-form-label">知识点及掌握程度</label>
+                <div class="layui-input-block">
+                    <input type="text" name="knowledge" class="layui-input"/>
+                </div>
+
+                <label class="layui-form-label">学习材料</label>
+                <div class="layui-input-block">
+                    <input type="text" name="metarial" class="layui-input"/>
+                </div>
+
+                <label class="layui-form-label">输出及考核方式</label>
+                <div class="layui-input-block">
+                    <input type="text" name="inspect" class="layui-input"/>
+                </div>
+            </div>
+
+            <div class="layui-form-item" id="period3">
+                <label class="layui-form-label">时间</label>
+                <div class="layui-input-block">
+                    <input type="text" name="period" class="layui-input"/>
+                </div>
+
+                <label class="layui-form-label">知识点及掌握程度</label>
+                <div class="layui-input-block">
+                    <input type="text" name="knowledge" class="layui-input"/>
+                </div>
+
+                <label class="layui-form-label">学习材料</label>
+                <div class="layui-input-block">
+                    <input type="text" name="metarial" class="layui-input"/>
+                </div>
+
+                <label class="layui-form-label">输出及考核方式</label>
+                <div class="layui-input-block">
+                    <input type="text" name="inspect" class="layui-input"/>
+                </div>
+            </div>
+
+            <div class="layui-form-item" id="addbefore">
+                <div class="layui-input-inline" id="btn-period2">
+                    <button class="layui-btn layui-btn-primary" id="add_period2">
+                        <i class="layui-icon">&#xe61f;</i>继续添加</button>
+                </div>
+                <div class="layui-input-block" id="btn-period3">
+                    <button class="layui-btn layui-btn-primary" id="add_period3">
+                        <i class="layui-icon">&#xe61f;</i>继续添加</button>
+                </div>
+
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button class="layui-btn" lay-submit="lay-submit" lay-filter="plan_update" style="float:right;">提交</button>
+                </div>
+            </div>
+        </form>
+        <div id="plan_page" style="text-align:center"></div>
     <script src="../../static/layui/layui.js"></script>
     <script>
-        layui.use(['table',"laypage","jquery"], function(){
+        layui.use(["laypage","jquery","form"], function(){
             window.jQuery = window.$ = layui.jquery;
-            var table = layui.table,
-                laypage=layui.laypage;//分页
-                //获取id值
+            var laypage=layui.laypage,//分页
+                form=layui.form;
+                //获取学生id
+                var str=location.search,
+                        i=str.indexOf("=");
+                    var stuid=str.substr(i+1);
 
-            //渲染 laypage分页 实例
-            laypage.render({
+
+
+                    //添加时间段
+                $('#add_period').click(function(){
+                    $('#addbefore').before('<div class="layui-form-item"><label class="layui-form-label">时间</label><div class="layui-input-block"><input type="text" name="period" class="layui-input"/></div><label class="layui-form-label">知识点及掌握程度</label><div class="layui-input-block"><input type="text" name="knowledge" class="layui-input"/></div><label class="layui-form-label">学习材料</label><div class="layui-input-block"><input type="text" name="metarial" id="metarial" class="layui-input"/></div><label class="layui-form-label">输出及考核方式</label><div class="layui-input-block"><input type="text" name="inspect" id="inspect" class="layui-input"/></div></div>');
+                    //$('#add_period').after('<button class="layui-btn layui-btn-danger" id="remove">取消添加</button>');
+                    return false;
+                });
+
+
+                //老师编辑培训计划
+            form.on('submit(plan_update)',function(data){
+                console.log(data.field);//当前容器的全部表单字段
+                /*$.ajax({
+                   type:'post',
+                   data:data.field,
+                    url:'/plan/updateDetail',
+                    success:function(data){
+                        layer.msg(data.msg);
+                    },
+                    error : function(e) {
+                        layer.msg("服务器繁忙！操作失败，请重试！")
+                    }
+                });*/
+                return false;//阻止表单跳转
+            });
+              //老师查看培训总结
+              laypage.render({
                 elem: 'plan_page' //分页容器的id
                 ,count: 60 //总页数
                 ,prev:'上个月'
                 ,next:'下个月'
                 ,skin: '#1E9FFF' //自定义选中色值
                 ,jump: function(obj){
-                    var str=location.search,
-                        i=str.indexOf("=");
-                    var id=str.substr(i+1);
                     var month=obj.curr;
-                    $("#month").html('第'+ month +'个月');
-                    $.ajax({
-                        type:"get",//提交类型
-                        url:"/plan/selectPlanByOthers",//请求的地址
-                        data:{
-                            month:obj.curr,//月份
-                            stuid:id,//学生id
-                        },//提交的数据
-                        dataType:"json",//返回的类型 json
-                        success:function(data){
-                           if(data.data){
-                                $('#target').text(data.data.target);
-                           }else{
-                                 $('#target').text('');
-                           }
-                        },
-                        error:function(){
-                            layer.msg("请求异常，请重试");
-                        }
-
-                    });
-                    table.render({
-                        elem:"#teacher_plan"
-                        ,page:true
-                        ,url:"/plan/selectDetailByOthers"//数据接口
-                        ,where:{month:month,stuid:id}
-                        ,cols:  [[ //表头
-                            //{field: 'month', title: '月份', width: 80, rowspan: 4} //rowspan即纵向跨越的单元格数
-                            //colspan即横跨的单元格数，这种情况下不用设置field和width
-                            {field: 'period', title: '时间', width:100}
-                            ,{field: 'knowledge', title: '知识点及掌握程度', width: 300}
-                            ,{field: 'material', title: '学习材料', width: 300}
-                            ,{field: 'inspect', title: '输出及考核方式',width:300}
-                        ]]
-                    });
-
+                    //$("#summaryMonth").val('第'+ month +'个月');
+                    //$("#month").val(month);
+                    //这个请求获得target和month
+                       $.ajax({
+                            url:"/plan/selectPlanByOthers",
+                            type:"get",
+                            dataType:"json",
+                            data:{month:month,stuid:stuid},
+                            success:function(data){
+                                console.log(data);
+                                if(data.data){
+                                    //使用jquery的setform 扩展方法,获取到值放入到表单中
+                                    //$("#summaryForm").setform(data.data);
+                                }else{
+                                    //$("#summaryForm").setform({summary:'',question:'',plan:''});
+                                }
+                           },
+                           error : function(e) {
+                                layer.msg("服务器繁忙！操作失败，清重试！")
+                            }
+                        });
+                        //这个请求获得 其他值
+                        $.ajax({
+                            url:"/plan/selectDetailByOthers",
+                            type:"get",
+                            dataType:"json",
+                            data:{month:month,stuid:stuid},
+                            success:function(data){
+                                console.log(data);
+                                if(data.data){
+                                    //使用jquery的setform 扩展方法,获取到值放入到表单中
+                                    //$("#summaryForm").setform(data.data);
+                                }else{
+                                    //$("#summaryForm").setform({summary:'',question:'',plan:''});
+                                }
+                           },
+                           error : function(e) {
+                                layer.msg("服务器繁忙！操作失败，清重试！")
+                            }
+                        });
                 }
-       });
-                        
-            //监听单元格编辑
-            table.on('edit(teacher_plan)', function(obj){
-                var value = obj.value //得到修改后的值
-                ,data = obj.data //得到所在行所有键值
-                ,field = obj.field; //得到字段
-                layer.msg('[ID: '+ data.id +'] ' + field + ' 字段更改为：'+ value);
-            });
+              })
+
+
         });
+
+
     </script>
 </body>
 
