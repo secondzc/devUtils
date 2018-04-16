@@ -94,7 +94,7 @@
                   
                   <div class="layui-tab-item layui-show">
                     <form class="layui-form" action="/stuinfo/update" method="post" id="myForm">
-                        <!--<input type="hidden" name="id" id="1"/>    &lt;!&ndash;个人中心&ndash;&gt;-->
+                        <input type="hidden" name="id" id="id"/>
 
                         <div class="layui-form-item" lay-filter="user_message">
                             <label class="layui-form-label">姓名</label>
@@ -362,21 +362,21 @@
                     laydate=layui.laydate,//日期操作
                     table = layui.table,//表格
                     laypage=layui.laypage;//分页
-                    /*laydate.render({
+                    laydate.render({
                         elem:"#hire_time"//指定日期元素
                     });
                     laydate.render({
                         elem:"#quit_time"//指定日期元素
-                    });*/
+                    });
                 //个人中心
                 //学生查看自己的基本信息
+                var studId;
                 $.ajax({
                     url:"/stuinfo/select",
                     type:"get",
                     dataType:"json",
                     success:function(data){
-                        //console.log(data);
-
+                       // console.log(data);
                         //获取到值放入到表单中
                         $("#myForm").setform(data.data);
 
@@ -392,17 +392,16 @@
 									}
                 });
 
-
                      //修改个人信息  提交到后台 并重新渲染页面
                 form.on('submit(formDemo)',function(data){
-                    //console.log(data.field);//当前容器的全部表单字段
-                    //alert()
+                    console.log(data.field);//当前容器的全部表单字段
                     $.ajax({
                         type: 'post',
                         data:data.field,
                         url: '/stuinfo/update',
                         success: function(data) {
                            console.log(data);
+                           layer.msg('修改成功');
                         },
                         error: function(e) {
                             layer.msg('error:请求出错！');

@@ -11,6 +11,7 @@
 </head>
 <body>
         <form class="layui-form layui-form-pane" id="summaryForm">
+            <input type='hidden' name="stuid" id="stuid"/>
             <div class="layui-form-item">
                 <label class="layui-form-label">月份</label>
                 <div class="layui-input-block">
@@ -23,6 +24,27 @@
                 </div>
             </div>
 
+            <div class="layui-form-item" id="period0">
+                <label class="layui-form-label">时间</label>
+                <div class="layui-input-block">
+                    <input type="text" name="period" class="layui-input"/>
+                </div>
+
+                <label class="layui-form-label">知识点及掌握程度</label>
+                <div class="layui-input-block">
+                    <input type="text" name="knowledge" class="layui-input"/>
+                </div>
+
+                <label class="layui-form-label">学习材料</label>
+                <div class="layui-input-block">
+                    <input type="text" name="material" class="layui-input"/>
+                </div>
+
+                <label class="layui-form-label">输出及考核方式</label>
+                <div class="layui-input-block">
+                    <input type="text" name="inspect" class="layui-input"/>
+                </div>
+            </div>
             <div class="layui-form-item" id="period1">
                 <label class="layui-form-label">时间</label>
                 <div class="layui-input-block">
@@ -36,51 +58,7 @@
 
                 <label class="layui-form-label">学习材料</label>
                 <div class="layui-input-block">
-                    <input type="text" name="metarial" class="layui-input"/>
-                </div>
-
-                <label class="layui-form-label">输出及考核方式</label>
-                <div class="layui-input-block">
-                    <input type="text" name="inspect" class="layui-input"/>
-                </div>
-            </div>
-
-            <div class="layui-form-item" id="period2">
-                <label class="layui-form-label">时间</label>
-                <div class="layui-input-block">
-                    <input type="text" name="period" class="layui-input"/>
-                </div>
-
-                <label class="layui-form-label">知识点及掌握程度</label>
-                <div class="layui-input-block">
-                    <input type="text" name="knowledge" class="layui-input"/>
-                </div>
-
-                <label class="layui-form-label">学习材料</label>
-                <div class="layui-input-block">
-                    <input type="text" name="metarial" class="layui-input"/>
-                </div>
-
-                <label class="layui-form-label">输出及考核方式</label>
-                <div class="layui-input-block">
-                    <input type="text" name="inspect" class="layui-input"/>
-                </div>
-            </div>
-
-            <div class="layui-form-item" id="period3">
-                <label class="layui-form-label">时间</label>
-                <div class="layui-input-block">
-                    <input type="text" name="period" class="layui-input"/>
-                </div>
-
-                <label class="layui-form-label">知识点及掌握程度</label>
-                <div class="layui-input-block">
-                    <input type="text" name="knowledge" class="layui-input"/>
-                </div>
-
-                <label class="layui-form-label">学习材料</label>
-                <div class="layui-input-block">
-                    <input type="text" name="metarial" class="layui-input"/>
+                    <input type="text" name="material" class="layui-input"/>
                 </div>
 
                 <label class="layui-form-label">输出及考核方式</label>
@@ -90,15 +68,10 @@
             </div>
 
             <div class="layui-form-item" id="addbefore">
-                <div class="layui-input-inline" id="btn-period2">
-                    <button class="layui-btn layui-btn-primary" id="add_period2">
+                <div class="layui-input-inline" id="btn-period">
+                    <button class="layui-btn layui-btn-primary" id="add_period">
                         <i class="layui-icon">&#xe61f;</i>继续添加</button>
                 </div>
-                <div class="layui-input-block" id="btn-period3">
-                    <button class="layui-btn layui-btn-primary" id="add_period3">
-                        <i class="layui-icon">&#xe61f;</i>继续添加</button>
-                </div>
-
             </div>
             <div class="layui-form-item">
                 <div class="layui-input-block">
@@ -117,23 +90,82 @@
                 var str=location.search,
                         i=str.indexOf("=");
                     var stuid=str.substr(i+1);
-
-
-
+                    $('#stuid').val(stuid);
                     //添加时间段
                 $('#add_period').click(function(){
-                    $('#addbefore').before('<div class="layui-form-item"><label class="layui-form-label">时间</label><div class="layui-input-block"><input type="text" name="period" class="layui-input"/></div><label class="layui-form-label">知识点及掌握程度</label><div class="layui-input-block"><input type="text" name="knowledge" class="layui-input"/></div><label class="layui-form-label">学习材料</label><div class="layui-input-block"><input type="text" name="metarial" id="metarial" class="layui-input"/></div><label class="layui-form-label">输出及考核方式</label><div class="layui-input-block"><input type="text" name="inspect" id="inspect" class="layui-input"/></div></div>');
-                    //$('#add_period').after('<button class="layui-btn layui-btn-danger" id="remove">取消添加</button>');
+                    //添加之前 form表单中子元素的个数
+                    var num=$('#summaryForm').children().length-4;
+                    var periodId='period'+num;
+                    /*alert(periodId);
+                    $('#addbefore').before('<div class="layui-form-item" id=periodId>'+
+                        '<label class="layui-form-label">时间</label>'+
+                        '<div class="layui-input-block"><input type="text" name="period" class="layui-input"/></div>'+
+                        '<label class="layui-form-label">知识点及掌握程度</label>'+
+                        '<div class="layui-input-block"><input type="text" name="knowledge" class="layui-input"/></div>'+
+                        '<label class="layui-form-label">学习材料</label>'+
+                        '<div class="layui-input-block"><input type="text" name="material" class="layui-input"/></div>'+
+                        '<label class="layui-form-label">输出及考核方式</label>'+
+                        '<div class="layui-input-block"><input type="text" name="inspect" class="layui-input"/></div></div>');*/
+                        $.ajax({
+                            type:'get',
+                            dataType:'html',
+                            data:{id:periodId},
+                            url:'',//添加时间段的url
+                            success:function(data){
+                                $('#addbefore').before();
+                            },
+                            error:function(){
+                                layer.msg('请求出错，请重试！');
+                            }
+
+
+                        });
                     return false;
                 });
 
-
-                //老师编辑培训计划
+                //老师编辑、添加培训计划
             form.on('submit(plan_update)',function(data){
-                console.log(data.field);//当前容器的全部表单字段
-                /*$.ajax({
+            //所有的input字段
+                var formArr=$('#summaryForm').find('input');
+                //console.log(formArr);
+                //需要传值
+                var newArr=[]
+                for(var i=0;i<formArr.length;i++){
+                    var objName=formArr[i].name;
+                    var objValue=formArr[i].value;
+                    switch(objName){
+                        case 'stuid':
+                            newArr[i]={stuid:objValue};
+                            break;
+                        case 'inspect':
+                           newArr[i]={inspect:objValue};
+                            break;
+                        case 'knowledge':
+                            newArr[i]={knowledge:objValue};
+                            break;
+                        case 'month':
+                            newArr[i]={month:objValue};
+                            break;
+                        case 'period':
+                            newArr[i]={period:objValue};
+                            break;
+                        case 'target':
+                            newArr[i]={target:objValue};
+                            break;
+                    }
+
+                }
+                //console.log(newArr);
+                //目标字段
+                $.ajax({
                    type:'post',
                    data:data.field,
+                   url:'/plan/updatePlan',
+                });
+                //其他字段
+                $.ajax({
+                   type:'post',
+                   data:{newArr},
                     url:'/plan/updateDetail',
                     success:function(data){
                         layer.msg(data.msg);
@@ -141,7 +173,7 @@
                     error : function(e) {
                         layer.msg("服务器繁忙！操作失败，请重试！")
                     }
-                });*/
+                });
                 return false;//阻止表单跳转
             });
               //老师查看培训总结
@@ -153,21 +185,19 @@
                 ,skin: '#1E9FFF' //自定义选中色值
                 ,jump: function(obj){
                     var month=obj.curr;
-                    //$("#summaryMonth").val('第'+ month +'个月');
-                    //$("#month").val(month);
-                    //这个请求获得target和month
+                    $("#month").val(month);
+                        //这个请求获得target和month
                        $.ajax({
                             url:"/plan/selectPlanByOthers",
                             type:"get",
                             dataType:"json",
                             data:{month:month,stuid:stuid},
                             success:function(data){
-                                console.log(data);
+                               // console.log(data);
                                 if(data.data){
-                                    //使用jquery的setform 扩展方法,获取到值放入到表单中
-                                    //$("#summaryForm").setform(data.data);
+                                    $('#target').val(data.data.target);
                                 }else{
-                                    //$("#summaryForm").setform({summary:'',question:'',plan:''});
+                                    $('#target').val('');
                                 }
                            },
                            error : function(e) {
@@ -181,12 +211,21 @@
                             dataType:"json",
                             data:{month:month,stuid:stuid},
                             success:function(data){
-                                console.log(data);
-                                if(data.data){
-                                    //使用jquery的setform 扩展方法,获取到值放入到表单中
-                                    //$("#summaryForm").setform(data.data);
+                                var arr=data.data;//是个数组
+                                //console.log(arr);
+                                if(arr.length!==0){
+                                    for(var i=0;i<arr.length;i++){
+                                        var idname="#period"+i;
+                                        $(idname).find('input[name="period"]').val(arr[i].period);
+                                        $(idname).find('input[name="material"]').val(arr[i].material);
+                                        $(idname).find('input[name="knowledge"]').val(arr[i].knowledge);
+                                        $(idname).find('input[name="inspect"]').val(arr[i].inspect);
+                                    }
                                 }else{
-                                    //$("#summaryForm").setform({summary:'',question:'',plan:''});
+                                      $('input[name="period"]').val('');
+                                      $('input[name="material"]').val('');
+                                      $('input[name="knowledge"]').val('');
+                                      $('input[name="inspect"]').val('');
                                 }
                            },
                            error : function(e) {
