@@ -1,6 +1,7 @@
 package com.tongyuan.testmp1.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.tongyuan.testmp1.helper.PageDataResult;
 
 import java.util.List;
@@ -25,7 +26,8 @@ public class BaseController {
         jo.put("error",0);
         jo.put("msg","查询结果!");
         jo.put("url","");
-        return jo;
+        String joString = JSONObject.toJSONStringWithDateFormat(jo,"yyyy-MM-dd HH:mm:ss", SerializerFeature.PrettyFormat);
+        return JSONObject.parseObject(joString);
     }
 
     protected JSONObject setUpdateResponse(){

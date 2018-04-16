@@ -12,10 +12,16 @@ import com.tongyuan.testmp1.util.SecurityUtil;
 import com.tongyuan.testmp1.viewModel.StuTeacherView;
 import com.tongyuan.testmp1.viewModel.StudentView;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.request.WebRequest;
 
 import javax.servlet.http.HttpServletRequest;
+import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 
 /**
  * Created by zhangcy on 2018/4/9
@@ -27,6 +33,13 @@ public class StuinfoController extends BaseController{
     private StuinfoService stuinfoService;
     @Autowired
     private ViewService viewService;
+
+    @InitBinder
+    public void initBinder(WebDataBinder binder, WebRequest request) {
+        //转换日期
+        DateFormat dateFormat=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        binder.registerCustomEditor(Timestamp.class, new CustomDateEditor(dateFormat, true));// CustomDateEditor为自定义日期编辑器
+    }
 
     /*
     admin或学生更新学生基本信息
