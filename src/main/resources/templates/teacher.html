@@ -133,6 +133,10 @@
                                         fixed : false, //不固定
                                         maxmin : true,
                                         content : '../templates/teacher/teacher_plan.html?id='+data.id,
+                                        success:function(layero,index){
+                                            var body=layer.getChildFrame('body',index);//获取iframe页的DOM
+                                            body.find('#stuid').val(data.id);
+									    }
                                     });
                                 } else if (layEvent === 'message') {
                                     layer.open({
@@ -141,7 +145,6 @@
                                         fixed : false, //不固定
                                         maxmin : true,
                                         content : '../templates/teacher/teacher_message.html?id='+data.id,
-
                                     });
                                     
                                 } else if (layEvent === 'summary') {
