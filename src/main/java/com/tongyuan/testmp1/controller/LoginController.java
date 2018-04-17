@@ -36,7 +36,7 @@ public class LoginController extends BaseController{
     private AdminService adminService;
 
 
-    @PostMapping("/login")
+    @PostMapping("/toLogin")
     @ResponseBody
     public JSONObject login(HttpServletRequest request){
         String username = request.getParameter("username");
