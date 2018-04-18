@@ -4,8 +4,10 @@ import com.alibaba.fastjson.JSONObject;
 import com.tongyuan.testmp1.dao.ViewMapper;
 import com.tongyuan.testmp1.entity.Hr;
 import com.tongyuan.testmp1.helper.PageDataResult;
+import com.tongyuan.testmp1.helper.PwdHelper;
 import com.tongyuan.testmp1.service.HrService;
 import com.tongyuan.testmp1.service.ViewService;
+import com.tongyuan.testmp1.util.SecurityUtil;
 import com.tongyuan.testmp1.viewModel.StuTeacherView;
 import com.tongyuan.testmp1.viewModel.StudentView;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,5 +69,19 @@ public class HrController extends BaseController{
             hrService.deleteById(Integer.valueOf(one));
         }
         return setBatchDeleteResponse();
+    }
+
+    /*
+    admin重置hr密码
+     */
+    @GetMapping("/resetPwd")
+    @ResponseBody
+    public JSONObject resetPwd(Integer id){
+        Hr hr = hrService.selectById(id);
+        String jobNum = hr.getJob_number();
+        String pwd = PwdHelper.getPwd(jobNum);
+        hr.setEncrypt_password(SecurityUtil.encryptPassword(pwd));
+        hrService.updateById(hr);
+        return setUpdateResponse();
     }
 }

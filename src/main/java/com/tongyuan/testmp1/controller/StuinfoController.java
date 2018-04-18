@@ -5,6 +5,7 @@ import com.tongyuan.testmp1.entity.Hr;
 import com.tongyuan.testmp1.entity.Stuinfo;
 import com.tongyuan.testmp1.entity.Teacher;
 import com.tongyuan.testmp1.helper.PageDataResult;
+import com.tongyuan.testmp1.helper.PwdHelper;
 import com.tongyuan.testmp1.helper.Token;
 import com.tongyuan.testmp1.service.StuinfoService;
 import com.tongyuan.testmp1.service.ViewService;
@@ -148,7 +149,7 @@ public class StuinfoController extends BaseController{
     public JSONObject resetPwd(Integer id){
         Stuinfo stuinfo = stuinfoService.selectById(id);
         String idNumber = stuinfo.getId_number();
-        String pwd = idNumber.substring(idNumber.length()-6);
+        String pwd = PwdHelper.getPwd(idNumber);
         stuinfo.setEncrypt_password(SecurityUtil.encryptPassword(pwd));
         return setUpdateResponse();
     }

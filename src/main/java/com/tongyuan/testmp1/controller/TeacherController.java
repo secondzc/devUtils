@@ -3,8 +3,10 @@ package com.tongyuan.testmp1.controller;
 import com.alibaba.fastjson.JSONObject;
 import com.tongyuan.testmp1.entity.Teacher;
 import com.tongyuan.testmp1.helper.PageDataResult;
+import com.tongyuan.testmp1.helper.PwdHelper;
 import com.tongyuan.testmp1.service.TeacherService;
 import com.tongyuan.testmp1.service.ViewService;
+import com.tongyuan.testmp1.util.SecurityUtil;
 import com.tongyuan.testmp1.viewModel.StudentView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -75,6 +77,20 @@ public class TeacherController extends BaseController{
     @ResponseBody
     public JSONObject selectById(Integer id){
         return setQueryResponse(teacherService.selectById(id));
+    }
+
+    /*
+    admin重置导师密码
+     */
+    @GetMapping("/resetPwd")
+    @ResponseBody
+    public JSONObject resetPwd(Integer id){
+        Teacher teacher = teacherService.selectById(id);
+        String jobNum = teacher.getJob_number();
+        String pwd = PwdHelper.getPwd(jobNum);
+        teacher.setEncrypt_password(SecurityUtil.encryptPassword(pwd));
+        teacherService.updateById(teacher);
+        return setUpdateResponse();
     }
 
 }

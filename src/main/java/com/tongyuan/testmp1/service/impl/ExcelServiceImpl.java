@@ -3,6 +3,7 @@ package com.tongyuan.testmp1.service.impl;
 import com.tongyuan.testmp1.entity.Hr;
 import com.tongyuan.testmp1.entity.Stuinfo;
 import com.tongyuan.testmp1.entity.Teacher;
+import com.tongyuan.testmp1.helper.PwdHelper;
 import com.tongyuan.testmp1.service.ExcelService;
 import com.tongyuan.testmp1.service.HrService;
 import com.tongyuan.testmp1.service.StuinfoService;
@@ -119,7 +120,7 @@ public class ExcelServiceImpl implements ExcelService {
 
                 //设置初始密码:身份证后六位
                 String idcard = getString(id);
-                String psw = idcard.substring(idcard.length()-6);
+                String psw = PwdHelper.getPwd(idcard);
                 stuinfo.setEncrypt_password(SecurityUtil.encryptPassword(psw));
 
                 count++;
@@ -156,7 +157,7 @@ public class ExcelServiceImpl implements ExcelService {
 
                 //初始密码：工号后六位
                 String jobNum1 = getString(jobNum);
-                String psw = jobNum1.substring(jobNum1.length()-6);
+                String psw = PwdHelper.getPwd(jobNum1);
                 teacher.setEncrypt_password(SecurityUtil.encryptPassword(psw));
                 //System.out.println(teacher);
                 teacherList.add(teacher);
@@ -188,7 +189,7 @@ public class ExcelServiceImpl implements ExcelService {
                 hr.setJob_number(getString(jobNum));
 
                 String jobNum1 = getString(jobNum);
-                String psw = jobNum1.substring(jobNum1.length()-6);
+                String psw = PwdHelper.getPwd(jobNum1);
                 hr.setEncrypt_password(SecurityUtil.encryptPassword(psw));
 
                 hrList.add(hr);
