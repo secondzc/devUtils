@@ -84,4 +84,16 @@ public class HrController extends BaseController{
         hrService.updateById(hr);
         return setUpdateResponse();
     }
+
+    /*
+    hr修改自己的密码
+     */
+    @PostMapping("updatePwd")
+    @ResponseBody
+    public JSONObject updatePwd(HttpServletRequest request,String password){
+        Hr hr = getHr(request);
+        hr.setEncrypt_password(SecurityUtil.encryptPassword(password));
+        hrService.updateById(hr);
+        return setUpdateResponse();
+    }
 }

@@ -93,4 +93,16 @@ public class TeacherController extends BaseController{
         return setUpdateResponse();
     }
 
+    /*
+    导师修改自己的密码
+     */
+    @PostMapping("/updatePwd")
+    @ResponseBody
+    public JSONObject updatePwd(HttpServletRequest request,String pwd){
+        Teacher teacher = getTeacher(request);
+        teacher.setEncrypt_password(SecurityUtil.encryptPassword(pwd));
+        teacherService.updateById(teacher);
+        return setUpdateResponse();
+    }
+
 }
