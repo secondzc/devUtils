@@ -15,7 +15,7 @@
 </fieldset>
 <div class="layui-row">
     <div class="layui-col-xs12 layui-col-md8">
-        <form class="layui-form" method="post" action="/plan/updateDetail" lay-filter="pageForm" >
+        <form class="layui-form" method="post" action="/plan/updateDetail" lay-filter="pageForm" onkeydown="if(event.keyCode==13)return false;">
             <input type="hidden" name="id" id="id"/>
             <input  type="hidden" name="stuid" id="editStuId"/>
 
@@ -67,10 +67,10 @@
                     ,element = layui.element;
 
                     $('#update').click(function(){
-
                         //iframe页面关闭自身
                         var index = parent.layer.getFrameIndex(window.name);//先得到当前iframe层的索引
                          parent.layer.close(index);//执行关闭
+
                     });
 
 

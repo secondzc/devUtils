@@ -187,6 +187,7 @@
 					<a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
 					<a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
 					<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+					<a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="resetPwd">重置密码</a>
 				</script>
 			</div>
 	</div>
@@ -233,7 +234,7 @@
 							{field : 'job_number',width : 200,title : 'hr工号',},
 							{field : 'first_dept',title : '所在一级部门',width : 200},
 							{field : 'second_dept',title : '所在二级部门',width : 200},
-							{fixed : 'right',minWidth : 200,align : 'center',toolbar : '#optsbar'}
+							{fixed : 'right',minWidth : 230,align : 'center',toolbar : '#optsbar'}
 							 ] ],
 							page : true,
 
@@ -348,6 +349,25 @@
 										table.reload('hrTable', {url: '/hr/select'});
 									}
 								});
+							}else if(layEvent === 'resetPwd'){
+								//重置成初始密码
+								layer.confirm('真的重置为初始密码吗?', function(index) {
+									var resetid=data.id;
+									//console.log(data.id);
+									layer.close(index);
+									$.ajax({
+										url : '/hr/resetPwd?id='+resetid,//数据接口
+										type : 'get',
+										dataType : 'JSON',
+										success : function(data) {
+											//console.log(data);
+											layer.msg(data.msg);
+										},
+										error : function(e) {
+											layer.msg("服务器繁忙！操作失败，清重试！")
+										}
+									});
+								});
 							}
 						});
 
@@ -384,17 +404,11 @@
 							},
 							{
 								fixed : 'right',
-								minWidth : 200,
+								minWidth : 230,
 								align : 'center',
 								toolbar : '#optsbar'
 							} ] ],
 
-							response : {
-								statusName : 'error',
-								statusCode : 0,
-								msgName : 'message',
-								countName : 'count'
-							}
 						});
 						//导师新增
 						$('#addTeacher').on('click', function() {
@@ -500,6 +514,25 @@
 										table.reload('teacherTable', {url: '/teacher/select'});
 									}
 								});
+							}else if(layEvent === 'resetPwd'){
+								//重置成初始密码
+								layer.confirm('真的重置为初始密码吗?', function(index) {
+									var resetid=data.id;
+									//console.log(data.id);
+									layer.close(index);
+									$.ajax({
+										url : '/teacher/resetPwd?id='+resetid,//数据接口
+										type : 'get',
+										dataType : 'JSON',
+										success : function(data) {
+											//console.log(data);
+											layer.msg(data.msg);
+										},
+										error : function(e) {
+											layer.msg("服务器繁忙！操作失败，清重试！")
+										}
+									});
+								});
 							}
 						});
 
@@ -534,7 +567,7 @@
 								{field : 'teacher_job_number',title : '导师工号',width : 100,},
 								{field : 'quit_time',width :110,title : '离职时间'},
 								{field : 'quit_reason',width : 100,title : '离职原因'},
-								{fixed : 'right',width : 200,align : 'center',toolbar : '#optsbar'}
+								{fixed : 'right',minWidth : 230,align : 'center',toolbar : '#optsbar'}
 							] ],
 						});
 						//实习生新增
@@ -678,6 +711,25 @@
 									end : function() {
 										table.reload('studentTable', {url: '/stuinfo/selectByAdmin'});
 									}
+								});
+							}else if(layEvent === 'resetPwd'){
+								//重置成初始密码
+								layer.confirm('真的重置为初始密码吗?', function(index) {
+									var resetid=data.id;
+									//console.log(data.id);
+									layer.close(index);
+									$.ajax({
+										url : '/stuinfo/resetPwd?id='+resetid,//数据接口
+										type : 'get',
+										dataType : 'JSON',
+										success : function(data) {
+											//console.log(data);
+											layer.msg(data.msg);
+										},
+										error : function(e) {
+											layer.msg("服务器繁忙！操作失败，清重试！")
+										}
+									});
 								});
 							}
 						});
