@@ -231,8 +231,8 @@
 							{checkbox : true,fixed : true},
 							{field : 'name',width : 100,title : 'hr姓名'},
 							{field : 'job_number',width : 200,title : 'hr工号',},
-							{field : 'first_dept',title : '所在一级部门',width : 200,sort : true,},
-							{field : 'second_dept',title : '所在二级部门',width : 200,ort : true,},
+							{field : 'first_dept',title : '所在一级部门',width : 200},
+							{field : 'second_dept',title : '所在二级部门',width : 200},
 							{fixed : 'right',minWidth : 200,align : 'center',toolbar : '#optsbar'}
 							 ] ],
 							page : true,
@@ -357,6 +357,7 @@
 					table.render({
 							elem : '#teacherTable',
 							url : '/teacher/select', //数据接口
+							page:true,
 							cols : [ [ {
 								checkbox : true,
 								fixed : true
@@ -512,28 +513,28 @@
 							page:true
 							,cols : [ [ 
 								{checkbox : true,fixed : 'left'},
-								{field : 'name',minWidth : 80,title : '学生姓名'}, 
-								{field : 'job_number',minWidth : 80,title : '学生工号'},
+								{field : 'name',width : 100,title : '学生姓名'},
+								{field : 'job_number',width : 100,title : '学生工号'},
 								{field : 'phone_number',title : '联系方式',width : 100},
-								{field : 'sex',minWidth : 80,title : '性别'}, 
-								{field : 'id_number',minWidth : 80,title : '身份证号'},
+								{field : 'sex',width : 80,title : '性别'},
+								{field : 'id_number',width : 100,title : '身份证号'},
 								{field : 'email_addr',title : '邮箱地址',width : 100,},
 								{field : 'education',minWidth : 80,title : '学历'}, 
-								{field : 'graduate_college',minWidth : 80,title : '毕业院校'},
+								{field : 'graduate_college',width : 100,title : '毕业院校'},
 								{field : 'major',title : '专业',width : 100,}, 
-								{field : 'job',minWidth : 80,title : '签约岗位'},
-								{field : 'job_direction',minWidth : 80,title : '岗位方向'}, 
-								{field : 'place',minWidth : 80,title : '工作地'},
-								//{field : 'hire_time',title : '入职时间',width : 100,},
-								{field : 'first_dept',minWidth : 80,title : '所在一级部门'}, 
-								{field : 'second_dept',minWidth : 80,title : '所在二级部门'},
-								{field : 'hr_name',title : '部门HR姓名',width : 100,},
-								{field : 'hr_job_number',minWidth : 80,title : '部门HR工号'}, 
-								{field : 'teacher_name',minWidth : 80,title : '导师姓名'},
+								{field : 'job',width : 100,title : '签约岗位'},
+								{field : 'job_direction',width :100,title : '岗位方向'},
+								{field : 'place',width : 80,title : '工作地'},
+								{field : 'hire_time',title : '入职时间',width : 110,},
+								{field : 'first_dept',width : 120,title : '所在一级部门'},
+								{field : 'second_dept',width : 120,title : '所在二级部门'},
+								{field : 'hr_name',title : '部门HR姓名',width : 120,},
+								{field : 'hr_job_number',width : 120,title : '部门HR工号'},
+								{field : 'teacher_name',width : 100,title : '导师姓名'},
 								{field : 'teacher_job_number',title : '导师工号',width : 100,},
-								//{field : 'quit_time',minWidth : 80,title : '离职时间'},
-								{field : 'quit_reason',minWidth : 80,title : '离职原因'},      
-								{width : 200,align : 'center',toolbar : '#optsbar',fixed : 'right'}
+								{field : 'quit_time',width :110,title : '离职时间'},
+								{field : 'quit_reason',width : 100,title : '离职原因'},
+								{fixed : 'right',width : 200,align : 'center',toolbar : '#optsbar'}
 							] ],
 						});
 						//实习生新增

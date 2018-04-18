@@ -97,43 +97,46 @@
                     <form class="layui-form" action="/stuinfo/update" method="post" id="myForm">
                         <input type="hidden" name="id" id="id"/>
 
-                        <div class="layui-form-item" lay-filter="user_message">
+                        <div class="layui-form-item">
                             <label class="layui-form-label">姓名</label>
                             <div class="layui-input-inline">
                             <input type="text" name="name" required="required" class="layui-input" id="name"/>
                             </div>
-                        </div>
 
-                        <div class="layui-form-item"  lay-filter="user_message">
                             <label class="layui-form-label">工号</label>
                             <div class="layui-input-inline">
-                            <input type="text" name="job_number" required="required" class="layui-input" id="job_number"/>
-                            </div>
-
-                            <label class="layui-form-label">联系方式</label>
-                            <div class="layui-input-inline">
-                            <input type="text" name="phone_number" value="111111" lay-verify="required"  class="layui-input" id="phone_number" required="required"/>
+                                <input type="text" name="job_number" required="required" class="layui-input" id="job_number"/>
                             </div>
                         </div>
 
                         <div class="layui-form-item">
+                            <label class="layui-form-label">联系方式</label>
+                            <div class="layui-input-inline">
+                            <input type="text" name="phone_number" value="111111" lay-verify="required"  class="layui-input" id="phone_number" required="required"/>
+                            </div>
+
                             <label class="layui-form-label">性别</label>
                             <div class="layui-input-inline">
                                 <input type="radio" name="sex" value="男" title="男" id="male"/>
                                 <input type="radio" name="sex" value="女" title="女" id="female"/>
                             </div>
+
+                        </div>
+
+                        <div class="layui-form-item">
                             <label class="layui-form-label">身份证号</label>
                             <div class="layui-input-inline">
                                 <input type="text" name="id_number" required="required" class="layui-input" id="id_number"/>
                             </div>
-                        </div>
 
-                        <div class="layui-form-item" lay-filter="user_message">
                             <label class="layui-form-label">邮箱地址</label>
                             <div class="layui-input-inline">
-                            <input type="text" id="email_addr" required="required" class="layui-input" />
+                                <input type="text" id="email_addr" required="required" class="layui-input" />
                             </div>
 
+                        </div>
+
+                        <div class="layui-form-item">
                             <label class="layui-form-label">学历</label>
                             <div class="layui-input-inline">
                                 <select name="education" lay-verify="required" id="education" autocomplete="off">
@@ -141,41 +144,36 @@
                                     <option value="博士">博士</option>
                                     <option value="硕士">硕士</option>
                                     <option value="本科">本科</option>
-                                  </select>
+                                </select>
+                            </div>
+
+                            <label class="layui-form-label">毕业院校</label>
+                            <div class="layui-input-inline">
+                                <input type="text" class="layui-input" id="graduate_college" name="graduate_college"/>
+                            </div>
+                        </div>
+
+                        <div class="layui-form-item" >
+                            <label class="layui-form-label">专业</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="major" class="layui-input" id="major"/>
+                            </div>
+                            <label class="layui-form-label">签约岗位</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="job" class="layui-input" id="job"/>
                             </div>
                         </div>
                         <div class="layui-form-item" lay-filter="user_message">
-                                <label class="layui-form-label">毕业院校</label>
-                                <div class="layui-input-inline">
-                                    <input type="text" class="layui-input" id="graduate_college" name="graduate_college"/>
-                                </div>
-    
-                                <label class="layui-form-label">专业</label>
-                                <div class="layui-input-inline">
-                                    <input type="text" name="major" class="layui-input" id="major"/>
-                                </div>
-                        </div>
-                        <div class="layui-form-item" lay-filter="user_message">
-                                <label class="layui-form-label">签约岗位</label>
-                                <div class="layui-input-inline">
-                                    <input type="text" name="job" class="layui-input" id="job"/>
-                                </div>
-    
-                                <label class="layui-form-label">签约方向</label>
-                                <div class="layui-input-inline">
-                                    <input type="text" name="job_direction" class="layui-input" id="job_direction"/>
-                                </div>
-                        </div>
-                        <div class="layui-form-item" lay-filter="user_message">
+                            <label class="layui-form-label">签约方向</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="job_direction" class="layui-input" id="job_direction"/>
+                            </div>
+
                             <label class="layui-form-label">工作地</label>
                             <div class="layui-input-inline">
                                 <input type="text" class="layui-input" id="place" name="place"/>
                             </div>
 
-                            <label class="layui-form-label">入职时间</label>
-                            <div class="layui-input-inline">
-                                <input type="text" class="layui-input" id="hire_time" name="hire_time"/>
-                            </div>
                         </div>
                         <div class="layui-form-item" lay-filter="user_message">
                                 <label class="layui-form-label">所在一级部门</label>
@@ -211,8 +209,12 @@
                             </div>
                         </div>
                         <div class="layui-form-item">
+                                <label class="layui-form-label">入职时间</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" class="layui-input" id="hire_time" name="hire_time"/>
+                                </div>
                             <label class="layui-form-label">离职时间</label>
-                            <div class="layui-input-block">
+                            <div class="layui-input-inline">
                                 <input type="text" class="layui-input" id="quit_time" name="quit_time"/>
                             </div>
                         </div>
@@ -287,19 +289,19 @@
                           <label class="layui-form-label" style="height:100px;border-top:0px;">月度工作<br/>学习总结</label>
                           <div class="layui-input-block">
                                     <textarea name="summary" placeholder="请输入内容" class="layui-textarea"
-                                              id="summary"  style="resize:none;border-top:0px;"></textarea>
+                                              maxlength="4000" id="summary"  style="resize:none;border-top:0px;"></textarea>
                           </div>
 
                           <label class="layui-form-label" style="height:100px;border-top:0px;">问题和困难</label>
                           <div class="layui-input-block">
                                     <textarea name="question" placeholder="请输入内容" class="layui-textarea" id="question"
-                                              style="resize:none;border-top:0px;"></textarea>
+                                              maxlength="4000" style="resize:none;border-top:0px;"></textarea>
                           </div>
 
                           <label class="layui-form-label" style="height:100px;border-top:0px;">下个月计划</label>
                           <div class="layui-input-block">
                                     <textarea name="plan" placeholder="请输入内容" class="layui-textarea" id="plan"
-                                              style="resize:none;border-top:0px;"></textarea>
+                                              maxlength="4000" style="resize:none;border-top:0px;"></textarea>
                           </div>
 
                       </div>
@@ -380,12 +382,16 @@
                        // console.log(data);
                         //获取到值放入到表单中
                         $("#myForm").setform(data.data);
-
-                        if(data.data.sex=='女'){
-                            $("input:radio[value='女']").prop('checked',true);
-                            //alert($('#female').prop('checked'));
+                        //为select赋值
+                        //$('select').val(data.data.education);
+                         form.render('select');
+                        console.log(data.data.sex);
+                        if(data.data.sex=='男'){
+                            $('#male').attr('checked',true);
+                            form.render('radio')
                         }else{
-                            $('#male').attr('checked','checked');
+                            $('#female').attr('checked',true);
+                            form.render('radio')
                         }
                    },
                     error : function(e) {

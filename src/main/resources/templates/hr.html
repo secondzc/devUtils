@@ -86,7 +86,7 @@
                     <li class="layui-nav-item">
                         <a href="javascript:;" style="font-size:16px;color:#409eff;">更多<i class="layui-icon">&#xe61a;</i>  </a>
                         <dl class="layui-nav-child"> <!-- 二级菜单 -->
-                            <dd><a href="javascript:;" id="modifyPsw">安全设置</a></dd>
+                            <dd><a href="javascript:;" id="modify">安全设置</a></dd>
                             <dd><a href="login">退出登录</a></dd>
                         </dl>
                     </li>
@@ -205,8 +205,23 @@
 						//});
             //退出按钮功能
             console.log(location);
-            $('#modifyPsw').click(function(){
-                layer.msg('hhhh');
+            $('#modify').click(function(){
+                layer.open({
+                    type:1,
+                    title:'修改登录密码',
+                    area: ['500px', '300px'],
+                    content:'<form style="padding:30px;"><div class="layui-form-item" >'+
+                            '<label class="layui-form-label">输入密码</label>'+
+                            '<div class="layui-input-block">'+
+                            '<input type="password" class="layui-input" name="password" id="psw1" placeholder="由英文或数字组成，且不少于6个字符" required="required"/>'+
+                            '</div></div>'+
+                            '<div class="layui-form-item"><label class="layui-form-label">确认密码</label>'+
+                            '<div class="layui-input-block">'+
+                            '<input type="password" class="layui-input" id="psw2" required="required" lay-verify="required"/></div>'+
+                            '</div><div class="layui-form-item">'+
+                            '<div class="layui-input-block"><button class="layui-btn" type="submit" id="modifyPSW">提交修改</button>'+
+                            '<button type="reset" class="layui-btn layui-btn-primary">重置</button></div></div></form>'
+                })
             })
 						 $('#sign_out').click(function(){
                                 window.open('login','_self')
