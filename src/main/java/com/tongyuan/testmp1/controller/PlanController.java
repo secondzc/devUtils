@@ -95,7 +95,7 @@ public class PlanController extends BaseController{
     public JSONObject deletePlandetail(String id){
         String[] ids = id.split(",");
         for(String one:ids){
-            plandetailMapper.deleteById(one);
+            plandetailMapper.deleteById(Integer.valueOf(one));
         }
         return setBatchDeleteResponse();
     }
