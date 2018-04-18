@@ -59,7 +59,7 @@ public class StuinfoController extends BaseController{
     @GetMapping("/select")
     @ResponseBody
     public JSONObject select(HttpServletRequest request){
-        Token stuinfo = (Token)request.getSession().getAttribute("user");
+        Token stuinfo = getStudentToken(request);
         return setQueryResponse(stuinfoService.selectById(stuinfo.getId()));
     }
 
@@ -72,7 +72,7 @@ public class StuinfoController extends BaseController{
                                       @RequestParam("page")Integer page,
                                       @RequestParam("limit")Integer limit,
                                       @RequestParam(value = "key",required = false)String key){
-        Hr hr = (Hr)request.getSession().getAttribute("user");
+        Hr hr = getHr(request);
         PageDataResult<StuTeacherView> result = viewService.selectStuTeaPageByDept(hr.getFirst_dept(),hr.getSecond_dept(),page,limit,key);
         return setQueryResponse(result);
     }
@@ -85,7 +85,7 @@ public class StuinfoController extends BaseController{
     public JSONObject selectByTeacher(HttpServletRequest request,
                                       @RequestParam("page")Integer page,
                                       @RequestParam("limit")Integer limit){
-        Teacher teacher = (Teacher)request.getSession().getAttribute("user");
+        Teacher teacher = getTeacher(request);
         PageDataResult<StudentView> result = viewService.selectStudentPageByTeacherJobNumber(teacher.getJob_number(),page,limit);
         return setQueryResponse(result);
     }
@@ -108,7 +108,7 @@ public class StuinfoController extends BaseController{
     @PostMapping("/add")
     @ResponseBody
     public JSONObject addByAdmin(Stuinfo stuinfo){
-        String psw = stuinfo.getJob_number().substring(stuinfo.getJob_number().length()-6);
+        String psw = PwdHelper.getPwd(stuinfo.getId_number());
         stuinfo.setEncrypt_password(psw);
         stuinfoService.insert(stuinfo);
         return  setInsertResponse();
@@ -133,7 +133,7 @@ public class StuinfoController extends BaseController{
     @PostMapping("/updatePwd")
     @ResponseBody
     public JSONObject updatePwd(HttpServletRequest request,@RequestParam("password") String pwd){
-        Token token = (Token)request.getSession().getAttribute("user");
+        Token token = getStudentToken(request);
         Integer id = token.getId();
         Stuinfo stuinfo = stuinfoService.selectById(id);
         stuinfo.setEncrypt_password(SecurityUtil.encryptPassword(pwd));

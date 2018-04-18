@@ -32,7 +32,7 @@ public class StumessageController extends BaseController{
     @PostMapping("/add")
     @ResponseBody
     public JSONObject insert(HttpServletRequest request,Stumessage stumessage){
-        Token stuinfo = (Token)request.getSession().getAttribute("user");
+        Token stuinfo = getStudentToken(request);
         stumessage.setStuid(stuinfo.getId());
         stumessageMapper.insert(stumessage);
         return setInsertResponse();
@@ -52,7 +52,7 @@ public class StumessageController extends BaseController{
     @GetMapping("/select")
     @ResponseBody
     public JSONObject select(HttpServletRequest request){
-        Token stuinfo = (Token)request.getSession().getAttribute("user");
+        Token stuinfo = getStudentToken(request);
         List<Stumessage> stumessageList = stumessageMapper.selectList(new EntityWrapper<Stumessage>().eq("stuid",stuinfo.getId()));
         return setQueryResponse(stumessageList);
     }

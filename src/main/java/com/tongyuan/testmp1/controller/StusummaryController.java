@@ -30,7 +30,7 @@ public class StusummaryController extends BaseController{
     @GetMapping("/select")
     @ResponseBody
     public JSONObject selectByStudent(HttpServletRequest request,@RequestParam("month") Integer month){
-        Token stuinfo = (Token)request.getSession().getAttribute("user");
+        Token stuinfo = getStudentToken(request);
         List<Stusummary> stusummaryList = stusummaryService.selectList(
                 new EntityWrapper<Stusummary>().eq("month",month).eq("stuid",stuinfo.getId()));
         if(stusummaryList.isEmpty()){
@@ -62,7 +62,7 @@ public class StusummaryController extends BaseController{
     @PostMapping("/add")
     @ResponseBody
     public JSONObject add(HttpServletRequest request,Stusummary stusummary){
-        Token stuinfo = (Token)request.getSession().getAttribute("user");
+        Token stuinfo = getStudentToken(request);
         stusummary.setStuid(stuinfo.getId());
         stusummaryService.insert(stusummary);
         return setInsertResponse();
@@ -75,7 +75,7 @@ public class StusummaryController extends BaseController{
     @ResponseBody
     public JSONObject update(HttpServletRequest request,Stusummary stusummary){
         Integer month = stusummary.getMonth();
-        Token token = (Token) request.getSession().getAttribute("user");
+        Token token = getStudentToken(request);
         Integer stuid = token.getId();
         Map<String,Object> map = new HashMap<>();
         map.put("month",month);
@@ -109,7 +109,7 @@ public class StusummaryController extends BaseController{
     @PostMapping("/cuSummary")
     @ResponseBody
     public JSONObject cuSummary(HttpServletRequest  request,Stusummary stusummary){
-        Token token = (Token)request.getSession().getAttribute("user");
+        Token token = getStudentToken(request);
         Integer month = stusummary.getMonth();
         Integer stuid = token.getId();
         List<Stusummary> stusummaryList = stusummaryService.selectList(new EntityWrapper<Stusummary>().eq("month",month).eq("stuid",stuid));

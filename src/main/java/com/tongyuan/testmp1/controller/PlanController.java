@@ -35,7 +35,7 @@ public class PlanController extends BaseController{
     @GetMapping("/selectByStu")
     @ResponseBody
     public JSONObject selectByStu(HttpServletRequest request,Integer month){
-        Token stuinfo = (Token)request.getSession().getAttribute("user");
+        Token stuinfo = getStudentToken(request);
         List<Stuplan> stuplanList = stuplanMapper.selectList(new EntityWrapper<Stuplan>().
                 eq("stuid",stuinfo.getId()).eq("month",month));
         if(stuplanList.isEmpty()){
@@ -50,7 +50,7 @@ public class PlanController extends BaseController{
     @GetMapping("/selectDetailByStu")
     @ResponseBody
     public JSONObject selectDetailByStu(HttpServletRequest request,Integer month){
-        Token stuinfo = (Token)request.getSession().getAttribute("user");
+        Token stuinfo = getStudentToken(request);
         List<Plandetail> plandetailList = plandetailMapper.selectList(
                 new EntityWrapper<Plandetail>().eq("stuid",stuinfo.getId()).eq("month",month));
         return setQueryResponse(plandetailList);

@@ -2,8 +2,12 @@ package com.tongyuan.testmp1.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.serializer.SerializerFeature;
+import com.tongyuan.testmp1.entity.Hr;
+import com.tongyuan.testmp1.entity.Teacher;
 import com.tongyuan.testmp1.helper.PageDataResult;
+import com.tongyuan.testmp1.helper.Token;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Map;
 
@@ -61,5 +65,17 @@ public class BaseController {
         jo.put("msg","删除数据成功!");
         jo.put("url","");
         return jo;
+    }
+
+    protected Token getStudentToken(HttpServletRequest request){
+        return (Token)request.getSession().getAttribute("user");
+    }
+
+    protected Hr getHr(HttpServletRequest request){
+        return (Hr)request.getSession().getAttribute("user");
+    }
+
+    protected Teacher getTeacher(HttpServletRequest request){
+        return (Teacher) request.getSession().getAttribute("user");
     }
 }
