@@ -25,12 +25,14 @@
             height:80px;
             background:#fff;
             margin-bottom: 40px;
+
         }
         header .top{
             width:1000px;
             margin:0 auto;
             background:url(../static/logo.jpg) no-repeat;
             background-size: 100px 80px;
+            position:relative;
         }
         header .top h1{
             display:inline-block;
@@ -52,7 +54,8 @@
         section div#container{
             background:#fff;
             width:1000px;
-            margin:0 auto
+            margin:0 auto;
+            padding:10px;
         }
         footer{
             padding-top: 40px;
@@ -78,8 +81,16 @@
         <header>
             <div class="top">
                 <h1>华为 实习生管理信息系统</h1>
-                
-                <button class="layui-btn" id="sign_out">退出</button>
+                <!--<button class="layui-btn" id="sign_out">退出</button>-->
+                <ul class="layui-nav" style="width:130px;position:absolute;top:18px;right:-20px;">
+                    <li class="layui-nav-item">
+                        <a href="javascript:;" style="font-size:16px;color:#409eff;">更多<i class="layui-icon">&#xe61a;</i>  </a>
+                        <dl class="layui-nav-child"> <!-- 二级菜单 -->
+                            <dd><a href="javascript:;" id="modifyPsw">安全设置</a></dd>
+                            <dd><a href="login">退出登录</a></dd>
+                        </dl>
+                    </li>
+                </ul>
             </div>
         </header>
         <section>
@@ -193,8 +204,12 @@
 							//table.reload('hr', {url: '/stuinfo/selectByHr'});
 						//});
             //退出按钮功能
+            console.log(location);
+            $('#modifyPsw').click(function(){
+                layer.msg('hhhh');
+            })
 						 $('#sign_out').click(function(){
-                                window.open('../templates/login.html','_self')
+                                window.open('login','_self')
                             });
       });
       </script>

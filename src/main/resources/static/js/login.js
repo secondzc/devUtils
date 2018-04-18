@@ -10,7 +10,7 @@ layui.use(["jquery","layer"],function(){
     }
     $.ajax({
         type:"post",//提交类型
-        url:"/login",//请求的地址
+        url:"/toLogin",//请求的地址
         data:{
             username:username,
             password:password,
@@ -18,7 +18,7 @@ layui.use(["jquery","layer"],function(){
         dataType:"json",//返回的类型 json
         success:function(data){
            console.log(data);
-            console.log(typeof(data));
+           // console.log(typeof(data));
             var jsondata = data;
             console.log(jsondata);
             if(jsondata.type==='student' && jsondata.flag){

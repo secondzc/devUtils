@@ -10,7 +10,10 @@
     </style>
 </head>
 <body>
+<fieldset class="layui-elem-field" style="padding:5px;padding-top:15px;">
+    <legend>月度培养总目标</legend>
     <form class="layui-form layui-form-pane">
+        <input name="stuid" type="hidden" id="stuid"/>
         <div class="layui-form-item">
             <label class="layui-form-label">月份</label>
             <div class="layui-input-block">
@@ -20,50 +23,30 @@
             <label class="layui-form-label" style="border-top:0px;">培养目标</label>
             <div class="layui-input-block">
                 <input type="text" name="target" id="target" placeholder="请输入内容" class="layui-input"
-                          style="border-top:0px;"/>
+                       style="border-top:0px;"/>
             </div>
         </div>
-
-        <table id="teacher_plan" lay-filter="teacher_plan"></table>
-        <script type="text/html" id="barDemo">
-            <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
-            <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
-        </script>
-
-        <input type="hidden" name="stuid" id="stuid"/>
-        <input type="hidden" name="id" id="id"/>
         <div class="layui-form-item">
-            <label class="layui-form-label">时间</label>
-            <div class="layui-input-block">
-                <input type="text" name="period" id="period" class="layui-input"/>
-            </div>
-
-            <label class="layui-form-label" style="height:100px;border-top:0px;">知识点及<br/>掌握知识</label>
-            <div class="layui-input-block">
-                <textarea name="knowledge" id="knowledge" placeholder="请输入内容" class="layui-textarea"
-                          style="resize:none;border-top:0px;"></textarea>
-            </div>
-
-            <label class="layui-form-label" style="height:100px;border-top:0px;">学习材料</label>
-            <div class="layui-input-block">
-                <textarea name="material" id="material" placeholder="请输入内容" class="layui-textarea"
-                          style="resize:none;border-top:0px;"></textarea>
-            </div>
-
-            <label class="layui-form-label" style="height:100px;border-top:0px;">输出及<br/>考核方式</label>
-            <div class="layui-input-block">
-                <textarea name="inspect" id="inspect" placeholder="请输入内容" class="layui-textarea"
-                          style="resize:none;border-top:0px;"></textarea>
-            </div>
-
-        </div>
-        <div class="layui-form-item" >
             <div class="layui-input-block" style="float:right;">
-                <button class="layui-btn" lay-submit="lay-submit" lay-filter="formDemo">保存</button>
-                <button class="layui-btn layui-btn-primary" type="reset">重置</button>
+                <button class="layui-btn" lay-submit="lay-submit" id="update" lay-filter="update">保存</button>
             </div>
         </div>
     </form>
+</fieldset>
+<br/>
+
+<fieldset class="layui-elem-field layui-field-title mt-15">
+    <legend>培养计划详情</legend>
+</fieldset>
+    <button class="layui-btn" data-type="getCheckData" isMaximize="0"
+            id="addDetail" topHeight="600px">
+        <i class="layui-icon">&#xe654;</i>新增培养计划详情
+    </button>
+    <table id="teacher_plan" lay-filter="teacher_plan"></table>
+    <script type="text/html" id="barDemo">
+        <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+    </script>
 
     <div id="plan_page" style="text-align:center"></div>
     <script src="../../static/layui/layui.js"></script>
@@ -74,8 +57,11 @@
                 form=layui.form,
                 laypage=layui.laypage;//分页
                 //获取id值
-                   var stuid=$('#stuid').val();
-            //渲染 laypage分页 实例
+                var str=location.search,
+                    i=str.indexOf("=");
+                    var stuid=str.substr(i+1);
+                $('#stuid').val(stuid);
+            //渲染 laypage分页 实例  查看培养计划
             laypage.render({
                 elem: 'plan_page' //分页容器的id
                 ,count: 60 //总页数
@@ -85,12 +71,13 @@
                 ,jump: function(obj){
                     var month=obj.curr;
                     $("#month").val(month);
+                    //培养计划目标
                     $.ajax({
                         type:"get",//提交类型
                         url:"/plan/selectPlanByOthers",//请求的地址
                         data:{
                             month:obj.curr,//月份
-                            stuid:stuid,//学生id
+                            stuid:$('#stuid').val(),//学生id
                         },//提交的数据
                         dataType:"json",//返回的类型 json
                         success:function(data){
@@ -105,94 +92,105 @@
                         }
 
                     });
+                    //培养计划详情
                     table.render({
                         elem:"#teacher_plan"
                         ,page:true
-                        ,url:"/plan/selectDetailByOthers"//数据接口
-                        ,where:{month:month,stuid:stuid}
+                       ,url:"/plan/selectDetailByOthers"//数据接口
+                       ,where:{month:month,stuid:$('#stuid').val()}
                         ,cols:  [[ //表头
                             {field: 'period', title: '时间', width:100,fixed:'left'}
-                            ,{field: 'knowledge', title: '知识点及掌握程度', width: 200}
-                            ,{field: 'material', title: '学习材料', width: 200}
-                            ,{field: 'inspect', title: '输出及考核方式',width:200}
+                            ,{field: 'knowledge', title: '知识点及掌握程度', minWidth: 200}
+                            ,{field: 'material', title: '学习材料', minWidth: 200}
+                            ,{field: 'inspect', title: '输出及考核方式',minWidth:200}
                             ,{fixed: 'right',  align:'center', toolbar: '#barDemo',minWidth:150}
                         ]]
                     });
 
                 }
             });
-            //监听table工具条teacher_plan
-                table.on('tool(teacher_plan)', function(obj) {
-                    var data = obj.data //获得当前行数据
-                    ,layEvent = obj.event; //获得 lay-event 对应的值
-                    //console.log(data);
-                    if (layEvent === 'del'){
-                        //删除
-                        layer.confirm('真的删除行么', function(index) {
-                            var delid=data.id;
-                            layer.close(index);
-                            $.ajax({
-                                url : '/plan/deletePlandetail?id='+delid,//数据接口
-                                type : 'get',
-                                dataType : 'JSON',
-                                success : function(data) {
-                                    layer.msg(data.msg);
-                                     table.reload('teacher_plan',{url:'/plan/selectDetailByOthers'});
-                                },
-                                error : function(e) {
-                                    layer.msg("服务器繁忙！操作失败，清重试！")
-                                }
-                            //向服务端发送删除指令
-                            });
-                        });
-                    } else if (layEvent === 'edit') {
-                        //编辑
-                        //console.log(data);
-                        $('#id').val(data.id);
-                        $('#period').val(data.period);
-                        $('#material').val(data.material);
-                        $('#knowledge').val(data.knowledge);
-                        $('#inspect').val(data.inspect);
+            //新增培养计划详情
+            $('#addDetail').on('click', function() {
+                layer.open({
+                    type : 2,
+                    area : [ '700px', '450px' ],
+                    fixed : false, //不固定
+                    maxmin : true,
+                    content : '../teacher/teacher_addPlan.html',
+                    success:function(layero,index){
+                        var body=layer.getChildFrame('body',index);//获取iframe页的DOM
+                        body.find('#planMonth').val($('#month').val());
+                        body.find('#planStuId').val($('#stuid').val());
+                    },
+                    end : function() {
+                        table.reload('teacher_plan', {url: '/plan/selectDetailByOthers'});
                     }
                 });
-                //编辑或新增
-                form.on('submit(formDemo)',function(data){
-                    console.log(data.field);//当前容器的全部表单字段
-                    if(data.field.id){
-                        //编辑操作
+            });
+            //监听table工具条  编辑和删除
+            table.on('tool(teacher_plan)', function(obj) { //注：tool是工具条事件名，tea是table原始容器的属性 lay-filter="对应的值"
+                var data = obj.data //获得当前行数据
+                , layEvent = obj.event; //获得 lay-event 对应的值
+                //console.log(obj);
+                if (layEvent === 'del'){
+                    //删除
+                    layer.confirm('真的删除行么', function(index) {
+                        var delid=data.id;
+                        // obj.del(); //删除对应行（tr）的DOM结构
+                        layer.close(index);
                         $.ajax({
-                            type: 'post',
-                            data:data.field,
-                            url: '/plan/updateDetail',
-                            success: function(data) {
-                               //console.log(data);
-                               layer.msg('修改成功');
+                            url : '/plan/deletePlandetail?id='+delid,//数据接口
+                            type : 'get',
+                            dataType : 'JSON',
+                            success : function(data) {
+                                layer.msg(data.msg);
+                                table.reload('teacher_plan', {url: '/plan/selectDetailByOthers'});
                             },
-                            error: function(e) {
-                                layer.msg('error:请求出错！');
+                            error : function(e) {
+                                layer.msg("服务器繁忙！操作失败，清重试！")
                             }
+                        //向服务端发送删除指令
                         });
-                    }else{
-                        $.ajax({
-                            type:'post',
-                            data:data.field,
-                            url:'/plan/addDetail',
-                            success:function(){
-                                layer.msg('新增成功！');
-                            },
-                            error:function(){
-                                layer.msg('请求出错，请重试！');
-                            }
-                        })
+                    });
+                } else if (layEvent === 'edit') {
+                    //编辑
+                    layer.open({
+                        type : 2,
+                        area : [ '700px', '450px' ],
+                        fixed : false, //不固定
+                        maxmin : true,
+                        content : '../teacher/teacher_editPlan.html',
+                        success:function(layero,index){
+                            var body=layer.getChildFrame('body',index);//获取iframe页的DOM
+                            body.find('#material').val(data.material);
+                            body.find('#inspect').val(data.inspect);
+                            body.find('#period').val(data.period);
+                            body.find('#knowledge').val(data.knowledge);
+                            body.find('#id').val(data.id);
+                            body.find('#editStuId').val($('#stuid').val())
+                        },
+                        end : function() {
+                             table.reload('teacher_plan', {url: '/plan/selectDetailByOthers'});
+                        }
+                    });
+                }
+            })
+            //修改和新增培养目标
+            form.on('submit(update)',function(data){
+                console.log(data.field);//当前容器的全部表单字段
+                $.ajax({
+                   type:'post',
+                   data:data.field,
+                    url:'/plan/updatePlan',
+                    success:function(data){
+                        layer.msg(data.msg);
+                    },
+                    error : function(e) {
+                        layer.msg("服务器繁忙！操作失败，清重试！")
                     }
-                    table.reload('teacher_plan',{url:'/plan/selectDetailByOthers'});
-                    $('#id').val('');
-                    $('#period').val('');
-                    $('#material').val('');
-                    $('#knowledge').val('');
-                    $('#inspect').val('');
-                    return false;
                 });
+                return false;//阻止表单跳转
+            });
         });
     </script>
 </body>

@@ -66,7 +66,7 @@ public class PlanController extends BaseController{
         return setInsertResponse();
     }
     /*
-    导师新增培养计划详情
+    导师新增培养计划详情/pla/
      */
     @PostMapping("/addDetail")
     @ResponseBody

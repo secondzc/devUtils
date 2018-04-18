@@ -38,7 +38,7 @@
             line-height: 80px;
         }
         header .top button{
-            margin-left:450px;
+
             margin-top:-10px;
         }
         section{
@@ -52,7 +52,8 @@
         section div#container{
             background:#fff;
             width:1000px;
-            margin:0 auto
+            margin:0 auto;
+            padding:10px;
         }
         footer{
             padding-top: 40px;
@@ -77,8 +78,9 @@
 <body>
     <header>
         <div class="top">
-            <h1>华为 实习生管理信息系统</h1>   
-            <button class="layui-btn" id="sign_out">退出</button>
+            <h1>华为 实习生管理信息系统</h1>
+            <button class="layui-btn" id="psw" style="margin-left:380px;">修改密码</button>
+            <button class="layui-btn" id="sign_out" style="margin-left:950px;margin-top:-95px;">退出</button>
         </div>
     </header>
     <section>
@@ -127,18 +129,8 @@
                                 , layEvent = obj.event; //获得 lay-event 对应的值
                                 //console.log(obj);
                                 if (layEvent === 'plan') {
-                                    layer.open({
-                                        type : 2,
-                                        area : [ '700px', '450px' ],
-                                        fixed : false, //不固定
-                                        maxmin : true,
-                                        content : '../templates/teacher/teacher_plan.html?id='+data.id,
-                                        success:function(layero,index){
-                                            var body=layer.getChildFrame('body',index);//获取iframe页的DOM
-                                            body.find('#stuid').val(data.id);
-									    }
-                                    });
-                                } else if (layEvent === 'message') {
+                                    window.open('../templates/teacher/teacher_plan.html?id='+data.id,'_blank');
+                                }else if (layEvent === 'message') {
                                     layer.open({
                                         type : 2,
                                         area : [ '700px', '450px' ],
@@ -161,7 +153,7 @@
 
                             //退出按钮功能
                             $('#sign_out').click(function(){
-                                window.open('../templates/login.html','_self')
+                                window.open('login','_self')
                             });
         });
     </script>
