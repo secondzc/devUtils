@@ -144,7 +144,7 @@ public class StuinfoController extends BaseController{
     /*
     管理员重置密码
      */
-    @PostMapping("/resetPwd")
+    @GetMapping("/resetPwd")
     @ResponseBody
     public JSONObject resetPwd(Integer id){
         Stuinfo stuinfo = stuinfoService.selectById(id);

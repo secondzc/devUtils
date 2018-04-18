@@ -83,7 +83,7 @@ public class PlanController extends BaseController{
     public JSONObject deletePlan(String id){
         String[] ids = id.split(",");
         for(String one:ids){
-            stuplanMapper.deleteById(one);
+            stuplanMapper.deleteById(Integer.valueOf(one));
         }
         return setBatchDeleteResponse();
     }
@@ -144,7 +144,7 @@ public class PlanController extends BaseController{
     }
 
     /*
-    导师新增或删除培养计划
+    导师新增或更新培养计划
      */
     @PostMapping("/cuPlan")
     @ResponseBody
