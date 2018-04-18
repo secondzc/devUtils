@@ -103,4 +103,26 @@ public class StusummaryController extends BaseController{
         return setBatchDeleteResponse();
     }
 
+    /*
+    学生新增或更新总结
+     */
+    @PostMapping("/cuSummary")
+    @ResponseBody
+    public JSONObject cuSummary(HttpServletRequest  request,Stusummary stusummary){
+        Token token = (Token)request.getSession().getAttribute("user");
+        Integer month = stusummary.getMonth();
+        Integer stuid = token.getId();
+        List<Stusummary> stusummaryList = stusummaryService.selectList(new EntityWrapper<Stusummary>().eq("month",month).eq("stuid",stuid));
+        if(stusummaryList.size()==0){
+            stusummaryService.insert(stusummary);
+        }else if(stusummaryList.size()==1){
+            Integer id = stusummaryList.get(0).getId();
+            stusummary.setId(id);
+            stusummaryService.updateById(stusummary);
+        }else{
+            throw new RuntimeException("unexpected stusummary number");
+        }
+        return setInsertResponse();
+    }
+
 }

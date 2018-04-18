@@ -143,5 +143,27 @@ public class PlanController extends BaseController{
         return setQueryResponse(plandetailList);
     }
 
+    /*
+    导师新增或删除培养计划
+     */
+    @PostMapping("/cuPlan")
+    @ResponseBody
+    public JSONObject cuPlan(Stuplan stuplan){
+        Integer month = stuplan.getMonth();
+        Integer stuid = stuplan.getStuid();
+        List<Stuplan> stuplanList = stuplanMapper.selectList(new EntityWrapper<Stuplan>().eq("month",month).eq("stuid",stuid));
+        if(stuplanList.size()==0){
+            //插入
+            stuplanMapper.insert(stuplan);
+        }else if(stuplanList.size()==1){
+            //修改
+            Integer id = stuplanList.get(0).getId();
+            stuplan.setId(id);
+            stuplanMapper.updateById(stuplan);
+        }else {
+            throw new RuntimeException("unexpected stuplan number");
+        }
+        return setInsertResponse();
+    }
 
 }
