@@ -1,6 +1,7 @@
 package com.tongyuan.testmp1.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.tongyuan.testmp1.aop.Permission;
 import com.tongyuan.testmp1.dao.ViewMapper;
 import com.tongyuan.testmp1.entity.Hr;
 import com.tongyuan.testmp1.helper.PageDataResult;
@@ -28,6 +29,7 @@ public class HrController extends BaseController{
     /*
     admin新增hr
      */
+    @Permission("admin")
     @PostMapping("/add")
     @ResponseBody
     public JSONObject add(Hr hr){
@@ -40,6 +42,7 @@ public class HrController extends BaseController{
     /*
     admin分页查询所有hr
      */
+    @Permission("admin")
     @GetMapping("/select")
     @ResponseBody
     public JSONObject select(@RequestParam("page")Integer page,
@@ -51,6 +54,7 @@ public class HrController extends BaseController{
     /*
     admin修改hr
      */
+    @Permission("admin")
     @PostMapping("/update")
     @ResponseBody
     public JSONObject update(Hr hr){
@@ -61,6 +65,7 @@ public class HrController extends BaseController{
     /*
     admin批量删除hr
      */
+    @Permission("admin")
     @GetMapping("/batchDelete")
     @ResponseBody
     public JSONObject batchDelete(String id){
@@ -74,6 +79,7 @@ public class HrController extends BaseController{
     /*
     admin重置hr密码
      */
+    @Permission("admin")
     @GetMapping("/resetPwd")
     @ResponseBody
     public JSONObject resetPwd(Integer id){
@@ -88,6 +94,7 @@ public class HrController extends BaseController{
     /*
     hr修改自己的密码
      */
+    @Permission("hr")
     @PostMapping("updatePwd")
     @ResponseBody
     public JSONObject updatePwd(HttpServletRequest request,String password){

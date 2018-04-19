@@ -1,6 +1,7 @@
 package com.tongyuan.testmp1.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.tongyuan.testmp1.aop.Permission;
 import com.tongyuan.testmp1.entity.Hr;
 import com.tongyuan.testmp1.entity.Stuinfo;
 import com.tongyuan.testmp1.entity.Teacher;
@@ -46,6 +47,7 @@ public class StuinfoController extends BaseController{
     /*
     admin或学生更新学生基本信息
      */
+    @Permission("admin,student")
     @PostMapping("/update")
     @ResponseBody
     public JSONObject update(Stuinfo stuinfo){
@@ -56,6 +58,7 @@ public class StuinfoController extends BaseController{
     /*
     学生查看自己的基本信息
      */
+    @Permission("student")
     @GetMapping("/select")
     @ResponseBody
     public JSONObject select(HttpServletRequest request){
@@ -66,6 +69,7 @@ public class StuinfoController extends BaseController{
     /*
     hr分页查看所有部门所有学生+搜索
      */
+    @Permission("hr")
     @GetMapping("/selectByHr")
     @ResponseBody
     public JSONObject selectByHr(HttpServletRequest request,
@@ -80,6 +84,7 @@ public class StuinfoController extends BaseController{
     /*
     导师分页查看所有学生
      */
+    @Permission("teacher")
     @GetMapping("/selectByTeacher")
     @ResponseBody
     public JSONObject selectByTeacher(HttpServletRequest request,
@@ -93,6 +98,7 @@ public class StuinfoController extends BaseController{
     /*
     admin分页查看所有学生+搜索
      */
+    @Permission("admin")
     @GetMapping("/selectByAdmin")
     @ResponseBody
     public JSONObject selectByAdmin(@RequestParam("page")Integer page,
@@ -105,6 +111,7 @@ public class StuinfoController extends BaseController{
     /*
     admin新增学生
      */
+    @Permission("admin")
     @PostMapping("/add")
     @ResponseBody
     public JSONObject addByAdmin(Stuinfo stuinfo){
@@ -117,6 +124,7 @@ public class StuinfoController extends BaseController{
     /*
     admin批量删除学生
      */
+    @Permission("admin")
     @GetMapping("/batchDelete")
     @ResponseBody
     public JSONObject batchDelete(String id){
@@ -130,6 +138,7 @@ public class StuinfoController extends BaseController{
     /*
     学生修改密码
      */
+    @Permission("student")
     @PostMapping("/updatePwd")
     @ResponseBody
     public JSONObject updatePwd(HttpServletRequest request,@RequestParam("password") String pwd){
@@ -144,6 +153,7 @@ public class StuinfoController extends BaseController{
     /*
     管理员重置密码
      */
+    @Permission("admin")
     @GetMapping("/resetPwd")
     @ResponseBody
     public JSONObject resetPwd(Integer id){
