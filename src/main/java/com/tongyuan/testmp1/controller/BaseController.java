@@ -87,7 +87,7 @@ public class BaseController {
         if(e instanceof AccessDeniedException){
             response.sendRedirect("/noPermission");
         }else {
-            response.sendRedirect("/error");
+            response.sendRedirect("/myError");
         }
     }
 }
