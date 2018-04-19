@@ -30,7 +30,7 @@ public class LoginInterceptor implements HandlerInterceptor{
         //“user”为登录时存入session中
         User user=(User)request.getSession().getAttribute("user");
         if(null==user){
-            response.sendRedirect("toLogin");
+            response.sendRedirect("login");
             flag = false;
         }else{
             flag = true;
