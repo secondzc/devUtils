@@ -4,6 +4,7 @@ import com.tongyuan.testmp1.entity.Admin;
 import com.tongyuan.testmp1.entity.Hr;
 import com.tongyuan.testmp1.entity.Teacher;
 import com.tongyuan.testmp1.entity.User;
+import com.tongyuan.testmp1.exception.AccessDeniedException;
 import com.tongyuan.testmp1.helper.Token;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
@@ -52,7 +53,7 @@ public class PermissionAspect {
 
 
     @Before("permission()")
-    public void doBefore(JoinPoint joinPoint) throws Throwable{
+    public void doBefore(JoinPoint joinPoint) throws AccessDeniedException{
         Method targetMethod = getSourceMethod(joinPoint);
         if(targetMethod!=null){
             Permission permission = targetMethod.getAnnotation(Permission.class);
@@ -72,7 +73,9 @@ public class PermissionAspect {
                     isRedirect = !containsPermission(roles,"admin");
                 }
                 //需要跳转
-                // TODO: 2018/4/18  
+                if(isRedirect){
+                    throw new AccessDeniedException("权限不足");
+                }
             }
         }
     }

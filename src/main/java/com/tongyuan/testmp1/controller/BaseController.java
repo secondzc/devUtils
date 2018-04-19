@@ -4,10 +4,13 @@ import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.tongyuan.testmp1.entity.Hr;
 import com.tongyuan.testmp1.entity.Teacher;
+import com.tongyuan.testmp1.exception.AccessDeniedException;
 import com.tongyuan.testmp1.helper.PageDataResult;
 import com.tongyuan.testmp1.helper.Token;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 import java.util.Map;
 
@@ -77,5 +80,14 @@ public class BaseController {
 
     protected Teacher getTeacher(HttpServletRequest request){
         return (Teacher) request.getSession().getAttribute("user");
+    }
+
+    @ExceptionHandler
+    public void handler(HttpServletResponse response,Exception e) throws Exception{
+        if(e instanceof AccessDeniedException){
+            response.sendRedirect("/noPermission");
+        }else {
+            response.sendRedirect("/error");
+        }
     }
 }

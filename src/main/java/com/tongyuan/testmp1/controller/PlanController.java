@@ -2,6 +2,7 @@ package com.tongyuan.testmp1.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.tongyuan.testmp1.aop.Permission;
 import com.tongyuan.testmp1.dao.PlandetailMapper;
 import com.tongyuan.testmp1.dao.StuplanMapper;
 import com.tongyuan.testmp1.entity.Plandetail;
@@ -78,6 +79,7 @@ public class PlanController extends BaseController{
     /*
     导师删除培养计划
      */
+    @Permission("teacher")
     @GetMapping("/deletePlan")
     @ResponseBody
     public JSONObject deletePlan(String id){
