@@ -32,6 +32,8 @@ public class SpringWebMvcConfig extends WebMvcConfigurerAdapter {
         registry.addViewController("/hr").setViewName("hr");
         registry.addViewController("/student").setViewName("student");
         registry.addViewController("/administrator").setViewName("administrator");
+        registry.addViewController("/noPermission").setViewName("noPermission");
+        registry.addViewController("/myError").setViewName("myError");
         super.addViewControllers(registry);
     }
 
@@ -43,7 +45,7 @@ public class SpringWebMvcConfig extends WebMvcConfigurerAdapter {
     public void addInterceptors(InterceptorRegistry registry) {
         // addPathPatterns 用于添加拦截规则
         // excludePathPatterns 用户排除拦截
-        //registry.addInterceptor(new LoginInterceptor()).addPathPatterns("/**").excludePathPatterns("/login");
+        registry.addInterceptor(new LoginInterceptor()).addPathPatterns("/**").excludePathPatterns("/toLogin","/login");
         super.addInterceptors(registry);
     }
 }

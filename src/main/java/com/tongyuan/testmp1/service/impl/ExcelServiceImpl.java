@@ -49,6 +49,11 @@ public class ExcelServiceImpl implements ExcelService {
             XSSFSheet sheet1 = workbook.getSheet("导师信息表");
             XSSFSheet sheet2 = workbook.getSheet("HR信息表");
 
+            //先清除老数据
+            stuinfoService.delete(null);
+            hrService.delete(null);
+            teacherService.delete(null);
+
             parseStudent(sheet);
             parseTeacher(sheet1);
             parseHr(sheet2);

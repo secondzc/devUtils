@@ -26,5 +26,8 @@ public abstract class PageHandler<T> {
         return pageDataResult;
     }
 
+    /*
+    回调方法
+     */
     protected abstract List<T> doQuery();
 }

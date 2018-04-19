@@ -2,6 +2,7 @@ package com.tongyuan.testmp1.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.tongyuan.testmp1.aop.Permission;
 import com.tongyuan.testmp1.dao.PlandetailMapper;
 import com.tongyuan.testmp1.dao.StuplanMapper;
 import com.tongyuan.testmp1.entity.Plandetail;
@@ -32,6 +33,7 @@ public class PlanController extends BaseController{
     /*
     学生查看培养计划
      */
+    @Permission("student")
     @GetMapping("/selectByStu")
     @ResponseBody
     public JSONObject selectByStu(HttpServletRequest request,Integer month){
@@ -47,6 +49,7 @@ public class PlanController extends BaseController{
     /*
     学生查看培养计划详情
      */
+    @Permission("student")
     @GetMapping("/selectDetailByStu")
     @ResponseBody
     public JSONObject selectDetailByStu(HttpServletRequest request,Integer month){
@@ -59,6 +62,7 @@ public class PlanController extends BaseController{
     /*
     导师新增培养计划
      */
+    @Permission("teacher")
     @PostMapping("/addPlan")
     @ResponseBody
     public JSONObject addPlan(Stuplan stuplan){
@@ -68,6 +72,7 @@ public class PlanController extends BaseController{
     /*
     导师新增培养计划详情/pla/
      */
+    @Permission("teacher")
     @PostMapping("/addDetail")
     @ResponseBody
     public JSONObject addDetail(Plandetail plandetail){
@@ -78,6 +83,7 @@ public class PlanController extends BaseController{
     /*
     导师删除培养计划
      */
+    @Permission("teacher")
     @GetMapping("/deletePlan")
     @ResponseBody
     public JSONObject deletePlan(String id){
@@ -90,6 +96,7 @@ public class PlanController extends BaseController{
     /*
     导师删除培养计划详情
      */
+    @Permission("teacher")
     @GetMapping("/deletePlandetail")
     @ResponseBody
     public JSONObject deletePlandetail(String id){
@@ -103,6 +110,7 @@ public class PlanController extends BaseController{
     /*
     导师修改培养计划
      */
+    @Permission("teacher")
     @PostMapping("/updatePlan")
     @ResponseBody
     public JSONObject updatePlan(Stuplan stuplan){
@@ -112,6 +120,7 @@ public class PlanController extends BaseController{
     /*
     导师修改培养计划详情
      */
+    @Permission("teacher")
     @PostMapping("/updateDetail")
     @ResponseBody
     public JSONObject updateDetail(Plandetail plandetail){
@@ -121,6 +130,7 @@ public class PlanController extends BaseController{
     /*
     导师或hr查看培养计划
      */
+    @Permission("teacher,hr")
     @GetMapping("/selectPlanByOthers")
     @ResponseBody
     public JSONObject selectPlanByOthers(Integer stuid,Integer month){
@@ -135,6 +145,7 @@ public class PlanController extends BaseController{
     /*
     导师或hr查看培养计划详情
      */
+    @Permission("teacher,hr")
     @GetMapping("/selectDetailByOthers")
     @ResponseBody
     public JSONObject selectDetailByOthers(Integer stuid,Integer month){
@@ -146,6 +157,7 @@ public class PlanController extends BaseController{
     /*
     导师新增或更新培养计划
      */
+    @Permission("teacher")
     @PostMapping("/cuPlan")
     @ResponseBody
     public JSONObject cuPlan(Stuplan stuplan){

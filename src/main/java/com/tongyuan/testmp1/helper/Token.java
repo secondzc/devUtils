@@ -1,10 +1,12 @@
 package com.tongyuan.testmp1.helper;
 
+import com.tongyuan.testmp1.entity.User;
+
 /**
  * Created by zhangcy on 2018/4/12
  * student的token（studentInfo信息太多了）
  */
-public class Token {
+public class Token implements User{
     /*
     与stuinfo的id相同
      */

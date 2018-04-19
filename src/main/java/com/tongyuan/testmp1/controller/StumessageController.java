@@ -2,6 +2,7 @@ package com.tongyuan.testmp1.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.tongyuan.testmp1.aop.Permission;
 import com.tongyuan.testmp1.dao.StumessageMapper;
 import com.tongyuan.testmp1.entity.Stuinfo;
 import com.tongyuan.testmp1.entity.Stumessage;
@@ -29,6 +30,7 @@ public class StumessageController extends BaseController{
     /*
     学生新增留言
      */
+    @Permission("student")
     @PostMapping("/add")
     @ResponseBody
     public JSONObject insert(HttpServletRequest request,Stumessage stumessage){
@@ -40,6 +42,7 @@ public class StumessageController extends BaseController{
     /*
     学生修改留言
      */
+    @Permission("student")
     @PostMapping("/update")
     @ResponseBody
     public JSONObject updadte(Stumessage stumessage){
@@ -49,6 +52,7 @@ public class StumessageController extends BaseController{
     /*
     学生查看留言
      */
+    @Permission("student")
     @GetMapping("/select")
     @ResponseBody
     public JSONObject select(HttpServletRequest request){
@@ -60,6 +64,7 @@ public class StumessageController extends BaseController{
     /*
     导师或hr查看留言
      */
+    @Permission("hr,teacher")
     @GetMapping("/selectByOthers")
     @ResponseBody
     public JSONObject selectByOthers(Integer id){
@@ -70,6 +75,7 @@ public class StumessageController extends BaseController{
     /*
     学生删除留言
      */
+    @Permission("student")
     @GetMapping("/delete")
     @ResponseBody
     public JSONObject delete(String id){

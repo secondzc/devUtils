@@ -1,6 +1,7 @@
 package com.tongyuan.testmp1.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.tongyuan.testmp1.aop.Permission;
 import com.tongyuan.testmp1.entity.Teacher;
 import com.tongyuan.testmp1.helper.PageDataResult;
 import com.tongyuan.testmp1.helper.PwdHelper;
@@ -26,6 +27,7 @@ public class TeacherController extends BaseController{
     /*
     admin分页查询所有导师
      */
+    @Permission("admin")
     @GetMapping("/select")
     @ResponseBody
     public JSONObject select(@RequestParam("page")Integer page,
@@ -38,6 +40,7 @@ public class TeacherController extends BaseController{
     /*
     admin新增导师
      */
+    @Permission("admin")
     @PostMapping("/add")
     @ResponseBody
     public JSONObject insertByAdmin(Teacher teacher){
@@ -50,6 +53,7 @@ public class TeacherController extends BaseController{
     /*
     admin更改导师
      */
+    @Permission("admin")
     @PostMapping("/update")
     @ResponseBody
     public JSONObject updateByAdmin(Teacher teacher){
@@ -60,6 +64,7 @@ public class TeacherController extends BaseController{
     /*
     admin批量删除导师
      */
+    @Permission("admin")
     @GetMapping("/batchDelete")
     @ResponseBody
     public JSONObject batchDelete(String id){
@@ -73,6 +78,7 @@ public class TeacherController extends BaseController{
     /*
     修改之前：admin获取导师信息
      */
+    @Permission("admin")
     @GetMapping("/selectById")
     @ResponseBody
     public JSONObject selectById(Integer id){
@@ -82,6 +88,7 @@ public class TeacherController extends BaseController{
     /*
     admin重置导师密码
      */
+    @Permission("admin")
     @GetMapping("/resetPwd")
     @ResponseBody
     public JSONObject resetPwd(Integer id){
@@ -96,6 +103,7 @@ public class TeacherController extends BaseController{
     /*
     导师修改自己的密码
      */
+    @Permission("teacher")
     @PostMapping("/updatePwd")
     @ResponseBody
     public JSONObject updatePwd(HttpServletRequest request,String pwd){

@@ -1,6 +1,7 @@
 package com.tongyuan.testmp1.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.tongyuan.testmp1.aop.Permission;
 import com.tongyuan.testmp1.service.ExcelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -24,6 +25,7 @@ public class ExcelController extends BaseController{
     @Autowired
     private ExcelService excelService;
 
+    @Permission("admin")
     @PostMapping("/upload")
     @ResponseBody
     public JSONObject upload(@RequestParam("file") MultipartFile file){

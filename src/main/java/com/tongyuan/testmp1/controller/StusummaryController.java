@@ -2,6 +2,7 @@ package com.tongyuan.testmp1.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.tongyuan.testmp1.aop.Permission;
 import com.tongyuan.testmp1.entity.Stuinfo;
 import com.tongyuan.testmp1.entity.Stusummary;
 import com.tongyuan.testmp1.helper.Token;
@@ -27,6 +28,7 @@ public class StusummaryController extends BaseController{
     /*
     学生查看自己的总结
      */
+    @Permission("student")
     @GetMapping("/select")
     @ResponseBody
     public JSONObject selectByStudent(HttpServletRequest request,@RequestParam("month") Integer month){
@@ -44,6 +46,7 @@ public class StusummaryController extends BaseController{
     /*
     hr或导师查看学生的总结
      */
+    @Permission("hr,teacher")
     @GetMapping("/selectByOthers")
     @ResponseBody
     public JSONObject selectByOthers(@RequestParam("stuid") Integer stuid,@RequestParam("month") Integer month){
@@ -59,6 +62,7 @@ public class StusummaryController extends BaseController{
     /*
     学生新增总结
      */
+    @Permission("student")
     @PostMapping("/add")
     @ResponseBody
     public JSONObject add(HttpServletRequest request,Stusummary stusummary){
@@ -71,6 +75,7 @@ public class StusummaryController extends BaseController{
     /*
      学生更新总结
      */
+    @Permission("student")
     @PostMapping("/update")
     @ResponseBody
     public JSONObject update(HttpServletRequest request,Stusummary stusummary){
@@ -93,6 +98,7 @@ public class StusummaryController extends BaseController{
     /*
     学生删除总结
      */
+    @Permission("student")
     @GetMapping("/delete")
     @ResponseBody
     public JSONObject delete(String id){
@@ -106,6 +112,7 @@ public class StusummaryController extends BaseController{
     /*
     学生新增或更新总结
      */
+    @Permission("student")
     @PostMapping("/cuSummary")
     @ResponseBody
     public JSONObject cuSummary(HttpServletRequest  request,Stusummary stusummary){

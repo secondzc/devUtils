@@ -74,7 +74,8 @@ public class UserrServiceTest {
 
     @Test
     public void testDelete() throws Exception{
-        System.out.println(stuinfoService.deleteById(3));
-        System.out.println(stuinfoService.deleteById(3));
+        //System.out.println(stuinfoService.deleteById(3));
+        //System.out.println(stuinfoService.deleteById(3));
+        userService.delete(null);
     }
 }
