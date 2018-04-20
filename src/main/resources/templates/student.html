@@ -31,6 +31,7 @@
             margin:0 auto;
             background:url(../static/logo.jpg) no-repeat;
             background-size: 100px 80px;
+            position:relative;
         }
         header .top h1{
             display:inline-block;
@@ -78,8 +79,17 @@
 <body>
     <header>
         <div class="top">
-            <h1>华为 实习生管理信息系统</h1>           
-            <button class="layui-btn" id="sign_out">退出</button>
+            <h1>华为 实习生管理信息系统</h1>
+            <ul class="layui-nav" style="width:130px;position:absolute;top:18px;right:-20px;">
+                <li class="layui-nav-item">
+                    <a href="javascript:;" style="font-size:16px;color:#409eff;">更多<i class="layui-icon">&#xe61a;</i>  </a>
+                    <dl class="layui-nav-child"> <!-- 二级菜单 -->
+                        <dd><a href="javascript:;" id="modify">安全设置</a></dd>
+                        <dd><a href="login" target="_self">退出登录</a></dd>
+                    </dl>
+                </li>
+            </ul>
+            <!--<button class="layui-btn" id="sign_out">退出</button>-->
         </div>
     </header>
     <section>
@@ -89,7 +99,7 @@
                   <li>培养计划</li>
                   <li>我的留言</li>
                   <li>月度总结</li>
-                  <li>修改登录密码</li>
+                  <!--<li>修改登录密码</li>-->
                 </ul>
                 <div class="layui-tab-content">
                   
@@ -313,32 +323,6 @@
                   </form>
                         <div id="summary_page" style="text-align:center"></div>
                   </div>
-                    <!--修改登录密码-->
-                        <div class="layui-tab-item">
-                            <form>
-                                <div class="layui-form-item" >
-                                    <label class="layui-form-label">输入密码</label>
-                                    <div class="layui-input-block">
-                                        <input type="password" class="layui-input" name="password" id="psw1"
-                                               placeholder="由英文或数字组成，且不少于6个字符" required="required"/>
-                                    </div>
-
-                                </div>
-                                <div class="layui-form-item">
-                                    <label class="layui-form-label">确认密码</label>
-                                    <div class="layui-input-block">
-                                        <input type="password" class="layui-input" id="psw2" required="required" lay-verify="required"/>
-                                    </div>
-                                    <!--<div class="layui-form-mid layui-word-aux">1-6个英文或汉字</div>-->
-                                </div>
-                                <div class="layui-form-item">
-                                    <div class="layui-input-block">
-                                        <button class="layui-btn" type="submit" id="modifyPSW">提交修改</button>
-                                        <button type="reset" class="layui-btn layui-btn-primary">重置</button>
-                                    </div>
-                                </div>
-                            </form>
-                       </div>
 
                 </div>
               </div>
@@ -617,40 +601,15 @@
                   })
 
                //修改登录密码
-                $('#modifyPSW').click(function(){
-                var psw1=$('#psw1').val(),
-                    psw2=$('#psw2').val();
-                    //有小于号就报错！！！！这是为啥  success  进不去！！！
-                    if(psw1.length ==5){
-                        layer.msg('密码长度不能少于6个');
-                        return false;
-                    }else if(psw1!==psw2){
-                       layer.msg('两次输入密码不一致，请重新输入');
-                       return false;
-                    }else{
-                        $.ajax({
-                            type:"post",
-                            data:{pwd:psw1},
-                            url:"/stuinfo/updatePwd",
-                            success:function(data){
-                                //alert('werewfde');
-                                //layer.msg(data.msg);
-                            },
-                            error : function(e) {
-                                layer.msg("服务器繁忙！操作失败，请重试！")
-                            }
-                        });
-                    }
-
-                });
-
-
-
-              //退出按钮功能
-              $('#sign_out').click(function(){
-                                window.open('login','_self')
-                            });
-              });
+            $('#modify').click(function(){
+                layer.open({
+                    type:2,
+                    title:'修改登录密码',
+                    area: [ '700px', '450px' ],
+                   content:'../templates/student/stu_modifyPwd.html',
+                })
+            })
+        })
               </script>
                     
     

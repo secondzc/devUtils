@@ -95,7 +95,7 @@ public class HrController extends BaseController{
     hr修改自己的密码
      */
     @Permission("hr")
-    @PostMapping("updatePwd")
+    @PostMapping("/updatePwd")
     @ResponseBody
     public JSONObject updatePwd(HttpServletRequest request,String password){
         Hr hr = getHr(request);

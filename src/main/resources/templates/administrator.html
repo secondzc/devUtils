@@ -213,10 +213,12 @@
 							elem : '#upload',//绑定元素
 							url : '/excel/upload',//上传接口
 							accept : 'file',
+							//exts : 'xlsx',//允许上传的文件后缀
+  							//size : 5120 ,//最大允许上传的文件大小 kb
 							done : function(res) {
 								//上传完毕回调
-								layer.msg("成功插入" + res + "条数据！");
-								location.reload();
+								layer.msg("上传成功！");
+								setTimeout("location.reload()",2000)
 							},
 							error : function() {
 								//请求异常回调
