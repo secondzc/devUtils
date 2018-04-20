@@ -29,15 +29,18 @@ public class ExcelController extends BaseController{
     @PostMapping("/upload")
     @ResponseBody
     public JSONObject upload(@RequestParam("file") MultipartFile file){
+        //long startTime = System.currentTimeMillis();
         JSONObject jo = new JSONObject();
         try{
             byte[] bytes = file.getBytes();
             excelService.parse(new ByteArrayInputStream(bytes));
-            jo.put("flag",true);
+            long endTime = System.currentTimeMillis();
+            //System.out.println("上传耗时 "+(endTime-startTime)+" ms");
+            jo.put("code",0);
             jo.put("msg","excel解析成功");
             return jo;
         }catch (Exception e){
-            jo.put("flag",false);
+            jo.put("code",1);
             jo.put("msg","excel解析失败");
             return jo;
         }
