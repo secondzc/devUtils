@@ -100,19 +100,19 @@
                         <div class="layui-form-item">
                             <label class="layui-form-label">姓名</label>
                             <div class="layui-input-inline">
-                            <input type="text" name="name" required="required" class="layui-input" id="name"/>
+                            <input type="text" name="name" lay-verify="required" class="layui-input" id="name"/>
                             </div>
 
                             <label class="layui-form-label">工号</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="job_number" required="required" class="layui-input" id="job_number"/>
+                                <input type="text" name="job_number" lay-verify="required" class="layui-input" id="job_number"/>
                             </div>
                         </div>
 
                         <div class="layui-form-item">
                             <label class="layui-form-label">联系方式</label>
                             <div class="layui-input-inline">
-                            <input type="text" name="phone_number" value="111111" lay-verify="required"  class="layui-input" id="phone_number" required="required"/>
+                            <input type="text" name="phone_number" value="111111" lay-verify="phone"  class="layui-input" id="phone_number" required="required"/>
                             </div>
 
                             <label class="layui-form-label">性别</label>
@@ -126,12 +126,12 @@
                         <div class="layui-form-item">
                             <label class="layui-form-label">身份证号</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="id_number" required="required" class="layui-input" id="id_number"/>
+                                <input type="text" name="id_number" lay-verify="identity" class="layui-input" id="id_number"/>
                             </div>
 
                             <label class="layui-form-label">邮箱地址</label>
                             <div class="layui-input-inline">
-                                <input type="text" id="email_addr" required="required" class="layui-input" />
+                                <input type="text" id="email_addr" lay-verify="email" class="layui-input" />
                             </div>
 
                         </div>
@@ -263,9 +263,9 @@
                                     </button>
                         
 
-                                        <button class="layui-btn" id="refresh">
-                                                <i class="layui-icon">&#x1002;</i>刷新
-                                        </button>
+                                    <button class="layui-btn" id="refresh">
+                                            <i class="layui-icon">&#x1002;</i>刷新
+                                    </button>
 
                                 </div>
                         
@@ -279,7 +279,7 @@
                   </div>
                   <!--月度总结-->
                   <div class="layui-tab-item">
-                        <form class="layui-form layui-form-pane" id="summaryForm">
+                        <form class="layui-form layui-form-pane" id="summaryForm" lay-filter="summaryForm">
                       <div class="layui-form-item">
                           <label class="layui-form-label">时间</label>
                           <div class="layui-input-block">
@@ -288,26 +288,26 @@
 
                           <label class="layui-form-label" style="height:100px;border-top:0px;">月度工作<br/>学习总结</label>
                           <div class="layui-input-block">
-                                    <textarea name="summary" placeholder="请输入内容" class="layui-textarea"
-                                              maxlength="4000" id="summary"  style="resize:none;border-top:0px;"></textarea>
+                                    <textarea name="summary" class="layui-textarea"
+                                              maxlength="4000" id="summary"  style="resize:none;border-top:0px;" readonly="true"></textarea>
                           </div>
 
                           <label class="layui-form-label" style="height:100px;border-top:0px;">问题和困难</label>
                           <div class="layui-input-block">
-                                    <textarea name="question" placeholder="请输入内容" class="layui-textarea" id="question"
-                                              maxlength="4000" style="resize:none;border-top:0px;"></textarea>
+                                    <textarea name="question" class="layui-textarea" id="question"
+                                              maxlength="4000" style="resize:none;border-top:0px;" readonly="true"></textarea>
                           </div>
 
                           <label class="layui-form-label" style="height:100px;border-top:0px;">下个月计划</label>
                           <div class="layui-input-block">
-                                    <textarea name="plan" placeholder="请输入内容" class="layui-textarea" id="plan"
-                                              maxlength="4000" style="resize:none;border-top:0px;"></textarea>
+                                    <textarea name="plan" class="layui-textarea" id="plan"
+                                              maxlength="4000" style="resize:none;border-top:0px;" readonly="true"></textarea>
                           </div>
 
                       </div>
                       <div class="layui-form-item" lay-filter="">
                           <div class="layui-input-block">
-                              <button class="layui-btn" lay-submit="lay-submit" lay-filter="summary_update" style="float:right;">提交</button>
+                              <button class="layui-btn"  id="summary_update" style="float:right;">编辑</button>
                           </div>
                       </div>
                   </form>
@@ -385,7 +385,7 @@
                         //为select赋值
                         //$('select').val(data.data.education);
                          form.render('select');
-                        console.log(data.data.sex);
+                        //console.log(data.data.sex);
                         if(data.data.sex=='男'){
                             $('#male').attr('checked',true);
                             form.render('radio')
@@ -395,8 +395,8 @@
                         }
                    },
                     error : function(e) {
-										layer.msg("服务器繁忙！操作失败，清重试！")
-									}
+                        layer.msg("服务器繁忙！操作失败，清重试！")
+                    }
                 });
 
                      //修改个人信息  提交到后台 并重新渲染页面
@@ -542,33 +542,59 @@
             });
 
             //月度总结
-            //学生编辑月度总结
-            form.on('submit(summary_update)',function(data){
-                //console.log(data.field);//当前容器的全部表单字段
-                $.ajax({
-                   type:'post',
-                   data:data.field,
-                    url:'/stusummary/update',
-                    success:function(data){
-                        layer.msg(data.msg);
-                    },
-                    error : function(e) {
-                        layer.msg("服务器繁忙！操作失败，清重试！")
-                    }
-                });
-                return false;//阻止表单跳转
-            });
-              //学生查看自己的月度总结
-              laypage.render({
-                elem: 'summary_page' //分页容器的id
-                ,count: 60 //总页数
-                ,prev:'上个月'
-                ,next:'下个月'
-                ,skin: '#1E9FFF' //自定义选中色值
-                ,jump: function(obj){
-                    var month=obj.curr;
-                    //$("#summaryMonth").val('第'+ month +'个月');
-                    $("#summaryMonth").val(month);
+            //编辑或新增月度总结
+               $('#summary_update').click(function(){
+                    layer.open({
+                        type : 2,
+                        area : [ '700px', '520px' ],
+                        fixed : false, //不固定
+                        maxmin : true,
+                        content : '../templates/student/student_editPlan.html',
+                        success:function(layero,index){
+                            var body=layer.getChildFrame('body',index);//获取iframe页的DOM
+                            var objPlan={month:$('#summaryMonth').val(),
+                                         question:$('#question').val(),
+                                         plan:$('#plan').val(),
+                                         summary:$('#summary').val()
+                                         }
+                            //使用jquery的setform 扩展方法,获取到值放入到表单中
+                                    body.find("#summaryForm").setform(objPlan);
+
+                        },
+                        end:function(){
+                            $.ajax({
+                                url:"/stusummary/select",
+                                type:"get",
+                                dataType:"json",
+                                data:{month:$("#summaryMonth").val()},
+                                success:function(data){
+                                    //console.log(data.data);
+                                    if(data.data){
+                                        //使用jquery的setform 扩展方法,获取到值放入到表单中
+                                        $("#summaryForm").setform(data.data);
+                                    }else{
+                                        $("#summaryForm").setform({summary:'',question:'',plan:''});
+                                    }
+                               },
+                               error : function(e) {
+                                    layer.msg("服务器繁忙！操作失败，清重试！")
+                               }
+                            });
+                        }
+                    });
+                    return false;
+               });
+               //学生查看自己的月度总结
+                    laypage.render({
+                    elem: 'summary_page' //分页容器的id
+                    ,count: 60 //总页数
+                    ,prev:'上个月'
+                    ,next:'下个月'
+                    ,skin: '#1E9FFF' //自定义选中色值
+                    ,jump: function(obj){
+                        var month=obj.curr;
+                        //$("#summaryMonth").val('第'+ month +'个月');
+                        $("#summaryMonth").val(month);
                         $.ajax({
                             url:"/stusummary/select",
                             type:"get",
@@ -585,11 +611,10 @@
                            },
                            error : function(e) {
                                 layer.msg("服务器繁忙！操作失败，清重试！")
-                            }
-                    });
-                }
-              })
-
+                           }
+                        });
+                    }
+                  })
 
                //修改登录密码
                 $('#modifyPSW').click(function(){
