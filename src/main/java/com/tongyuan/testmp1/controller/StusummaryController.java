@@ -121,6 +121,7 @@ public class StusummaryController extends BaseController{
         Integer stuid = token.getId();
         List<Stusummary> stusummaryList = stusummaryService.selectList(new EntityWrapper<Stusummary>().eq("month",month).eq("stuid",stuid));
         if(stusummaryList.size()==0){
+            stusummary.setStuid(stuid);
             stusummaryService.insert(stusummary);
         }else if(stusummaryList.size()==1){
             Integer id = stusummaryList.get(0).getId();
