@@ -7,13 +7,13 @@
     <title>hr修改密码</title>
 </head>
 <body>
-<form style="padding:30px;" class="layui-form" action="/hr/updatePwd" method="post">
+<form style="padding:30px;" class="layui-form">
     <div class="layui-form-item" >
         <label class="layui-form-label">输入密码</label>
         <div class="layui-input-block">
             <input type="password" class="layui-input" name="password" id="psw1"
                    placeholder="不能少于6个字符" lay-verify="pass1"/>
-            <div class="layui-form-mid layui-word-aux" id=""></div>
+            <div class="layui-form-mid layui-word-aux"></div>
         </div>
     </div>
     <div class="layui-form-item">
@@ -45,7 +45,6 @@
                     }
                 }
             })
-
             form.on('submit(go)',function(data){
                 $.ajax({
                     type: 'post',

@@ -183,7 +183,7 @@
                    data:data.field,
                     url:'/plan/cuPlan',
                     success:function(data){
-                        layer.msg(data.msg);
+                        layer.msg('保存成功',{time:1000});
                     },
                     error : function(e) {
                         layer.msg("服务器繁忙！操作失败，清重试！")

@@ -106,9 +106,9 @@ public class TeacherController extends BaseController{
     @Permission("teacher")
     @PostMapping("/updatePwd")
     @ResponseBody
-    public JSONObject updatePwd(HttpServletRequest request,String pwd){
+    public JSONObject updatePwd(HttpServletRequest request,String password){
         Teacher teacher = getTeacher(request);
-        teacher.setEncrypt_password(SecurityUtil.encryptPassword(pwd));
+        teacher.setEncrypt_password(SecurityUtil.encryptPassword(password));
         teacherService.updateById(teacher);
         return setUpdateResponse();
     }

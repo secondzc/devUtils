@@ -218,7 +218,7 @@
 							done : function(res) {
 								//上传完毕回调
 								layer.msg("上传成功！");
-								setTimeout("location.reload()",2000)
+								setTimeout("location.reload()",1000)
 							},
 							error : function() {
 								//请求异常回调
@@ -363,7 +363,7 @@
 										dataType : 'JSON',
 										success : function(data) {
 											//console.log(data);
-											layer.msg(data.msg);
+											layer.msg('成功设置为初始登录密码！',{time:1000});
 										},
 										error : function(e) {
 											layer.msg("服务器繁忙！操作失败，清重试！")
@@ -528,7 +528,7 @@
 										dataType : 'JSON',
 										success : function(data) {
 											//console.log(data);
-											layer.msg(data.msg);
+											layer.msg('成功设置为初始登录密码！',{time:1000});
 										},
 										error : function(e) {
 											layer.msg("服务器繁忙！操作失败，清重试！")
@@ -691,10 +691,14 @@
 										body.find('#name').val(data.name);
 										body.find('#job_number').val(data.job_number);
 										body.find('#phone_number').val(data.phone_number);
-										//body.find('#sex').val(data.sex);
+										if(data.sex=='女'){
+											body.find('#female').attr('checked',true);
+										}else{
+											body.find('#male').attr('checked',true);
+										}
 										body.find('#id_number').val(data.id_number);
 										body.find('#email_addr').val(data.email_addr);
-										//body.find('#education option:selected').val(data.education);
+										body.find('#education').val(data.education);
 										body.find('#graduate_college').val(data.graduate_college);
 										body.find('#major').val(data.major);
 										body.find('#job').val(data.job);
@@ -726,7 +730,7 @@
 										dataType : 'JSON',
 										success : function(data) {
 											//console.log(data);
-											layer.msg(data.msg);
+											layer.msg('成功设置为初始登录密码！',{time:1000});
 										},
 										error : function(e) {
 											layer.msg("服务器繁忙！操作失败，清重试！")

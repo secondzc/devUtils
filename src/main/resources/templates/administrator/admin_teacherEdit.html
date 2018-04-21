@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, userr-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <title>admin_teacherEdit</title>
     <link rel="stylesheet" href="../../static/layui/css/layui.css">
     <style>
@@ -12,31 +12,31 @@
 
 <body>
 <fieldset class="layui-elem-field layui-field-title mt-15">
-    <legend>编辑teacher</legend>
+    <legend>编辑导师信息</legend>
 </fieldset>
 <div class="layui-row">
     <div class="layui-col-xs12 layui-col-md8">
-        <form class="layui-form" id="myForm" method="post" action="/teacher/update" lay-filter="pageForm">
+        <form class="layui-form">
             <input type="hidden" name="id" id="teacherId"/>
             <div class="layui-form-item">
                 <label class="layui-form-label">导师姓名</label>
-                <div class="layui-input-inline">
+                <div class="layui-input-block">
                     <input type="text" name="name" maxlength="200" minlength="1" required="required" id="teacher_name" placeholder="请输入导师姓名" autocomplete="off" class="layui-input" />
                 </div>
             </div>
 
             <div class="layui-form-item">
                 <label class="layui-form-label">导师工号</label>
-                <div class="layui-input-inline">
+                <div class="layui-input-block">
                     <input type="text" name="job_number"  maxlength="200" minlength="1" required="required"
                            id="teacher_job_number" placeholder="请输入导师工号" autocomplete="off" class="layui-input" />
                 </div>
-                <div class="layui-form-mid layui-word-aux">不少于6个字符</div>
+                <!--<div class="layui-form-mid layui-word-aux">不少于6个字符</div>-->
             </div>
 
             <div class="layui-form-item">
                 <label class="layui-form-label">所在一级部门</label>
-                <div class="layui-input-inline">
+                <div class="layui-input-block">
                     <input type="text" name="first_dept" maxlength="200" minlength="1" required lay-verify="required|length"  id="first_dept"
                            placeholder="所在一级部门" autocomplete="off" class="layui-input" />
                 </div>
@@ -44,7 +44,7 @@
 
             <div class="layui-form-item">
                 <label class="layui-form-label">所在二级部门</label>
-                <div class="layui-input-inline">
+                <div class="layui-input-block">
                     <input type="text" name="second_dept" maxlength="200" minlength="1" required lay-verify="required|length" id="second_dept"
                            placeholder="请输入所在二级部门" autocomplete="off" class="layui-input" />
                 </div>
@@ -54,7 +54,7 @@
 
             <div class="layui-form-item">
                 <div class="layui-input-block">
-                    <button class="layui-btn" lay-submit="lay-submit" lay-filter="pageForm" id="update">立即提交</button>
+                    <button class="layui-btn" lay-submit="lay-submit" lay-filter="go">立即提交</button>
                     <button type="reset" class="layui-btn layui-btn-primary">重置</button>
                 </div>
             </div>
@@ -70,12 +70,26 @@
                 var form = layui.form
                 , layer = layui.layer
                 ,element = layui.element;
-                $('#update').click(function(){
-                    //iframe页面关闭自身
-                    var index = parent.layer.getFrameIndex(window.name);//先得到当前iframe层的索引
-                     parent.layer.close(index);//执行关闭
-                });
+                form.on('submit(go)',function(data){
+                    $.ajax({
+                        type: 'post',
+                        data:data.field,
+                        url: '/teacher/update',
+                        success: function(data) {
+                        //console.log(data);
+                           layer.msg("修改成功")
+                           setTimeout(function(){
+                           var index = parent.layer.getFrameIndex(window.name);//先得到当前iframe层的索引
+                            parent.layer.close(index);
+                           },1000)
+                        },
+                        error: function(e) {
+                            layer.msg('error:请求出错！');
+                        }
 
+                    });
+                     return false;
+                })
         });
         </script>
 </body>

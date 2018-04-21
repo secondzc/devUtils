@@ -115,7 +115,7 @@
 
                             <label class="layui-form-label">工号</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="job_number" lay-verify="required" class="layui-input" id="job_number"/>
+                                <input type="text" name="job_number" lay-verify="required" class="layui-input" id="job_number" readonly="readonly"/>
                             </div>
                         </div>
 
@@ -136,12 +136,12 @@
                         <div class="layui-form-item">
                             <label class="layui-form-label">身份证号</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="id_number" lay-verify="identity" class="layui-input" id="id_number"/>
+                                <input type="text" name="id_number" lay-verify="identity" class="layui-input" id="id_number" readonly="readonly"/>
                             </div>
 
                             <label class="layui-form-label">邮箱地址</label>
                             <div class="layui-input-inline">
-                                <input type="text" id="email_addr" lay-verify="email" class="layui-input" />
+                                <input type="text" name='email_addr' id="email_addr" lay-verify="email" class="layui-input" />
                             </div>
 
                         </div>
@@ -293,29 +293,29 @@
                       <div class="layui-form-item">
                           <label class="layui-form-label">时间</label>
                           <div class="layui-input-block">
-                              <input type="text" name="month" id="summaryMonth" class="layui-input" readonly="true"/>
+                              <input type="text" name="month" id="summaryMonth" class="layui-input" readonly="readonly"/>
                           </div>
 
                           <label class="layui-form-label" style="height:100px;border-top:0px;">月度工作<br/>学习总结</label>
                           <div class="layui-input-block">
                                     <textarea name="summary" class="layui-textarea"
-                                              maxlength="4000" id="summary"  style="resize:none;border-top:0px;" readonly="true"></textarea>
+                                              maxlength="4000" id="summary"  style="resize:none;border-top:0px;" readonly="readonly"></textarea>
                           </div>
 
                           <label class="layui-form-label" style="height:100px;border-top:0px;">问题和困难</label>
                           <div class="layui-input-block">
                                     <textarea name="question" class="layui-textarea" id="question"
-                                              maxlength="4000" style="resize:none;border-top:0px;" readonly="true"></textarea>
+                                              maxlength="4000" style="resize:none;border-top:0px;" readonly="readonly"></textarea>
                           </div>
 
                           <label class="layui-form-label" style="height:100px;border-top:0px;">下个月计划</label>
                           <div class="layui-input-block">
                                     <textarea name="plan" class="layui-textarea" id="plan"
-                                              maxlength="4000" style="resize:none;border-top:0px;" readonly="true"></textarea>
+                                              maxlength="4000" style="resize:none;border-top:0px;" readonly="readonly"></textarea>
                           </div>
 
                       </div>
-                      <div class="layui-form-item" lay-filter="">
+                      <div class="layui-form-item">
                           <div class="layui-input-block">
                               <button class="layui-btn"  id="summary_update" style="float:right;">编辑</button>
                           </div>
@@ -367,9 +367,8 @@
                         //获取到值放入到表单中
                         $("#myForm").setform(data.data);
                         //为select赋值
-                        //$('select').val(data.data.education);
                          form.render('select');
-                        //console.log(data.data.sex);
+                        //为单选按钮赋值;
                         if(data.data.sex=='男'){
                             $('#male').attr('checked',true);
                             form.render('radio')
@@ -392,7 +391,7 @@
                         url: '/stuinfo/update',
                         success: function(data) {
                            console.log(data);
-                           layer.msg('修改成功');
+                           layer.msg('修改成功',{time:1000});
                         },
                         error: function(e) {
                             layer.msg('error:请求出错！');
