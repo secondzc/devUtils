@@ -187,6 +187,7 @@
 					<a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
 					<a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
 					<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+					<a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="resetPwd">重置密码</a>
 				</script>
 			</div>
 	</div>
@@ -212,10 +213,12 @@
 							elem : '#upload',//绑定元素
 							url : '/excel/upload',//上传接口
 							accept : 'file',
+							//exts : 'xlsx',//允许上传的文件后缀
+  							//size : 5120 ,//最大允许上传的文件大小 kb
 							done : function(res) {
 								//上传完毕回调
-								layer.msg("成功插入" + res + "条数据！");
-								location.reload();
+								layer.msg("上传成功！");
+								setTimeout("location.reload()",1000)
 							},
 							error : function() {
 								//请求异常回调
@@ -233,7 +236,7 @@
 							{field : 'job_number',width : 200,title : 'hr工号',},
 							{field : 'first_dept',title : '所在一级部门',width : 200},
 							{field : 'second_dept',title : '所在二级部门',width : 200},
-							{fixed : 'right',minWidth : 200,align : 'center',toolbar : '#optsbar'}
+							{fixed : 'right',minWidth : 230,align : 'center',toolbar : '#optsbar'}
 							 ] ],
 							page : true,
 
@@ -348,6 +351,25 @@
 										table.reload('hrTable', {url: '/hr/select'});
 									}
 								});
+							}else if(layEvent === 'resetPwd'){
+								//重置成初始密码
+								layer.confirm('真的重置为初始密码吗?', function(index) {
+									var resetid=data.id;
+									//console.log(data.id);
+									layer.close(index);
+									$.ajax({
+										url : '/hr/resetPwd?id='+resetid,//数据接口
+										type : 'get',
+										dataType : 'JSON',
+										success : function(data) {
+											//console.log(data);
+											layer.msg('成功设置为初始登录密码！',{time:1000});
+										},
+										error : function(e) {
+											layer.msg("服务器繁忙！操作失败，清重试！")
+										}
+									});
+								});
 							}
 						});
 
@@ -384,17 +406,11 @@
 							},
 							{
 								fixed : 'right',
-								minWidth : 200,
+								minWidth : 230,
 								align : 'center',
 								toolbar : '#optsbar'
 							} ] ],
 
-							response : {
-								statusName : 'error',
-								statusCode : 0,
-								msgName : 'message',
-								countName : 'count'
-							}
 						});
 						//导师新增
 						$('#addTeacher').on('click', function() {
@@ -500,6 +516,25 @@
 										table.reload('teacherTable', {url: '/teacher/select'});
 									}
 								});
+							}else if(layEvent === 'resetPwd'){
+								//重置成初始密码
+								layer.confirm('真的重置为初始密码吗?', function(index) {
+									var resetid=data.id;
+									//console.log(data.id);
+									layer.close(index);
+									$.ajax({
+										url : '/teacher/resetPwd?id='+resetid,//数据接口
+										type : 'get',
+										dataType : 'JSON',
+										success : function(data) {
+											//console.log(data);
+											layer.msg('成功设置为初始登录密码！',{time:1000});
+										},
+										error : function(e) {
+											layer.msg("服务器繁忙！操作失败，清重试！")
+										}
+									});
+								});
 							}
 						});
 
@@ -534,7 +569,7 @@
 								{field : 'teacher_job_number',title : '导师工号',width : 100,},
 								{field : 'quit_time',width :110,title : '离职时间'},
 								{field : 'quit_reason',width : 100,title : '离职原因'},
-								{fixed : 'right',width : 200,align : 'center',toolbar : '#optsbar'}
+								{fixed : 'right',minWidth : 230,align : 'center',toolbar : '#optsbar'}
 							] ],
 						});
 						//实习生新增
@@ -656,10 +691,14 @@
 										body.find('#name').val(data.name);
 										body.find('#job_number').val(data.job_number);
 										body.find('#phone_number').val(data.phone_number);
-										//body.find('#sex').val(data.sex);
+										if(data.sex=='女'){
+											body.find('#female').attr('checked',true);
+										}else{
+											body.find('#male').attr('checked',true);
+										}
 										body.find('#id_number').val(data.id_number);
 										body.find('#email_addr').val(data.email_addr);
-										//body.find('#education option:selected').val(data.education);
+										body.find('#education').val(data.education);
 										body.find('#graduate_college').val(data.graduate_college);
 										body.find('#major').val(data.major);
 										body.find('#job').val(data.job);
@@ -678,6 +717,25 @@
 									end : function() {
 										table.reload('studentTable', {url: '/stuinfo/selectByAdmin'});
 									}
+								});
+							}else if(layEvent === 'resetPwd'){
+								//重置成初始密码
+								layer.confirm('真的重置为初始密码吗?', function(index) {
+									var resetid=data.id;
+									//console.log(data.id);
+									layer.close(index);
+									$.ajax({
+										url : '/stuinfo/resetPwd?id='+resetid,//数据接口
+										type : 'get',
+										dataType : 'JSON',
+										success : function(data) {
+											//console.log(data);
+											layer.msg('成功设置为初始登录密码！',{time:1000});
+										},
+										error : function(e) {
+											layer.msg("服务器繁忙！操作失败，清重试！")
+										}
+									});
 								});
 							}
 						});

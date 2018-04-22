@@ -31,6 +31,7 @@
             margin:0 auto;
             background:url(../static/logo.jpg) no-repeat;
             background-size: 100px 80px;
+            position:relative;
         }
         header .top h1{
             display:inline-block;
@@ -78,8 +79,17 @@
 <body>
     <header>
         <div class="top">
-            <h1>华为 实习生管理信息系统</h1>           
-            <button class="layui-btn" id="sign_out">退出</button>
+            <h1>华为 实习生管理信息系统</h1>
+            <ul class="layui-nav" style="width:130px;position:absolute;top:18px;right:-20px;">
+                <li class="layui-nav-item">
+                    <a href="javascript:;" style="font-size:16px;color:#409eff;">更多<i class="layui-icon">&#xe61a;</i>  </a>
+                    <dl class="layui-nav-child"> <!-- 二级菜单 -->
+                        <dd><a href="javascript:;" id="modify">安全设置</a></dd>
+                        <dd><a href="login" target="_self">退出登录</a></dd>
+                    </dl>
+                </li>
+            </ul>
+            <!--<button class="layui-btn" id="sign_out">退出</button>-->
         </div>
     </header>
     <section>
@@ -89,7 +99,7 @@
                   <li>培养计划</li>
                   <li>我的留言</li>
                   <li>月度总结</li>
-                  <li>修改登录密码</li>
+                  <!--<li>修改登录密码</li>-->
                 </ul>
                 <div class="layui-tab-content">
                   
@@ -100,19 +110,19 @@
                         <div class="layui-form-item">
                             <label class="layui-form-label">姓名</label>
                             <div class="layui-input-inline">
-                            <input type="text" name="name" required="required" class="layui-input" id="name"/>
+                            <input type="text" name="name" lay-verify="required" class="layui-input" id="name"/>
                             </div>
 
                             <label class="layui-form-label">工号</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="job_number" required="required" class="layui-input" id="job_number"/>
+                                <input type="text" name="job_number" lay-verify="required" class="layui-input" id="job_number" readonly="readonly"/>
                             </div>
                         </div>
 
                         <div class="layui-form-item">
                             <label class="layui-form-label">联系方式</label>
                             <div class="layui-input-inline">
-                            <input type="text" name="phone_number" value="111111" lay-verify="required"  class="layui-input" id="phone_number" required="required"/>
+                            <input type="text" name="phone_number" value="111111" lay-verify="phone"  class="layui-input" id="phone_number" required="required"/>
                             </div>
 
                             <label class="layui-form-label">性别</label>
@@ -126,12 +136,12 @@
                         <div class="layui-form-item">
                             <label class="layui-form-label">身份证号</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="id_number" required="required" class="layui-input" id="id_number"/>
+                                <input type="text" name="id_number" lay-verify="identity" class="layui-input" id="id_number" readonly="readonly"/>
                             </div>
 
                             <label class="layui-form-label">邮箱地址</label>
                             <div class="layui-input-inline">
-                                <input type="text" id="email_addr" required="required" class="layui-input" />
+                                <input type="text" name='email_addr' id="email_addr" lay-verify="email" class="layui-input" />
                             </div>
 
                         </div>
@@ -263,9 +273,9 @@
                                     </button>
                         
 
-                                        <button class="layui-btn" id="refresh">
-                                                <i class="layui-icon">&#x1002;</i>刷新
-                                        </button>
+                                    <button class="layui-btn" id="refresh">
+                                            <i class="layui-icon">&#x1002;</i>刷新
+                                    </button>
 
                                 </div>
                         
@@ -279,66 +289,40 @@
                   </div>
                   <!--月度总结-->
                   <div class="layui-tab-item">
-                        <form class="layui-form layui-form-pane" id="summaryForm">
+                        <form class="layui-form layui-form-pane" id="summaryForm" lay-filter="summaryForm">
                       <div class="layui-form-item">
                           <label class="layui-form-label">时间</label>
                           <div class="layui-input-block">
-                              <input type="text" name="month" id="summaryMonth" class="layui-input" readonly="true"/>
+                              <input type="text" name="month" id="summaryMonth" class="layui-input" readonly="readonly"/>
                           </div>
 
                           <label class="layui-form-label" style="height:100px;border-top:0px;">月度工作<br/>学习总结</label>
                           <div class="layui-input-block">
-                                    <textarea name="summary" placeholder="请输入内容" class="layui-textarea"
-                                              maxlength="4000" id="summary"  style="resize:none;border-top:0px;"></textarea>
+                                    <textarea name="summary" class="layui-textarea"
+                                              maxlength="4000" id="summary"  style="resize:none;border-top:0px;" readonly="readonly"></textarea>
                           </div>
 
                           <label class="layui-form-label" style="height:100px;border-top:0px;">问题和困难</label>
                           <div class="layui-input-block">
-                                    <textarea name="question" placeholder="请输入内容" class="layui-textarea" id="question"
-                                              maxlength="4000" style="resize:none;border-top:0px;"></textarea>
+                                    <textarea name="question" class="layui-textarea" id="question"
+                                              maxlength="4000" style="resize:none;border-top:0px;" readonly="readonly"></textarea>
                           </div>
 
                           <label class="layui-form-label" style="height:100px;border-top:0px;">下个月计划</label>
                           <div class="layui-input-block">
-                                    <textarea name="plan" placeholder="请输入内容" class="layui-textarea" id="plan"
-                                              maxlength="4000" style="resize:none;border-top:0px;"></textarea>
+                                    <textarea name="plan" class="layui-textarea" id="plan"
+                                              maxlength="4000" style="resize:none;border-top:0px;" readonly="readonly"></textarea>
                           </div>
 
                       </div>
-                      <div class="layui-form-item" lay-filter="">
+                      <div class="layui-form-item">
                           <div class="layui-input-block">
-                              <button class="layui-btn" lay-submit="lay-submit" lay-filter="summary_update" style="float:right;">提交</button>
+                              <button class="layui-btn"  id="summary_update" style="float:right;">编辑</button>
                           </div>
                       </div>
                   </form>
                         <div id="summary_page" style="text-align:center"></div>
                   </div>
-                    <!--修改登录密码-->
-                        <div class="layui-tab-item">
-                            <form>
-                                <div class="layui-form-item" >
-                                    <label class="layui-form-label">输入密码</label>
-                                    <div class="layui-input-block">
-                                        <input type="password" class="layui-input" name="password" id="psw1"
-                                               placeholder="由英文或数字组成，且不少于6个字符" required="required"/>
-                                    </div>
-
-                                </div>
-                                <div class="layui-form-item">
-                                    <label class="layui-form-label">确认密码</label>
-                                    <div class="layui-input-block">
-                                        <input type="password" class="layui-input" id="psw2" required="required" lay-verify="required"/>
-                                    </div>
-                                    <!--<div class="layui-form-mid layui-word-aux">1-6个英文或汉字</div>-->
-                                </div>
-                                <div class="layui-form-item">
-                                    <div class="layui-input-block">
-                                        <button class="layui-btn" type="submit" id="modifyPSW">提交修改</button>
-                                        <button type="reset" class="layui-btn layui-btn-primary">重置</button>
-                                    </div>
-                                </div>
-                            </form>
-                       </div>
 
                 </div>
               </div>
@@ -383,9 +367,8 @@
                         //获取到值放入到表单中
                         $("#myForm").setform(data.data);
                         //为select赋值
-                        //$('select').val(data.data.education);
                          form.render('select');
-                        console.log(data.data.sex);
+                        //为单选按钮赋值;
                         if(data.data.sex=='男'){
                             $('#male').attr('checked',true);
                             form.render('radio')
@@ -395,8 +378,8 @@
                         }
                    },
                     error : function(e) {
-										layer.msg("服务器繁忙！操作失败，清重试！")
-									}
+                        layer.msg("服务器繁忙！操作失败，清重试！")
+                    }
                 });
 
                      //修改个人信息  提交到后台 并重新渲染页面
@@ -408,7 +391,7 @@
                         url: '/stuinfo/update',
                         success: function(data) {
                            console.log(data);
-                           layer.msg('修改成功');
+                           layer.msg('修改成功',{time:1000});
                         },
                         error: function(e) {
                             layer.msg('error:请求出错！');
@@ -542,33 +525,59 @@
             });
 
             //月度总结
-            //学生编辑月度总结
-            form.on('submit(summary_update)',function(data){
-                //console.log(data.field);//当前容器的全部表单字段
-                $.ajax({
-                   type:'post',
-                   data:data.field,
-                    url:'/stusummary/update',
-                    success:function(data){
-                        layer.msg(data.msg);
-                    },
-                    error : function(e) {
-                        layer.msg("服务器繁忙！操作失败，清重试！")
-                    }
-                });
-                return false;//阻止表单跳转
-            });
-              //学生查看自己的月度总结
-              laypage.render({
-                elem: 'summary_page' //分页容器的id
-                ,count: 60 //总页数
-                ,prev:'上个月'
-                ,next:'下个月'
-                ,skin: '#1E9FFF' //自定义选中色值
-                ,jump: function(obj){
-                    var month=obj.curr;
-                    //$("#summaryMonth").val('第'+ month +'个月');
-                    $("#summaryMonth").val(month);
+            //编辑或新增月度总结
+               $('#summary_update').click(function(){
+                    layer.open({
+                        type : 2,
+                        area : [ '700px', '520px' ],
+                        fixed : false, //不固定
+                        maxmin : true,
+                        content : '../templates/student/student_editPlan.html',
+                        success:function(layero,index){
+                            var body=layer.getChildFrame('body',index);//获取iframe页的DOM
+                            var objPlan={month:$('#summaryMonth').val(),
+                                         question:$('#question').val(),
+                                         plan:$('#plan').val(),
+                                         summary:$('#summary').val()
+                                         }
+                            //使用jquery的setform 扩展方法,获取到值放入到表单中
+                                    body.find("#summaryForm").setform(objPlan);
+
+                        },
+                        end:function(){
+                            $.ajax({
+                                url:"/stusummary/select",
+                                type:"get",
+                                dataType:"json",
+                                data:{month:$("#summaryMonth").val()},
+                                success:function(data){
+                                    //console.log(data.data);
+                                    if(data.data){
+                                        //使用jquery的setform 扩展方法,获取到值放入到表单中
+                                        $("#summaryForm").setform(data.data);
+                                    }else{
+                                        $("#summaryForm").setform({summary:'',question:'',plan:''});
+                                    }
+                               },
+                               error : function(e) {
+                                    layer.msg("服务器繁忙！操作失败，清重试！")
+                               }
+                            });
+                        }
+                    });
+                    return false;
+               });
+               //学生查看自己的月度总结
+                    laypage.render({
+                    elem: 'summary_page' //分页容器的id
+                    ,count: 60 //总页数
+                    ,prev:'上个月'
+                    ,next:'下个月'
+                    ,skin: '#1E9FFF' //自定义选中色值
+                    ,jump: function(obj){
+                        var month=obj.curr;
+                        //$("#summaryMonth").val('第'+ month +'个月');
+                        $("#summaryMonth").val(month);
                         $.ajax({
                             url:"/stusummary/select",
                             type:"get",
@@ -585,47 +594,21 @@
                            },
                            error : function(e) {
                                 layer.msg("服务器繁忙！操作失败，清重试！")
-                            }
-                    });
-                }
-              })
-
-
-               //修改登录密码
-                $('#modifyPSW').click(function(){
-                var psw1=$('#psw1').val(),
-                    psw2=$('#psw2').val();
-                    //有小于号就报错！！！！这是为啥  success  进不去！！！
-                    if(psw1.length ==5){
-                        layer.msg('密码长度不能少于6个');
-                        return false;
-                    }else if(psw1!==psw2){
-                       layer.msg('两次输入密码不一致，请重新输入');
-                       return false;
-                    }else{
-                        $.ajax({
-                            type:"post",
-                            data:{pwd:psw1},
-                            url:"/stuinfo/updatePwd",
-                            success:function(data){
-                                //alert('werewfde');
-                                //layer.msg(data.msg);
-                            },
-                            error : function(e) {
-                                layer.msg("服务器繁忙！操作失败，请重试！")
-                            }
+                           }
                         });
                     }
+                  })
 
-                });
-
-
-
-              //退出按钮功能
-              $('#sign_out').click(function(){
-                                window.open('login','_self')
-                            });
-              });
+               //修改登录密码
+            $('#modify').click(function(){
+                layer.open({
+                    type:2,
+                    title:'修改登录密码',
+                    area: [ '700px', '450px' ],
+                   content:'../templates/student/stu_modifyPwd.html',
+                })
+            })
+        })
               </script>
                     
     

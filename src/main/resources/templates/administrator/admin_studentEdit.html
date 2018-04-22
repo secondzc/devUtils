@@ -11,93 +11,84 @@
     </head>
     <body>
         <fieldset class="layui-elem-field layui-field-title mt-15">
-            <legend>编辑学生</legend>
+            <legend>编辑学生信息</legend>
         </fieldset>
         <div class="layui-row">
             <div class="layui-col-xs12 layui-col-md8">
-                <form class="layui-form" method="post" action="/stuinfo/update" lay-filter="pageForm">
+                <form class="layui-form">
                     <input type="hidden" name="id" id="studentId"/>
                     <div class="layui-form-item">
                         <label class="layui-form-label">姓名</label>
                         <div class="layui-input-inline">
-                            <input type="text" name="name" required="required" class="layui-input" id="name"/>
+                            <input type="text" name="name" lay-verify="required" class="layui-input" id="name"/>
                         </div>
-                    </div>
-
-                    <div class="layui-form-item">
                         <label class="layui-form-label">工号</label>
                         <div class="layui-input-inline">
-                            <input type="text" name="job_number" required="required" class="layui-input" id="job_number"/>
+                            <input type="text" name="job_number" lay-verify="required" class="layui-input" id="job_number"/>
                         </div>
+                    </div>
 
+                    <div class="layui-form-item">
                         <label class="layui-form-label">联系方式</label>
                         <div class="layui-input-inline">
-                            <input type="text" name="phone_number" value="111111" lay-verify="required"  class="layui-input"
+                            <input type="text" name="phone_number" value="111111" lay-verify="phone"  class="layui-input"
                                    id="phone_number" required="required"/>
                         </div>
-                    </div>
-
-                    <div class="layui-form-item">
                         <label class="layui-form-label">性别</label>
                         <div class="layui-input-inline">
-                            <input type="radio" name="sex" value="男" title="男" checked="checked"/>
-                            <input type="radio" name="sex" value="女" title="女" />
+                            <input type="radio" name="sex" value="男" title="男" id="male"/>
+                            <input type="radio" name="sex" value="女" title="女" id="female"/>
                         </div>
 
+                    </div>
+
+                    <div class="layui-form-item">
                         <label class="layui-form-label">身份证号</label>
                         <div class="layui-input-inline">
-                            <input type="text" name="id_number" required="required" class="layui-input" id="id_number"/>
+                            <input type="text" name="id_number" lay-verify="identity" class="layui-input" id="id_number"/>
+                        </div>
+                        <label class="layui-form-label">邮箱地址</label>
+                        <div class="layui-input-inline">
+                            <input type="text" id="email_addr" lay-verify="email" class="layui-input" />
                         </div>
                     </div>
 
                     <div class="layui-form-item">
-                        <label class="layui-form-label">邮箱地址</label>
-                        <div class="layui-input-inline">
-                            <input type="text" id="email_addr" required="required" class="layui-input" />
-                        </div>
-
                         <label class="layui-form-label">学历</label>
                         <div class="layui-input-inline">
-                            <select name="education" lay-verify="required" id="education">
+                            <select name="education"  id="education">
+                                <option value="请选择学历">请选择学历</option>
                                 <option value="博士">博士</option>
                                 <option value="硕士">硕士</option>
                                 <option value="本科">本科</option>
                             </select>
                         </div>
-                    </div>
-                    <div class="layui-form-item">
                         <label class="layui-form-label">毕业院校</label>
                         <div class="layui-input-inline">
                             <input type="text" name="graduate_college" class="layui-input" id="graduate_college"/>
                         </div>
-
+                    </div>
+                    <div class="layui-form-item">
                         <label class="layui-form-label">专业</label>
                         <div class="layui-input-inline">
                             <input type="text" name="major" class="layui-input" id="major"/>
                         </div>
-                    </div>
-                    <div class="layui-form-item">
                         <label class="layui-form-label">签约岗位</label>
                         <div class="layui-input-inline">
                             <input type="text" name="job" class="layui-input" id="job"/>
                         </div>
-
+                    </div>
+                    <div class="layui-form-item">
                         <label class="layui-form-label">签约方向</label>
                         <div class="layui-input-inline">
                             <input type="text" name="job_direction" class="layui-input" id="job_direction"/>
                         </div>
-                    </div>
-                    <div class="layui-form-item">
                         <label class="layui-form-label">工作地</label>
                         <div class="layui-input-inline">
                             <input type="text" name="place" class="layui-input" id="place"/>
                         </div>
-
-                        <label class="layui-form-label">入职时间</label>
-                        <div class="layui-input-inline">
-                            <input type="text" name="hire_time" class="layui-input" id="hire_time"/>
-                        </div>
                     </div>
+
                     <div class="layui-form-item">
                         <label class="layui-form-label">所在一级部门</label>
                         <div class="layui-input-inline">
@@ -132,8 +123,12 @@
                         </div>
                     </div>
                     <div class="layui-form-item">
+                        <label class="layui-form-label">入职时间</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="hire_time" class="layui-input" id="hire_time"/>
+                        </div>
                         <label class="layui-form-label">离职时间</label>
-                        <div class="layui-input-block">
+                        <div class="layui-input-inline">
                             <input type="text" class="layui-input" name="quit_time" id="quit_time"/>
                         </div>
                     </div>
@@ -147,7 +142,7 @@
                     </div>
                     <div class="layui-form-item">
                         <div class="layui-input-block">
-                            <button class="layui-btn" lay-submit="lay-submit" lay-filter="pageForm" id="update">立即提交</button>
+                            <button class="layui-btn" lay-submit="lay-submit" lay-filter="go">立即提交</button>
                             <button type="reset" class="layui-btn layui-btn-primary">重置</button>
                         </div>
                     </div>
@@ -158,24 +153,40 @@
         
         <script src="../../static/layui/layui.js"></script>
         <script>
-            layui.use(['form', 'layer', 'element','jquery','laydate'], function () {
+            layui.use(['form', 'element','jquery','laydate'], function () {
                     window.jQuery = window.$ = layui.jquery;
                     var form = layui.form
                     , layer = layui.layer
                     ,element = layui.element,
                      laydate=layui.laydate;//日期操作
-                    //laydate.render({
-                       // elem:"#hire_time"//指定日期元素
-                   // });
-                    //laydate.render({
-                       // elem:"#quit_time"//指定日期元素
-                   // });
-
-                    $('#update').click(function(){
-                        //iframe页面关闭自身
-                        var index = parent.layer.getFrameIndex(window.name);//先得到当前iframe层的索引
-                         parent.layer.close(index);//执行关闭
+                    laydate.render({
+                       elem:"#hire_time"//指定日期元素
                     });
+                    laydate.render({
+                        elem:"#quit_time"//指定日期元素
+                    });
+                    form.render('select');
+                    form.render('radio')
+                    form.on('submit(go)',function(data){
+                        $.ajax({
+                            type: 'post',
+                            data:data.field,
+                            url: '/stuinfo/update',
+                            success: function(data) {
+                            //console.log(data);
+                               layer.msg("修改成功")
+                               setTimeout(function(){
+                               var index = parent.layer.getFrameIndex(window.name);//先得到当前iframe层的索引
+                                parent.layer.close(index);
+                               },1000)
+                            },
+                            error: function(e) {
+                                layer.msg('error:请求出错！');
+                            }
+
+                        });
+                        return false;
+                    })
             });
         </script>
 

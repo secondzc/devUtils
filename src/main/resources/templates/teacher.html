@@ -31,6 +31,7 @@
             margin:0 auto;
             background:url(../static/logo.jpg) no-repeat;
             background-size: 100px 80px;
+            position:relative;
         }
         header .top h1{
             display:inline-block;
@@ -79,8 +80,15 @@
     <header>
         <div class="top">
             <h1>华为 实习生管理信息系统</h1>
-            <button class="layui-btn" id="psw" style="margin-left:380px;">修改密码</button>
-            <button class="layui-btn" id="sign_out" style="margin-left:950px;margin-top:-95px;">退出</button>
+            <ul class="layui-nav" style="width:130px;position:absolute;top:18px;right:-20px;">
+                <li class="layui-nav-item">
+                    <a href="javascript:;" style="font-size:16px;color:#409eff;">更多<i class="layui-icon">&#xe61a;</i>  </a>
+                    <dl class="layui-nav-child"> <!-- 二级菜单 -->
+                        <dd><a href="javascript:;" id="modify">安全设置</a></dd>
+                        <dd><a href="login" target="_self">退出登录</a></dd>
+                    </dl>
+                </li>
+            </ul>
         </div>
     </header>
     <section>
@@ -151,10 +159,16 @@
 
                             });
 
-                            //退出按钮功能
-                            $('#sign_out').click(function(){
-                                window.open('login','_self')
-                            });
+                             //修改登录密码
+            $('#modify').click(function(){
+                layer.open({
+                    type:2,
+                    title:'修改登录密码',
+                    area: [ '700px', '450px' ],
+                   content:'../templates/teacher/teacher_modifyPwd.html',
+                })
+            })
+
         });
     </script>
 </body>

@@ -15,7 +15,7 @@
 </fieldset>
 <div class="layui-row">
     <div class="layui-col-xs12 layui-col-md8">
-        <form class="layui-form" method="post" action="/plan/updateDetail" lay-filter="pageForm" >
+        <form class="layui-form" onkeydown="if(event.keyCode==13)return false;">
             <input type="hidden" name="id" id="id"/>
             <input  type="hidden" name="stuid" id="editStuId"/>
 
@@ -60,18 +60,32 @@
 
 <script src="../../static/layui/layui.js"></script>
 <script>
-            layui.use(['form', 'layer', 'element','jquery'], function () {
+            layui.use(['form', 'element','jquery'], function () {
                     window.jQuery = window.$ = layui.jquery;
                     var form = layui.form
                     , layer = layui.layer
                     ,element = layui.element;
 
-                    $('#update').click(function(){
+                   form.on('submit(pageForm)',function(data){
+                    $.ajax({
+                        type: 'post',
+                        data:data.field,
+                        url: '/plan/updateDetail',
+                        success: function(data) {
+                        //console.log(data);
+                           layer.msg("修改成功")
+                           setTimeout(function(){
+                           var index = parent.layer.getFrameIndex(window.name);//先得到当前iframe层的索引
+                            parent.layer.close(index);
+                           },1000)
+                        },
+                        error: function(e) {
+                            layer.msg('error:请求出错！');
+                        }
 
-                        //iframe页面关闭自身
-                        var index = parent.layer.getFrameIndex(window.name);//先得到当前iframe层的索引
-                         parent.layer.close(index);//执行关闭
                     });
+                    return false;
+                })
 
 
 

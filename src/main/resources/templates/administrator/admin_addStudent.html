@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, userr-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
         <title>Test</title>
         <link rel="stylesheet" href="../../static/layui/css/layui.css">
         <style>
@@ -14,12 +14,11 @@
         <fieldset class="layui-elem-field layui-field-title mt-15">
                 <legend>新增实习生</legend>
         </fieldset>
-        <form class="layui-form" method="post" action="/stuinfo/add" lay-filter="pageForm">
-
+        <form class="layui-form">
             <div class="layui-form-item">
                 <label class="layui-form-label">学生姓名</label>
                 <div class="layui-input-block">
-                    <input type="text" name="name" required  lay-verify="required" placeholder="请输入姓名"
+                    <input type="text" name="name" lay-verify="required" placeholder="请输入姓名"
                            autocomplete="off" class="layui-input"/>
                 </div>
             </div>
@@ -27,7 +26,14 @@
             <div class="layui-form-item">
                 <label class="layui-form-label">学生工号</label>
                 <div class="layui-input-block">
-                    <input type="text" name="job_number" required="required" lay-verify="required" placeholder="请输入工号"
+                    <input type="text" name="job_number" lay-verify="required" placeholder="请输入工号"
+                           autocomplete="off" class="layui-input"/>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">身份证号</label>
+                <div class="layui-input-block">
+                    <input type="text" name="id_number" lay-verify="identity" placeholder="身份证号"
                            autocomplete="off" class="layui-input"/>
                 </div>
             </div>
@@ -35,14 +41,14 @@
             <div class="layui-form-item">
                 <label class="layui-form-label">联系方式</label>
                 <div class="layui-input-block">
-                    <input type="text" name="phone_number" required="required"  lay-verify="required" placeholder="联系方式"
+                    <input type="text" name="phone_number" lay-verify="phone" placeholder="联系方式"
                             autocomplete="off" class="layui-input"/>
                 </div>
             </div>
 
             <div class="layui-form-item">
                 <div class="layui-input-block">
-                    <button class="layui-btn" lay-submit="lay-submit" lay-filter="pageForm" id="update">立即提交</button>
+                    <button class="layui-btn" lay-submit="lay-submit" lay-filter="go">立即提交</button>
                     <button type="reset" class="layui-btn layui-btn-primary">重置</button>
                 </div>
             </div>
@@ -50,16 +56,31 @@
         </form>
         <script src="../../static/layui/layui.js"></script>
         <script>
-                      layui.use(['form', 'layer', 'element','jquery'], function () {
-                    window.jQuery = window.$ = layui.jquery;
-                    var form = layui.form
-                    , layer = layui.layer
-                    ,element = layui.element;
-                    $('#update').click(function(){
-                        //iframe页面关闭自身
-                        var index = parent.layer.getFrameIndex(window.name);//先得到当前iframe层的索引
-                         parent.layer.close(index);//执行关闭
-                    });
+              layui.use(['form', 'element','jquery'], function () {
+                 window.jQuery = window.$ = layui.jquery;
+                 var form = layui.form
+                , layer = layui.layer
+                 ,element = layui.element;
+                 form.on('submit(go)',function(data){
+                    $.ajax({
+                        type: 'post',
+                        data:data.field,
+                        url: '/stuinfo/add',
+                        success: function(data) {
+                        //console.log(data);
+                           layer.msg("新增成功")
+                           setTimeout(function(){
+                           var index = parent.layer.getFrameIndex(window.name);//先得到当前iframe层的索引
+                            parent.layer.close(index);
+                           },1000)
+                        },
+                        error: function(e) {
+                            layer.msg('error:请求出错！');
+                        }
+
+                    })
+                    return false;
+                 })
 
             });
         </script>
