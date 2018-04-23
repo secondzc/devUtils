@@ -12,7 +12,7 @@
 <body>
 <fieldset class="layui-elem-field" style="padding:5px;padding-top:15px;">
     <legend>月度培养总目标</legend>
-    <form class="layui-form layui-form-pane">
+    <form class="layui-form layui-form-pane" lay-filter="targetForm">
         <input name="stuid" type="hidden" id="stuid"/>
         <div class="layui-form-item">
             <label class="layui-form-label">月份</label>
@@ -22,13 +22,13 @@
 
             <label class="layui-form-label" style="border-top:0px;">培养目标</label>
             <div class="layui-input-block">
-                <input type="text" name="target" id="target" placeholder="请输入内容" class="layui-input" maxlength="255"
-                       style="border-top:0px;"/>
+                <input type="text" name="target" id="target" placeholder="月度培养总目标" class="layui-input" maxlength="255"
+                       style="border-top:0px;" readonly/>
             </div>
         </div>
         <div class="layui-form-item">
             <div class="layui-input-block" style="float:right;">
-                <button class="layui-btn" lay-submit="lay-submit" id="update" lay-filter="update">保存</button>
+                <button class="layui-btn" lay-submit="lay-submit" id="update" lay-filter="update">编辑</button>
             </div>
         </div>
     </form>
@@ -54,6 +54,7 @@
         layui.use(['table',"laypage","jquery","form"], function(){
             window.jQuery = window.$ = layui.jquery;
             var table = layui.table,
+                layer=layui.layer,
                 form=layui.form,
                 laypage=layui.laypage;//分页
                 //获取id值
@@ -79,7 +80,7 @@
                             month:obj.curr,//月份
                             stuid:$('#stuid').val(),//学生id
                         },//提交的数据
-                        dataType:"json",//返回的类型 json
+                        //dataType:"json",//返回的类型 json
                         success:function(data){
                            if(data.data){
                                 $('#target').val(data.data.target);
@@ -175,22 +176,54 @@
                     });
                 }
             })
-            //修改和新增培养目标
-            form.on('submit(update)',function(data){
-                console.log(data.field);//当前容器的全部表单字段
-                $.ajax({
-                   type:'post',
-                   data:data.field,
-                    url:'/plan/cuPlan',
-                    success:function(data){
-                        layer.msg('保存成功',{time:1000});
+            //编辑或新增培养目标
+            $('#update').on('click', function() {
+                layer.open({
+                    type : 2,
+                    area : [ '700px', '450px' ],
+                    fixed : false, //不固定
+                    maxmin : true,
+                    content : '../teacher/teacher_addTarget.html',
+                    success:function(layero,index){
+                        var body=layer.getChildFrame('body',index);//获取iframe页的DOM
+                        body.find('#stuidTarget').val($('#stuid').val());
+                        body.find('#monthTarget').val($('#month').val());
+                        if($('#target').val()){
+                             body.find('#addtarget').val($('#target').val());
+                        }else{
+                            body.find('#addtarget').val('');
+                        }
                     },
-                    error : function(e) {
-                        layer.msg("服务器繁忙！操作失败，清重试！")
+                    end:function() {
+
+                        //培养计划目标
+                        $.ajax({
+                            type:"get",//提交类型
+                            url:"/plan/selectPlanByOthers",//请求的地址
+                            data:{
+                                month:$('#month').val(),//月份
+                                stuid:$('#stuid').val(),//学生id
+                            },//提交的数据
+                            dataType:"json",//返回的类型 json
+                            success:function(data){
+                            //console.log(data.data);
+                               if(data.data){
+                                    $('#target').val(data.data.target);
+                               }else{
+                                     $('#target').val('');
+                               }
+                            },
+                            error:function(){
+                                layer.msg("请求异常，请重试");
+                            }
+
+                        });
                     }
+
                 });
-                return false;//阻止表单跳转
+                return false;
             });
+
         });
     </script>
 </body>

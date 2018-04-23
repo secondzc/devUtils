@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="utf-8"/>
-        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
         <title>Login</title>
         <link rel="stylesheet" href="../static/layui/css/layui.css"/>
         <style>
@@ -41,7 +41,8 @@
                 min-width: 1000px;
                 height: 515px;
                 margin: 0 auto;
-                background:url('../static/test_bg.jpg') scroll no-repeat 53% 0 transparent;
+                background:url('../static/huawei1.jpg') scroll no-repeat 53% 0 transparent;
+                background-size: 3000px 520px;
             }
             .mid_context{
                 width: 1090px;
@@ -158,7 +159,7 @@
                                 <input type="text" id="username" class="form_input" name="username" placeholder="登录账号（工号）" required="required"/>   
                                 <input type="password" id="password" class="form_input" name="password" placeholder="登录密码"  required="required"/>
                                 <input type="button" value="登 录" class="form_button" id="btn"/>
-                                <a class="forget_psw" onclick="javascript:alert('请联系管理员')">忘记密码？</a>
+                                <a class="forget_psw" onclick="javascript:layer.open({content:'请联系管理员'})">忘记密码？</a>
                           </form>
 
                         </div>
