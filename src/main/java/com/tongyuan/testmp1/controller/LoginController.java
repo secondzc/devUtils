@@ -16,6 +16,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -95,7 +97,7 @@ public class LoginController extends BaseController{
 
     @GetMapping("/logout")
     @ResponseBody
-    public JSONObject logout(HttpServletRequest request){
+    public JSONObject logout(HttpServletRequest request, HttpServletResponse response) throws  Exception{
         request.getSession().removeAttribute("user");
         request.getSession().removeAttribute("type");
         return setSuccessResponse();
