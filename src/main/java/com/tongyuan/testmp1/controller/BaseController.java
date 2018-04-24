@@ -18,6 +18,15 @@ import java.util.Map;
  * Created by zhangcy on 2018/3/28
  */
 public class BaseController {
+
+    protected JSONObject setSuccessResponse(){
+        JSONObject jo = new JSONObject();
+        jo.put("code",0);
+        jo.put("error",0);
+        jo.put("msg","操作成功");
+        return jo;
+    }
+
     protected JSONObject setQueryResponse(Object result){
         JSONObject jo = new JSONObject();
         if(result instanceof List<?>){

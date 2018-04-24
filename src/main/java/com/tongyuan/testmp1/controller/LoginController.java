@@ -92,4 +92,12 @@ public class LoginController extends BaseController{
         jo.put("name","");
         return jo;
     }
+
+    @GetMapping("/logout")
+    @ResponseBody
+    public JSONObject logout(HttpServletRequest request){
+        request.getSession().removeAttribute("user");
+        request.getSession().removeAttribute("type");
+        return setSuccessResponse();
+    }
 }
