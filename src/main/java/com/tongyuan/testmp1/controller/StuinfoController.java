@@ -116,7 +116,7 @@ public class StuinfoController extends BaseController{
     @ResponseBody
     public JSONObject addByAdmin(Stuinfo stuinfo){
         String psw = PwdHelper.getPwd(stuinfo.getId_number());
-        stuinfo.setEncrypt_password(psw);
+        stuinfo.setEncrypt_password(SecurityUtil.encryptPassword(psw));
         stuinfoService.insert(stuinfo);
         return  setInsertResponse();
     }

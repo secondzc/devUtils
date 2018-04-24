@@ -33,8 +33,8 @@ public class HrController extends BaseController{
     @PostMapping("/add")
     @ResponseBody
     public JSONObject add(Hr hr){
-        String psw = hr.getJob_number().substring(hr.getJob_number().length()-6);
-        hr.setEncrypt_password(psw);
+        String psw = PwdHelper.getPwd(hr.getJob_number());
+        hr.setEncrypt_password(SecurityUtil.encryptPassword(psw));
         hrService.insert(hr);
         return setInsertResponse();
     }

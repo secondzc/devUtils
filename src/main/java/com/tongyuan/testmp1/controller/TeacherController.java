@@ -45,7 +45,7 @@ public class TeacherController extends BaseController{
     @ResponseBody
     public JSONObject insertByAdmin(Teacher teacher){
         String psw = PwdHelper.getPwd(teacher.getJob_number());
-        teacher.setEncrypt_password(psw);
+        teacher.setEncrypt_password(SecurityUtil.encryptPassword(psw));
         teacherService.insert(teacher);
         return setInsertResponse();
     }
