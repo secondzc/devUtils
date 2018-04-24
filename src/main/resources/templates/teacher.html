@@ -85,7 +85,7 @@
                     <a href="javascript:;" style="font-size:16px;color:#409eff;">更多<i class="layui-icon">&#xe61a;</i>  </a>
                     <dl class="layui-nav-child"> <!-- 二级菜单 -->
                         <dd><a href="javascript:;" id="modify">安全设置</a></dd>
-                        <dd><a href="login" target="_self">退出登录</a></dd>
+                        <dd><a href="javascript:;" id="logout">退出登录</a></dd>
                     </dl>
                 </li>
             </ul>
@@ -104,7 +104,7 @@
     </section>
     <footer>
         <p>
-            Copyright
+            Copyright &copy; 华为技术有限公司 1998-2017 保留一切权利
         </p>
     </footer>
 
@@ -160,14 +160,22 @@
                             });
 
                              //修改登录密码
-            $('#modify').click(function(){
-                layer.open({
-                    type:2,
-                    title:'修改登录密码',
-                    area: [ '700px', '450px' ],
-                   content:'../templates/teacher/teacher_modifyPwd.html',
-                })
-            })
+                        $('#modify').click(function(){
+                            layer.open({
+                                type:2,
+                                title:'修改登录密码',
+                                area: [ '700px', '450px' ],
+                               content:'../templates/teacher/teacher_modifyPwd.html',
+                            })
+                        })
+
+                        //退出登录
+                        $('#logout').click(function(){
+                            $.ajax({
+                                type:'get',
+                                url:'/logout',
+                            })
+                        })
 
         });
     </script>
