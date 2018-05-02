@@ -30,8 +30,9 @@
             width:1000px;
             margin:0 auto;
             background:url(../static/logo.jpg) no-repeat;
-            background-size: 100px 80px;
+            background-size: 80px 60px;
             position:relative;
+            background-position:30px;
         }
         header .top h1{
             display:inline-block;
@@ -291,7 +292,7 @@
                   <div class="layui-tab-item">
                         <form class="layui-form layui-form-pane" id="summaryForm" lay-filter="summaryForm">
                       <div class="layui-form-item">
-                          <label class="layui-form-label">时间</label>
+                          <label class="layui-form-label">月份</label>
                           <div class="layui-input-block">
                               <input type="text" name="month" id="summaryMonth" class="layui-input" readonly="readonly"/>
                           </div>
@@ -432,7 +433,6 @@
                     });
                     table.render({
                         elem:"#hr_plan"
-                       ,page:true
                         ,url:"/plan/selectDetailByStu"//数据接口
                         ,where:{month:month}
                         ,cols:  [[ //表头

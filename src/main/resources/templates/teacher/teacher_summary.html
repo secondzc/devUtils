@@ -10,33 +10,34 @@
     </style>
 </head>
 <body>
-    <table class="layui-table">
-            <colgroup>
-                <col width="150">
-                <col>
-              </colgroup>
-              <thead>
-                <tr>
-                  <th>时间</th>
-                  <th id="month">第一月</th>
-                </tr> 
-              </thead>
-              <tbody>
-                <tr>
-                  <td>月度工作学习总结</td>
-                  <td id="month_summary"></td>
-                </tr>
-                <tr>
-                  <td>问题和困难</td>
-                  <td id="problem"></td>
-                </tr>
-                <tr>
-                    <td>下个月计划</td>
-                    <td id="next_plan"></td>
-                </tr>
-              </tbody>
-    </table>
-        <div id="pageDemo"></div>
+    <form class="layui-form layui-form-pane">
+        <div class="layui-form-item">
+            <label class="layui-form-label">月份</label>
+            <div class="layui-input-block">
+                <input type="text" id="month" class="layui-input" readonly="readonly"/>
+            </div>
+
+            <label class="layui-form-label" style="height:100px;border-top:0px;">月度工作<br/>学习总结</label>
+            <div class="layui-input-block">
+                <textarea class="layui-textarea"
+                          maxlength="4000" id="month_summary"  style="resize:none;border-top:0px;" readonly="readonly"></textarea>
+            </div>
+
+            <label class="layui-form-label" style="height:100px;border-top:0px;">问题和困难</label>
+            <div class="layui-input-block">
+                <textarea class="layui-textarea" id="problem"
+                          maxlength="4000" style="resize:none;border-top:0px;" readonly="readonly"></textarea>
+            </div>
+
+            <label class="layui-form-label" style="height:100px;border-top:0px;">下个月计划</label>
+            <div class="layui-input-block">
+                <textarea name="plan" class="layui-textarea" id="next_plan"
+                          maxlength="4000" style="resize:none;border-top:0px;" readonly="readonly"></textarea>
+            </div>
+
+        </div>
+    </form>
+        <div id="pageDemo" style="text-align:center"></div>
 
     <script src="../../static/layui/layui.js"></script>
     <script>
@@ -57,7 +58,7 @@
                     var str=location.search,
                         i=str.indexOf("=");
                     var id=str.substr(i+1);
-                    $("#month").html('第'+ obj.curr +'个月');
+                    $("#month").val('第'+ obj.curr +'个月');
                     $.ajax({
                         type:"get",//提交类型
                         url:"/stusummary/selectByOthers",//请求的地址
@@ -70,13 +71,13 @@
                             //需要返回该学生的月度总结month_summary、问题和困难problem、下个月计划next_plan
                             //console.log(data.data);
                             if(data.data){
-                                $('#month_summary').html(data.data.summary);
-                                $('#problem').html(data.data.question);
-                                $('#next_plan').html(data.data.plan);
+                                $('#month_summary').val(data.data.summary);
+                                $('#problem').val(data.data.question);
+                                $('#next_plan').val(data.data.plan);
                             }else{
-                                $('#month_summary').html('');
-                                $('#problem').html('');
-                                $('#next_plan').html('');
+                                $('#month_summary').val('');
+                                $('#problem').val('');
+                                $('#next_plan').val('');
                             }
 
                         },

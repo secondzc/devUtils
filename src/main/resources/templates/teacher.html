@@ -30,8 +30,9 @@
             width:1000px;
             margin:0 auto;
             background:url(../static/logo.jpg) no-repeat;
-            background-size: 100px 80px;
+            background-size: 80px 60px;
             position:relative;
+            background-position:30px;
         }
         header .top h1{
             display:inline-block;
@@ -141,6 +142,7 @@
                                 }else if (layEvent === 'message') {
                                     layer.open({
                                         type : 2,
+                                        title:"实习留言",
                                         area : [ '700px', '450px' ],
                                         fixed : false, //不固定
                                         maxmin : true,
@@ -150,7 +152,8 @@
                                 } else if (layEvent === 'summary') {
                                     layer.open({
                                         type : 2,
-                                        area : [ '700px', '450px' ],
+                                        title:"月度总结",
+                                        area : [ '700px', '480px' ],
                                         fixed : false, //不固定
                                         maxmin : true,
                                         content : '../templates/teacher/teacher_summary.html?id='+data.id,
