@@ -9,8 +9,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -44,5 +45,21 @@ public class ExcelController extends BaseController{
             jo.put("msg","excel解析失败");
             return jo;
         }
+    }
+
+    //@Permission("admin")
+    @GetMapping("/download")
+    @ResponseBody
+    public JSONObject download(@RequestParam("type") String type,HttpServletResponse response) throws IOException{
+        response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+        response.addHeader("Content-Disposition", "attachment;filename=type" + ".xlsx");
+        //查mysql生成excel文件
+        excelService.createExcelStream(response.getOutputStream(),type);
+
+        JSONObject jo = new JSONObject();
+        jo.put("code",0);
+        jo.put("error",0);
+        jo.put("msg","操作成功");
+        return jo;
     }
 }

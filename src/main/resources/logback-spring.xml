@@ -29,7 +29,7 @@
 
 
     <!--部署的时候这里改成error-->
-    <root level="info">
+    <root level="error">
         <appender-ref ref="console" />
         <appender-ref ref="file" />
     </root>

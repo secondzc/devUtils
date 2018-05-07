@@ -9,6 +9,8 @@ import com.tongyuan.testmp1.service.HrService;
 import com.tongyuan.testmp1.service.StuinfoService;
 import com.tongyuan.testmp1.service.TeacherService;
 import com.tongyuan.testmp1.util.SecurityUtil;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -18,6 +20,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 
+import javax.servlet.ServletOutputStream;
+import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Date;
 import java.sql.Timestamp;
@@ -216,5 +221,45 @@ public class ExcelServiceImpl implements ExcelService {
         }else{
             return xssfCell.getStringCellValue();
         }
+    }
+
+    @Override
+    public void createExcelStream(ServletOutputStream outputStream,String type){
+        try{
+            if("plan".equals(type)){
+                createPlanExcel(outputStream);
+            }else if("summary".equals(type)){
+                createSummaryExcel(outputStream);
+            }else if("message".equals(type)){
+                createMessageExcel(outputStream);
+            }else {
+                throw new RuntimeException("不支持的excel类型");
+            }
+        }catch(IOException e){
+            throw new RuntimeException("生成excel错误");
+        }
+
+    }
+
+    void createPlanExcel(ServletOutputStream outputStream) throws IOException{
+        XSSFWorkbook workbook = new XSSFWorkbook();
+        XSSFSheet sheet = workbook.createSheet("plan");
+        Row row = sheet.createRow(0);
+        int j=0;
+        row.createCell(j++).setCellValue("姓名");
+        row.createCell(j++).setCellValue("工号");
+        row.createCell(j++).setCellValue("培养目标");
+        row.createCell(j++).setCellValue("时间");
+        row.createCell(j++).setCellValue("知识点及掌握程度");
+        row.createCell(j++).setCellValue("学习材料");
+        row.createCell(j++).setCellValue("输出及考核方式");
+        // TODO: 2018/5/4  
+        workbook.write(outputStream);
+    }
+    void createSummaryExcel(ServletOutputStream outputStream) throws IOException{
+        // TODO: 2018/5/4  
+    }
+    void createMessageExcel(ServletOutputStream outputStream) throws IOException{
+        // TODO: 2018/5/4
     }
 }
