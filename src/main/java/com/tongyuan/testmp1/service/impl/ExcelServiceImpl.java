@@ -1,14 +1,13 @@
 package com.tongyuan.testmp1.service.impl;
 
-import com.tongyuan.testmp1.entity.Hr;
-import com.tongyuan.testmp1.entity.Stuinfo;
-import com.tongyuan.testmp1.entity.Teacher;
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.tongyuan.testmp1.dao.*;
+import com.tongyuan.testmp1.entity.*;
 import com.tongyuan.testmp1.helper.PwdHelper;
-import com.tongyuan.testmp1.service.ExcelService;
-import com.tongyuan.testmp1.service.HrService;
-import com.tongyuan.testmp1.service.StuinfoService;
-import com.tongyuan.testmp1.service.TeacherService;
+import com.tongyuan.testmp1.service.*;
 import com.tongyuan.testmp1.util.SecurityUtil;
+import com.tongyuan.testmp1.viewModel.EvaluationView;
+import com.tongyuan.testmp1.viewModel.StudentView;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFCell;
@@ -41,6 +40,16 @@ public class ExcelServiceImpl implements ExcelService {
     private TeacherService teacherService;
     @Autowired
     private HrService hrService;
+    @Autowired
+    private PlandetailMapper plandetailMapper;
+    @Autowired
+    private ViewMapper viewMapper;
+    @Autowired
+    private StuplanMapper stuplanMapper;
+    @Autowired
+    private StusummaryMapper stusummaryMapper;
+    @Autowired
+    private StumessageMapper stumessageMapper;
 
     @Transactional
     @Override
@@ -224,26 +233,25 @@ public class ExcelServiceImpl implements ExcelService {
     }
 
     @Override
-    public void createExcelStream(ServletOutputStream outputStream,String type){
+    public void createExcelStream(ServletOutputStream outputStream){
         try{
-            if("plan".equals(type)){
-                createPlanExcel(outputStream);
-            }else if("summary".equals(type)){
-                createSummaryExcel(outputStream);
-            }else if("message".equals(type)){
-                createMessageExcel(outputStream);
-            }else {
-                throw new RuntimeException("不支持的excel类型");
-            }
+            XSSFWorkbook workbook = new XSSFWorkbook();
+            XSSFSheet planSheet = workbook.createSheet("plan");
+            createPlanExcel(planSheet);
+            XSSFSheet summarySheet = workbook.createSheet("summary");
+            createSummaryExcel(summarySheet);
+            XSSFSheet messageSheet = workbook.createSheet("message");
+            createMessageExcel(messageSheet);
+            XSSFSheet evaluationSheet = workbook.createSheet("evaluation");
+            createEvaluationExcel(evaluationSheet);
+            workbook.write(outputStream);
         }catch(IOException e){
             throw new RuntimeException("生成excel错误");
         }
 
     }
 
-    void createPlanExcel(ServletOutputStream outputStream) throws IOException{
-        XSSFWorkbook workbook = new XSSFWorkbook();
-        XSSFSheet sheet = workbook.createSheet("plan");
+    void createPlanExcel(XSSFSheet sheet){
         Row row = sheet.createRow(0);
         int j=0;
         row.createCell(j++).setCellValue("姓名");
@@ -253,13 +261,103 @@ public class ExcelServiceImpl implements ExcelService {
         row.createCell(j++).setCellValue("知识点及掌握程度");
         row.createCell(j++).setCellValue("学习材料");
         row.createCell(j++).setCellValue("输出及考核方式");
-        // TODO: 2018/5/4  
-        workbook.write(outputStream);
+        List<Plandetail> plandetailList = plandetailMapper.selectList(null);
+        for(int i=0;i<plandetailList.size();i++){
+            Row dataRow = sheet.createRow(i+1);
+            Plandetail plandetail = plandetailList.get(i);
+            Integer stuid = plandetail.getStuid();
+            StudentView studentView = viewMapper.selectStuViewById(stuid);
+            String name = studentView.getName();
+            String jobNum = studentView.getJob_number();
+            String target = null;
+            Integer month = plandetail.getMonth();
+            List<Stuplan> stuplanList = stuplanMapper.selectList(new EntityWrapper<Stuplan>().eq("month",month).eq("stuid",stuid));
+            if(stuplanList!=null && 1==stuplanList.size()){
+                target = stuplanList.get(0).getTarget();
+            }
+            String period = plandetail.getPeriod();
+            String knowledge = plandetail.getKnowledge();
+            String material = plandetail.getMaterial();
+            String inspect = plandetail.getInspect();
+
+            j = 0;
+            dataRow.createCell(j++).setCellValue(name);
+            dataRow.createCell(j++).setCellValue(jobNum);
+            dataRow.createCell(j++).setCellValue(target);
+            dataRow.createCell(j++).setCellValue(period);
+            dataRow.createCell(j++).setCellValue(knowledge);
+            dataRow.createCell(j++).setCellValue(material);
+            dataRow.createCell(j++).setCellValue(inspect);
+        }
     }
-    void createSummaryExcel(ServletOutputStream outputStream) throws IOException{
-        // TODO: 2018/5/4  
+    void createSummaryExcel(XSSFSheet sheet){
+        Row row = sheet.createRow(0);
+        int j=0;
+        row.createCell(j++).setCellValue("姓名");
+        row.createCell(j++).setCellValue("工号");
+        row.createCell(j++).setCellValue("月度总结");
+        row.createCell(j++).setCellValue("问题和困难");
+        row.createCell(j++).setCellValue("下个月计划");
+
+        List<Stusummary> stusummaryList = stusummaryMapper.selectList(null);
+        for(int i=0;i<stusummaryList.size();i++){
+            Row dataRow = sheet.createRow(i+1);
+            Stusummary stusummary = stusummaryList.get(i);
+            Integer stuid = stusummary.getStuid();
+            StudentView studentView = viewMapper.selectStuViewById(stuid);
+            String name = studentView.getName();
+            String jobNum = studentView.getJob_number();
+
+            j=0;
+            dataRow.createCell(j++).setCellValue(name);
+            dataRow.createCell(j++).setCellValue(jobNum);
+            dataRow.createCell(j++).setCellValue(stusummary.getSummary());
+            dataRow.createCell(j++).setCellValue(stusummary.getQuestion());
+            dataRow.createCell(j++).setCellValue(stusummary.getPlan());
+        }
+
     }
-    void createMessageExcel(ServletOutputStream outputStream) throws IOException{
-        // TODO: 2018/5/4
+    void createMessageExcel(XSSFSheet sheet){
+        Row row = sheet.createRow(0);
+        int j=0;
+        row.createCell(j++).setCellValue("姓名");
+        row.createCell(j++).setCellValue("工号");
+        row.createCell(j++).setCellValue("留言类型");
+        row.createCell(j++).setCellValue("留言内容");
+
+        List<Stumessage> stumessageList = stumessageMapper.selectList(null);
+        for(int i=0;i<stumessageList.size();i++){
+            Row dataRow = sheet.createRow(i+1);
+            Stumessage stumessage = stumessageList.get(i);
+            Integer stuid = stumessage.getStuid();
+            StudentView studentView = viewMapper.selectStuViewById(stuid);
+            String name = studentView.getName();
+            String jobNum = studentView.getJob_number();
+
+            j=0;
+            dataRow.createCell(j++).setCellValue(name);
+            dataRow.createCell(j++).setCellValue(jobNum);
+            dataRow.createCell(j++).setCellValue(stumessage.getType());
+            dataRow.createCell(j++).setCellValue(stumessage.getMessage());
+        }
+    }
+    void createEvaluationExcel(XSSFSheet sheet){
+        Row row = sheet.createRow(0);
+        int j=0;
+        row.createCell(j++).setCellValue("姓名");
+        row.createCell(j++).setCellValue("工号");
+        row.createCell(j++).setCellValue("评级");
+        row.createCell(j++).setCellValue("评价内容");
+
+        List<EvaluationView> evaluationViewList = viewMapper.selectAllEvaluations();
+        for(int i=0;i<evaluationViewList.size();i++){
+            EvaluationView evaluationView = evaluationViewList.get(i);
+            Row dataRow =  sheet.createRow(i+1);
+            j=0;
+            dataRow.createCell(j++).setCellValue(evaluationView.getName());
+            dataRow.createCell(j++).setCellValue(evaluationView.getJob_number());
+            dataRow.createCell(j++).setCellValue(evaluationView.getRank());
+            dataRow.createCell(j++).setCellValue(evaluationView.getEvaluation());
+        }
     }
 }

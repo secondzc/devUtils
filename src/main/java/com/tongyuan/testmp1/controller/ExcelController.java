@@ -50,11 +50,11 @@ public class ExcelController extends BaseController{
     //@Permission("admin")
     @GetMapping("/download")
     @ResponseBody
-    public JSONObject download(@RequestParam("type") String type,HttpServletResponse response) throws IOException{
+    public JSONObject download(HttpServletResponse response) throws IOException{
         response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
         response.addHeader("Content-Disposition", "attachment;filename=type" + ".xlsx");
         //查mysql生成excel文件
-        excelService.createExcelStream(response.getOutputStream(),type);
+        excelService.createExcelStream(response.getOutputStream());
 
         JSONObject jo = new JSONObject();
         jo.put("code",0);

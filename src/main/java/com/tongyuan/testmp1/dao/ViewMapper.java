@@ -15,4 +15,5 @@ public interface ViewMapper {
     List<StuTeacherView> selectStuTeaByDept(@Param("firstDept") String firstDept, @Param("secondDept")String secondDept, @Param("key") String key);
     EvaluationView selectEvaluationById(Integer id);
     List<EvaluationView> selectAllEvaluations();
+    StudentView selectStuViewById(Integer id);
 }

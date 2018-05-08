@@ -18,6 +18,12 @@
         <result column="teacher_name" property="teacher_name" jdbcType="VARCHAR"/>
         <result column="teacher_job_number" property="teacher_job_number" jdbcType="VARCHAR"/>
     </resultMap>
+    
+    <select id="selectStuViewById" resultMap="studentMap" parameterType="java.lang.Integer">
+        SELECT id,first_dept,second_dept,name,job_number
+        FROM stuinfo
+        WHERE id=#{id}
+    </select>
 
     <select id="selectStudentByTeacherJobNumber" resultMap="studentMap">
         SELECT id,first_dept,second_dept,name,job_number
