@@ -4,6 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import java.sql.Date;
 
 /**
  * Created by zhangcy on 2018/4/6
@@ -25,6 +26,16 @@ public class Stuplan {
      */
     @Column
     private String target;
+    /*
+    开始日期
+     */
+    @Column
+    private Date startTime;
+    /*
+    结束日期
+     */
+    @Column
+    private Date endTime;
 
     public Integer getId() {
         return id;
@@ -56,5 +67,21 @@ public class Stuplan {
 
     public void setTarget(String target) {
         this.target = target;
+    }
+
+    public Date getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(Date startTime) {
+        this.startTime = startTime;
+    }
+
+    public Date getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(Date endTime) {
+        this.endTime = endTime;
     }
 }
