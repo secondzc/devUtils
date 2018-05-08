@@ -35,4 +35,24 @@
             OR job_number LIKE CONCAT(CONCAT('%',#{key,jdbcType=VARCHAR}),'%'))
         </if>
     </select>
+
+
+    <resultMap id="evaluationMap" type="com.tongyuan.testmp1.viewModel.EvaluationView">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="evaluation" property="evaluation" jdbcType="VARCHAR"/>
+        <result column="rank" property="rank" jdbcType="INTEGER"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="job_number" property="job_number" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <select id="selectEvaluationById" parameterType="java.lang.Integer" resultMap="evaluationMap">
+        SELECT id,evaluation,rank,name,job_number
+        FROM stuinfo
+        WHERE id = #{id}
+    </select>
+
+    <select id="selectAllEvaluations" resultMap="evaluationMap">
+        SELECT id,evaluation,rank,name,job_number
+        FROM stuinfo
+    </select>
 </mapper>

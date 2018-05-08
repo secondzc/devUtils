@@ -83,6 +83,26 @@ public class Stuinfo implements User{
     private String quit_reason;
     @Column
     private String encrypt_password;
+    @Column
+    private Integer rank;
+    @Column
+    private String evaluation;
+
+    public Integer getRank() {
+        return rank;
+    }
+
+    public void setRank(Integer rank) {
+        this.rank = rank;
+    }
+
+    public String getEvaluation() {
+        return evaluation;
+    }
+
+    public void setEvaluation(String evaluation) {
+        this.evaluation = evaluation;
+    }
 
     public Integer getId() {
         return id;

@@ -9,5 +9,5 @@ import java.io.InputStream;
  */
 public interface ExcelService {
     void parse(InputStream inputStream) throws RuntimeException;
-    void createExcelStream(ServletOutputStream outputStream,String type);
+    void createExcelStream(ServletOutputStream outputStream);
 }

@@ -1,5 +1,7 @@
 package com.tongyuan.testmp1.service;
 
+import com.tongyuan.testmp1.dao.StuinfoMapper;
+import com.tongyuan.testmp1.dao.ViewMapper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +20,8 @@ public class StudentTest {
     private StusummaryService stusummaryService;
     @Autowired
     private StuinfoService stuinfoService;
+    @Autowired
+    private ViewMapper viewMapper;
 
     @Test
     public void select(){
@@ -33,4 +37,13 @@ public class StudentTest {
     public void selectId(){
         System.out.println(stuinfoService.selectList(null));
     }
+
+
+    @Test
+    public void evaluation1(){
+        System.out.println(viewMapper.selectEvaluationById(1).getName());
+        System.out.println(viewMapper.selectAllEvaluations().get(0).getName());
+        System.out.println(viewMapper.selectAllEvaluations().get(1).getEvaluation());
+    }
+
 }
