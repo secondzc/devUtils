@@ -236,16 +236,16 @@ public class ExcelServiceImpl implements ExcelService {
     public void createExcelStream(ServletOutputStream outputStream){
         try{
             XSSFWorkbook workbook = new XSSFWorkbook();
-            XSSFSheet planSheet = workbook.createSheet("plan");
+            XSSFSheet planSheet = workbook.createSheet("培养计划表");
             createPlanExcel(planSheet);
-            XSSFSheet summarySheet = workbook.createSheet("summary");
+            XSSFSheet summarySheet = workbook.createSheet("学生总结表");
             createSummaryExcel(summarySheet);
-            XSSFSheet messageSheet = workbook.createSheet("message");
+            XSSFSheet messageSheet = workbook.createSheet("学生留言表");
             createMessageExcel(messageSheet);
-            XSSFSheet evaluationSheet = workbook.createSheet("evaluation");
+            XSSFSheet evaluationSheet = workbook.createSheet("导师评价学生表");
             createEvaluationExcel(evaluationSheet);
             workbook.write(outputStream);
-        }catch(IOException e){
+        }catch(Exception e){
             throw new RuntimeException("生成excel错误");
         }
 
@@ -356,7 +356,7 @@ public class ExcelServiceImpl implements ExcelService {
             j=0;
             dataRow.createCell(j++).setCellValue(evaluationView.getName());
             dataRow.createCell(j++).setCellValue(evaluationView.getJob_number());
-            dataRow.createCell(j++).setCellValue(evaluationView.getRank());
+            dataRow.createCell(j++).setCellValue(evaluationView.getRank()==null?"":String.valueOf(evaluationView.getRank()));
             dataRow.createCell(j++).setCellValue(evaluationView.getEvaluation());
         }
     }

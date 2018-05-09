@@ -49,17 +49,10 @@ public class ExcelController extends BaseController{
 
     //@Permission("admin")
     @GetMapping("/download")
-    @ResponseBody
-    public JSONObject download(HttpServletResponse response) throws IOException{
+    public void download(HttpServletResponse response) throws IOException{
         response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
-        response.addHeader("Content-Disposition", "attachment;filename=type" + ".xlsx");
+        response.addHeader("Content-Disposition", "attachment;filename=Sheet" + ".xlsx");
         //查mysql生成excel文件
         excelService.createExcelStream(response.getOutputStream());
-
-        JSONObject jo = new JSONObject();
-        jo.put("code",0);
-        jo.put("error",0);
-        jo.put("msg","操作成功");
-        return jo;
     }
 }
