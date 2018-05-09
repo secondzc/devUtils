@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+        <link rel="stylesheet" href="../../static/layui/css/layui.css"/>
+        <style>
+            body{margin:20px 20px;}
+        </style>
+    </head>
+    <body>
+        <fieldset class="layui-elem-field">
+            <legend>导师评价</legend>
+            <div class="layui-field-box">
+                <p class="layui-form-label" style="margin-top:-5px;">打分:</p>
+                <div id="star"></div>
+                <form class="layui-form">
+                    <input id="stuid" type="hidden" name="stuid"/>
+                    <input id="rank" type="hidden" name="rank"/>
+                    <div class="layui-form-item layui-form-text">
+                        <label class="layui-form-label">评语</label>
+                        <div class="layui-input-block">
+                            <textarea placeholder="请输入内容" class="layui-textarea" name="evaluation"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <div class="layui-input-block" style="float:right;">
+                            <button class="layui-btn" lay-submit="lay-submit" lay-filter="pageForm">保存</button>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </fieldset>
+        <script src="../../static/layui/layui.js"></script>
+        <script>
+             layui.use(["form","rate","jquery"],function(){
+                window.jQuery = window.$ = layui.jquery;
+                var form=layui.form,
+                    rate=layui.rate;
+                //获取id值
+                var str=location.search,
+                    i=str.indexOf("=");
+                    var stuid=str.substr(i+1);
+                    $("#stuid").val(stuid);
+                //渲染星星打分
+                rate.render({
+                    elem: '#star', //绑定元素
+                    value:0,//星星评分值
+                });
+                //点击后获取分数
+                rate.render({
+                  elem: '#star'
+                  ,choose: function(value){
+                    $('#rank').val(value);
+                  }
+                });
+                //获得导师评语
+                $.ajax({
+                    type:"get",//提交类型
+                    url:"",//请求的地址
+                    data:{
+                        stuid:stuid,//学生id
+                    },//提交的数据
+                    dataType:"json",//返回的类型 json
+                    success:function(data){
+                        //需要返回该学生的月度总结的老师打分数和评语
+                        if(data.data){
+                            $('#evaluation').val(data.data.evaluation);
+                            //渲染星星打分
+                            rate.render({
+                                elem: '#star', //绑定元素
+                                value:data.data.rank,//星星评分值
+                            });
+                        }else{
+                            $('#evaluation').val('');
+                        }
+                    },
+                    error:function(){
+                        layer.msg("请求异常，请重试");
+                    }
+                })
+                //提交评论
+                form.on('submit(pageForm)',function(data){
+                    console.log(data.field);
+                    $.ajax({
+                        type: 'post',
+                        data:data.field,
+                        url: '',
+                        success: function(data) {
+                        //console.log(data);
+                           layer.msg("保存成功")
+                           setTimeout(function(){
+                           var index = parent.layer.getFrameIndex(window.name);//先得到当前iframe层的索引
+                            parent.layer.close(index);
+                           },1000)
+                        },
+                        error: function(e) {
+                            layer.msg('error:请求出错！');
+                        }
+
+                    });
+                    return false;
+                })
+
+
+             })
+        </script>
+    </body>
+</html>

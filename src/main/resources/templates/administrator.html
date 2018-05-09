@@ -75,9 +75,9 @@
             line-height: 24px;
         }
         .upload-data{
-			margin-left:900px;
+			margin-left:800px;
 			position:relative;
-			top:20px;
+			top:30px;
         }
 </style>
 <body>
@@ -92,8 +92,13 @@
 	<div class="layui-fluid container" id="LAY-app-message" >
 		<div class="upload-data">
 			<button type="button" class="layui-btn" id="upload">
-				<i class="layui-icon">&#xe67c;</i>上传</button>
+				<i class="layui-icon">&#xe62f;</i>导入
+			</button>
+			<button type="button" class="layui-btn" id="download">
+				<i class="layui-icon">&#xe601;</i>导出
+			</button>
 		</div>
+
 			<div class="layui-card" style="padding: 5px;">
 				<!-- 三个选项卡 -->
 				<div class="layui-tab" lay-filter="tab">
@@ -209,13 +214,13 @@
 						,form = layui.form
 						,element = layui.element
 						,upload = layui.upload;
-//上传
+//导入基本信息
 						upload.render({
 							elem : '#upload',//绑定元素
 							url : '/excel/upload',//上传接口
 							accept : 'file',
-							//exts : 'xlsx',//允许上传的文件后缀
-  							//size : 5120 ,//最大允许上传的文件大小 kb
+							exts : 'xlsx',//允许上传的文件后缀
+  							size : 5120 ,//最大允许上传的文件大小 kb
 							done : function(res) {
 								//上传完毕回调
 								layer.msg("上传成功！");
@@ -226,6 +231,25 @@
 								window.alert("文件导入失败！系统异常，请重试！");
 							}
 						});
+//导出留言等内容
+						$('#download').click(function(){
+							var index1=layer.load(1);
+							$.ajax({
+								type:"get",
+								url:"",//数据接口
+								dataType : 'JSON',
+								success : function(data) {
+									layer.close(index1);
+									layer.msg('导出信息成功',{time:1000});
+								},
+								error : function(e) {
+									layer.close(index1);
+									layer.msg("服务器繁忙！操作失败，请重试！")
+								}
+
+							})
+
+						})
 
 //方法级渲染hr列表
 					table.render({
@@ -281,7 +305,7 @@
 										table.reload('hrTable', {url: '/hr/select'});
 									},
 									error : function(e) {
-										layer.msg("服务器繁忙！操作失败，清重试！")
+										layer.msg("服务器繁忙！操作失败，请重试！")
 									}
 								
 								});
@@ -327,7 +351,7 @@
 											table.reload('hrTable', {url: '/hr/select'});
 										},
 										error : function(e) {
-											layer.msg("服务器繁忙！操作失败，清重试！")
+											layer.msg("服务器繁忙！操作失败，请重试！")
 										}
 									//向服务端发送删除指令
 									});
@@ -367,7 +391,7 @@
 											layer.msg('成功设置为初始登录密码！',{time:1000});
 										},
 										error : function(e) {
-											layer.msg("服务器繁忙！操作失败，清重试！")
+											layer.msg("服务器繁忙！操作失败，请重试！")
 										}
 									});
 								});
@@ -446,7 +470,7 @@
 										table.reload('teacherTable', {url: '/teacher/select'});
 									},
 									error : function(e) {
-										layer.msg("服务器繁忙！操作失败，清重试！")
+										layer.msg("服务器繁忙！操作失败，请重试！")
 									}
 								
 								});
@@ -491,7 +515,7 @@
 
 										},
 										error : function(e) {
-											layer.msg("服务器繁忙！操作失败，清重试！")
+											layer.msg("服务器繁忙！操作失败，请重试！")
 										}
 									//向服务端发送删除指令
 									});
@@ -532,7 +556,7 @@
 											layer.msg('成功设置为初始登录密码！',{time:1000});
 										},
 										error : function(e) {
-											layer.msg("服务器繁忙！操作失败，清重试！")
+											layer.msg("服务器繁忙！操作失败，请重试！")
 										}
 									});
 								});
@@ -606,7 +630,7 @@
 										table.reload('studentTable', {url: '/stuinfo/selectByAdmin'});
 									},
 									error : function(e) {
-										layer.msg("服务器繁忙！操作失败，清重试！")
+										layer.msg("服务器繁忙！操作失败，请重试！")
 									}
 								
 								});
@@ -673,7 +697,7 @@
 											table.reload('studentTable', {url: '/stuinfo/selectByAdmin'});
 										},
 										error : function(e) {
-											layer.msg("服务器繁忙！操作失败，清重试！")
+											layer.msg("服务器繁忙！操作失败，请重试！")
 										}
 									//向服务端发送删除指令
 									});
@@ -734,7 +758,7 @@
 											layer.msg('成功设置为初始登录密码！',{time:1000});
 										},
 										error : function(e) {
-											layer.msg("服务器繁忙！操作失败，清重试！")
+											layer.msg("服务器繁忙！操作失败，请重试！")
 										}
 									});
 								});
