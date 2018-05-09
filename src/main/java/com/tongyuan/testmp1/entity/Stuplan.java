@@ -30,12 +30,12 @@ public class Stuplan {
     开始日期
      */
     @Column
-    private Date startTime;
+    private Date start_time;
     /*
     结束日期
      */
     @Column
-    private Date endTime;
+    private Date end_time;
 
     public Integer getId() {
         return id;
@@ -69,19 +69,19 @@ public class Stuplan {
         this.target = target;
     }
 
-    public Date getStartTime() {
-        return startTime;
+    public Date getStart_time() {
+        return start_time;
     }
 
-    public void setStartTime(Date startTime) {
-        this.startTime = startTime;
+    public void setStart_time(Date start_time) {
+        this.start_time = start_time;
     }
 
-    public Date getEndTime() {
-        return endTime;
+    public Date getEnd_time() {
+        return end_time;
     }
 
-    public void setEndTime(Date endTime) {
-        this.endTime = endTime;
+    public void setEnd_time(Date end_time) {
+        this.end_time = end_time;
     }
 }
