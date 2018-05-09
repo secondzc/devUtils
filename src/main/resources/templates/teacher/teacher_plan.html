@@ -12,20 +12,33 @@
 <body>
 <fieldset class="layui-elem-field" style="padding:5px;padding-top:15px;">
     <legend>月度培养总目标</legend>
-    <form class="layui-form layui-form-pane" lay-filter="targetForm">
+    <form class="layui-form" lay-filter="targetForm">
         <input name="stuid" type="hidden" id="stuid"/>
-        <div class="layui-form-item">
-            <label class="layui-form-label">月份</label>
-            <div class="layui-input-block">
-                <input type="text" name="month" id="month" class="layui-input" readonly/>
-            </div>
+        <input  type="hidden" name="month" id="month" class="layui-input" />
 
-            <label class="layui-form-label" style="border-top:0px;">培养目标</label>
-            <div class="layui-input-block">
-                <input type="text" name="target" id="target" placeholder="月度培养总目标" class="layui-input" maxlength="255"
-                       style="border-top:0px;" readonly/>
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label">起始时间</label>
+                <div class="layui-input-inline">
+                    <input type="text" class="layui-input" id="startTime" placeholder="yyyy-MM-dd" name="startTime" readonly="readonly"/>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">终止时间</label>
+                <div class="layui-input-inline">
+                    <input type="text" class="layui-input" id="endTime" placeholder="yyyy-MM-dd" name="endTime" readonly="readonly"/>
+                </div>
             </div>
         </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">培养目标</label>
+            <div class="layui-input-block">
+                <input type="text" name="target" id="target" placeholder="月度培养总目标" class="layui-input" maxlength="255"
+                       readonly="readonly"/>
+            </div>
+        </div>
+
         <div class="layui-form-item">
             <div class="layui-input-block" style="float:right;">
                 <button class="layui-btn" lay-submit="lay-submit" id="update" lay-filter="update">编辑</button>
@@ -51,12 +64,14 @@
     <div id="plan_page" style="text-align:center"></div>
     <script src="../../static/layui/layui.js"></script>
     <script>
-        layui.use(['table',"laypage","jquery","form"], function(){
+        layui.use(['table',"laypage","jquery","form",'laydate'], function(){
             window.jQuery = window.$ = layui.jquery;
             var table = layui.table,
                 layer=layui.layer,
                 form=layui.form,
-                laypage=layui.laypage;//分页
+                laypage=layui.laypage,//分页
+                laydate=layui.laydate;
+
                 //获取id值
                 var str=location.search,
                     i=str.indexOf("=");
@@ -84,8 +99,12 @@
                         success:function(data){
                            if(data.data){
                                 $('#target').val(data.data.target);
+                                $('#startTime').val(data.data.startTime);
+                                $('#endTime').val(data.data.endTime);
                            }else{
                                  $('#target').val('');
+                                 $('#startTime').val('');
+                                 $('#endTime').val('');
                            }
                         },
                         error:function(){
@@ -179,7 +198,7 @@
             $('#update').on('click', function() {
                 layer.open({
                     type : 2,
-                    area : [ '700px', '450px' ],
+                    area : [ '710px', '500px' ],
                     fixed : false, //不固定
                     maxmin : true,
                     content : '../teacher/teacher_addTarget.html',
@@ -191,6 +210,16 @@
                              body.find('#addtarget').val($('#target').val());
                         }else{
                             body.find('#addtarget').val('');
+                        }
+                        if($('#startTime').val()){
+                             body.find('#addstartTime').val($('#startTime').val());
+                        }else{
+                            body.find('#addstartTime').val('');
+                        }
+                        if($('#endTime').val()){
+                             body.find('#addendTime').val($('#endTime').val());
+                        }else{
+                            body.find('#addendTime').val('');
                         }
                     },
                     end:function() {
@@ -208,8 +237,12 @@
                             //console.log(data.data);
                                if(data.data){
                                     $('#target').val(data.data.target);
+                                    $('#startTime').val(data.data.startTime);
+                                    $('#endTime').val(data.data.endTime);
                                }else{
                                      $('#target').val('');
+                                     $('#startTime').val('');
+                                     $('#endTime').val('');
                                }
                             },
                             error:function(){

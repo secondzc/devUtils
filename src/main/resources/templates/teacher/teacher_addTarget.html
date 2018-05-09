@@ -16,12 +16,23 @@
 </fieldset>
 <form class="layui-form">
     <input name="stuid" type="hidden" id="stuidTarget"/>
+    <input type="hidden" name="month" id="monthTarget" class="layui-input" readonly/>
+
     <div class="layui-form-item">
-        <label class="layui-form-label">月份</label>
-        <div class="layui-input-block">
-            <input type="text" name="month" id="monthTarget" class="layui-input" readonly/>
+        <div class="layui-inline">
+            <label class="layui-form-label">起始时间</label>
+            <div class="layui-input-inline">
+                <input type="text" class="layui-input" id="addstartTime" placeholder="yyyy-MM-dd" name="startTime"/>
+            </div>
+        </div>
+        <div class="layui-inline">
+            <label class="layui-form-label">终止时间</label>
+            <div class="layui-input-inline">
+                <input type="text" class="layui-input" id="addendTime" placeholder="yyyy-MM-dd" name="endTime"/>
+            </div>
         </div>
     </div>
+
     <div class="layui-form-item">
         <label class="layui-form-label">培养目标</label>
         <div class="layui-input-block">
@@ -37,11 +48,18 @@
 </form>
 <script src="../../static/layui/layui.js"></script>
 <script>
-            layui.use(['form','element','jquery'], function () {
+            layui.use(['form','element','jquery','laydate'], function () {
                     window.jQuery = window.$ = layui.jquery;
                     var form = layui.form
                     , layer = layui.layer
-                    ,element = layui.element;
+                    ,element = layui.element,
+                    laydate=layui.laydate;
+                    laydate.render({
+                        elem:"#addstartTime"
+                    });
+                    laydate.render({
+                        elem:"#addendTime"
+                    });
                 form.on('submit(update)',function(data){
                     $.ajax({
                         type: 'post',
