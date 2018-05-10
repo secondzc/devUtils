@@ -15,12 +15,12 @@
                 <p class="layui-form-label" style="margin-top:3px;">打分:</p>
                 <div id="star"></div>
                 <form class="layui-form">
-                    <input id="stuid" type="hidden" name="stuid"/>
+                    <input id="id" type="hidden" name="id"/>
                     <input id="rank" type="hidden" name="rank"/>
                     <div class="layui-form-item layui-form-text">
                         <label class="layui-form-label">评语</label>
                         <div class="layui-input-block">
-                            <textarea placeholder="请输入内容" class="layui-textarea" name="evaluation"></textarea>
+                            <textarea placeholder="请输入内容" class="layui-textarea" name="evaluation" id="evaluation"></textarea>
                         </div>
                     </div>
 
@@ -43,7 +43,7 @@
                 var str=location.search,
                     i=str.indexOf("=");
                     var stuid=str.substr(i+1);
-                    $("#stuid").val(stuid);
+                    $("#id").val(stuid);
                 //渲染星星打分
                 rate.render({
                     elem: '#star', //绑定元素

@@ -54,6 +54,7 @@
             background:#fff;
             width:1000px;
             margin:0 auto;
+            margin-top:15px;
 			position:relative;
         }
         footer{
@@ -76,8 +77,9 @@
         }
         .upload-data{
 			margin-left:800px;
-			position:relative;
-			top:30px;
+			position:absolute;
+			z-index:10;
+			top:10px;
         }
 </style>
 <body>
@@ -99,7 +101,7 @@
 			</button>
 		</div>
 
-			<div class="layui-card" style="padding: 5px;">
+			<div class="layui-card" style="padding: 5px;padding-top:15px;">
 				<!-- 三个选项卡 -->
 				<div class="layui-tab" lay-filter="tab">
 						<ul class="layui-tab-title">
