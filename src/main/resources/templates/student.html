@@ -339,7 +339,7 @@
                         <fieldset class="layui-elem-field">
                             <legend>导师评价</legend>
                             <div class="layui-field-box">
-                                <p class="layui-form-label" style="margin-top:-5px;">打分:</p>
+                                <p class="layui-form-label" style="margin-top:3px;">打分:</p>
                                 <div id="star"></div>
                                 <form class="layui-form">
                                     <div class="layui-form-item layui-form-text">
@@ -639,7 +639,7 @@
                 //获得导师评语
                 $.ajax({
                     type:"get",//提交类型
-                    url:"",//请求的地址
+                    url:"/stuinfo/selectEvaluationByStudent",//请求的地址
                     dataType:"json",//返回的类型 json
                     success:function(data){
                         //需要返回该学生的月度总结的老师打分数和评语

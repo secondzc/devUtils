@@ -221,13 +221,18 @@
 							accept : 'file',
 							exts : 'xlsx',//允许上传的文件后缀
   							size : 5120 ,//最大允许上传的文件大小 kb
+							before: function(obj){ //obj参数包含的信息，跟 choose回调完全一致，可参见上文。
+								var index2=layer.load(1);
+							},
 							done : function(res) {
 								//上传完毕回调
+								layer.close(index2);
 								layer.msg("上传成功！");
 								setTimeout("location.reload()",1000)
 							},
 							error : function() {
 								//请求异常回调
+								layer.close(index2);
 								window.alert("文件导入失败！系统异常，请重试！");
 							}
 						});
@@ -236,7 +241,7 @@
 							var index1=layer.load(1);
 							$.ajax({
 								type:"get",
-								url:"",//数据接口
+								url:"/excel/download",//数据接口
 								dataType : 'JSON',
 								success : function(data) {
 									layer.close(index1);

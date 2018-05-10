@@ -12,7 +12,7 @@
     <fieldset class="layui-elem-field">
         <legend>导师评价</legend>
         <div class="layui-field-box">
-            <p class="layui-form-label" style="margin-top:-5px;">打分:</p>
+            <p class="layui-form-label" style="margin-top:3px;">打分:</p>
             <div id="star"></div>
             <form class="layui-form">
 
@@ -46,7 +46,7 @@
                 //获得导师评语
                 $.ajax({
                     type:"get",//提交类型
-                    url:"",//请求的地址
+                    url:"/stuinfo/selectEvaluationByHr",//请求的地址
                     data:{
                         stuid:stuid,//学生id
                     },//提交的数据
