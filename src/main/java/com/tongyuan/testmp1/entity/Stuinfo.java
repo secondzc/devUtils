@@ -85,7 +85,7 @@ public class Stuinfo implements User{
     private String encrypt_password;
     @Column
     private Integer rank;
-    @Column
+    @Column(length = 4095)
     private String evaluation;
 
     public Integer getRank() {

@@ -186,9 +186,9 @@ public class StuinfoController extends BaseController{
     }
 
     /*
-    hr查看学生评级和学生评价
+    hr或导师查看学生评级和学生评价
      */
-    @Permission("hr")
+    @Permission("hr,teacher")
     @GetMapping("/selectEvaluationByHr")
     @ResponseBody
     public JSONObject selectEvaluationByHr(@RequestParam("id") Integer id){
