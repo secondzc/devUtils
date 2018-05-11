@@ -13,7 +13,7 @@
             <legend>导师评价</legend>
             <div class="layui-field-box">
                 <p class="layui-form-label" style="margin-top:3px;">打分:</p>
-                <div id="star"></div>
+                <div id="test1"></div>
                 <form class="layui-form">
                     <input id="id" type="hidden" name="id"/>
                     <input id="rank" type="hidden" name="rank"/>
@@ -46,16 +46,28 @@
                     $("#id").val(stuid);
                 //渲染星星打分
                 rate.render({
-                    elem: '#star', //绑定元素
+                    elem: '#test1', //绑定元素
                     value:0,//星星评分值
+                    choose: function(value){
+                        console.log(value);
+                        $('#rank').val(value);
+                    }
                 });
-                //点击后获取分数
-                rate.render({
-                  elem: '#star'
-                  ,choose: function(value){
-                    $('#rank').val(value);
-                  }
-                });
+                 //点击后获取分数
+//                 rate.render({
+//                     elem: '#star'
+//                     ,choose: function(length){
+//                         console.log(length);
+//                         console.log(value);
+//                         $('#rank').val(value);
+//                     }
+//                 });
+//                 rate.render({
+//                     elem: '#test1'
+//                     ,choose: function(value){
+//                         if(value > 4) alert( '么么哒' )
+//                     }
+//                 });
                 //获得导师评语
                 $.ajax({
                     type:"get",//提交类型
