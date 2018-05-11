@@ -96,9 +96,7 @@
 			<button type="button" class="layui-btn" id="upload">
 				<i class="layui-icon">&#xe62f;</i>导入
 			</button>
-			<button type="button" class="layui-btn" id="download">
-				<i class="layui-icon">&#xe601;</i>导出
-			</button>
+			<a href="/excel/download" class="layui-btn"><i class="layui-icon">&#xe601;</i>导出</a>
 		</div>
 
 			<div class="layui-card" style="padding: 5px;padding-top:15px;">
@@ -239,24 +237,24 @@
 							}
 						});
 //导出留言等内容
-						$('#download').click(function(){
-							var index1=layer.load(1);
-							$.ajax({
-								type:"get",
-								url:"/excel/download",//数据接口
-								//dataType : 'JSON',
-								success : function(data) {
-									layer.close(index1);
-									layer.msg('导出信息成功',{time:1000});
-								},
-								error : function(e) {
-									layer.close(index1);
-									layer.msg("服务器繁忙！操作失败，请重试！")
-								}
-
-							})
-
-						})
+//						$('#download').click(function(){
+//							var index1=layer.load(1);
+//							$.ajax({
+//								type:"get",
+//								url:"/excel/download",//数据接口
+//								//dataType : 'JSON',
+//								success : function(data) {
+//									layer.close(index1);
+//									layer.msg('导出信息成功',{time:1000});
+//								},
+//								error : function(e) {
+//									layer.close(index1);
+//									layer.msg("服务器繁忙！操作失败，请重试！")
+//								}
+//
+//							})
+//
+//						})
 
 //方法级渲染hr列表
 					table.render({
