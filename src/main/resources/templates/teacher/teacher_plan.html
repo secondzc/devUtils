@@ -99,8 +99,8 @@
                         success:function(data){
                            if(data.data){
                                 $('#target').val(data.data.target);
-                                $('#startTime').val(data.data.startTime);
-                                $('#endTime').val(data.data.endTime);
+                                $('#startTime').val(data.data.start_time);
+                                $('#endTime').val(data.data.end_time);
                            }else{
                                  $('#target').val('');
                                  $('#startTime').val('');
@@ -118,7 +118,7 @@
                        ,url:"/plan/selectDetailByOthers"//数据接口
                        ,where:{month:month,stuid:$('#stuid').val()}
                         ,cols:  [[ //表头
-                            {field: 'period', title: '时间', width:100,fixed:'left'}
+                            {field: 'period', title: '阶段', width:100,fixed:'left'}
                             ,{field: 'knowledge', title: '知识点及掌握程度', minWidth: 200}
                             ,{field: 'material', title: '学习材料', minWidth: 200}
                             ,{field: 'inspect', title: '输出及考核方式',minWidth:200}
