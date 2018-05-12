@@ -44,30 +44,6 @@
                     i=str.indexOf("=");
                     var stuid=str.substr(i+1);
                     $("#id").val(stuid);
-                //渲染星星打分
-                rate.render({
-                    elem: '#test1', //绑定元素
-                    value:0,//星星评分值
-                    choose: function(value){
-                        console.log(value);
-                        $('#rank').val(value);
-                    }
-                });
-                 //点击后获取分数
-//                 rate.render({
-//                     elem: '#star'
-//                     ,choose: function(length){
-//                         console.log(length);
-//                         console.log(value);
-//                         $('#rank').val(value);
-//                     }
-//                 });
-//                 rate.render({
-//                     elem: '#test1'
-//                     ,choose: function(value){
-//                         if(value > 4) alert( '么么哒' )
-//                     }
-//                 });
                 //获得导师评语
                 $.ajax({
                     type:"get",//提交类型
@@ -75,17 +51,13 @@
                     data:{
                         id:stuid,//学生id
                     },//提交的数据
+                    async:false,//设置为同步
                     dataType:"json",//返回的类型 json
                     success:function(data){
                         //需要返回该学生的月度总结的老师打分数和评语
                         if(data.data){
                             $('#evaluation').val(data.data.evaluation);
                             $('#rank').val(data.data.rank);
-                            //渲染星星打分
-                            rate.render({
-                                elem: '#star', //绑定元素
-                                value:data.data.rank,//星星评分值
-                            });
                         }else{
                             $('#evaluation').val('');
                             $('#rank').val('');
@@ -95,6 +67,15 @@
                         layer.msg("请求异常，请重试");
                     }
                 })
+                //渲染星星打分
+                rate.render({
+                    elem: '#test1', //绑定元素
+                    value:$('#rank').val(),//星星评分值
+                    choose: function(value){
+                        console.log(value);
+                        $('#rank').val(value);
+                    }
+                });
                 //提交评论
                 form.on('submit(pageForm)',function(data){
                     console.log(data.field);
