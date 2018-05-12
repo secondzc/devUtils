@@ -234,11 +234,11 @@
                             },//提交的数据
                             dataType:"json",//返回的类型 json
                             success:function(data){
-                            //console.log(data.data);
+                               //console.log(data.data);
                                if(data.data){
                                     $('#target').val(data.data.target);
-                                    $('#startTime').val(data.data.startTime);
-                                    $('#endTime').val(data.data.endTime);
+                                    $('#startTime').val(data.data.start_time);
+                                    $('#endTime').val(data.data.end_time);
                                }else{
                                      $('#target').val('');
                                      $('#startTime').val('');
