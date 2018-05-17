@@ -1,35 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width,  initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
-    <link rel="stylesheet" href="../../static/layui/css/layui.css"/>
-    <title>培养计划</title>
-    <style>
-        body{margin:10px 20px;}
-    </style>
-</head>
-<body>
-<table class="layui-table">
-    <tr>
-        <th style="width:70px;">月份</th>
-        <td id="month"></td>
-    </tr>
-    <tr>
-        <th style="width:70px;">培养目标</th>
-        <td id="target"></td>
-    </tr>
+    <head>
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width,  initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+        <link rel="stylesheet" href="../../static/layui/css/layui.css"/>
+        <title>培养计划</title>
+        <style>
+            body{margin:10px 20px;}
+        </style>
+    </head>
+    <body>
+        <form class="layui-form" lay-filter="targetForm">
+            <div class="layui-form-item">
+                <div class="layui-inline">
+                    <label class="layui-form-label">起始时间</label>
+                    <div class="layui-input-inline">
+                        <input type="text" class="layui-input" id="startTime" placeholder="yyyy-MM-dd" readonly="readonly"/>
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label">终止时间</label>
+                    <div class="layui-input-inline">
+                        <input type="text" class="layui-input" id="endTime" placeholder="yyyy-MM-dd" readonly="readonly"/>
+                    </div>
+                </div>
+            </div>
 
-</table>
-<table id="hr_plan" lay-filter="hr_plan"></table>
-<div id="plan_page" style="text-align:center"></div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">培养目标</label>
+                <div class="layui-input-block">
+                    <input type="text" id="target" placeholder="月度培养总目标" class="layui-input" maxlength="255"
+                           readonly="readonly"/>
+                </div>
+            </div>
+        </form>
+
+        <table id="hr_plan" lay-filter="hr_plan"></table>
+        <div id="plan_page" style="text-align:center"></div>
 <script src="../../static/layui/layui.js"></script>
 <script>
-        layui.use(['table',"laypage","jquery"], function(){
+        layui.use(['table',"laypage","jquery","laydate"], function(){
             window.jQuery = window.$ = layui.jquery;
             var table = layui.table,
-                laypage=layui.laypage;//分页
-                //获取id值
+                laypage=layui.laypage,//分页
+                laydate=layui.laydate;
 
             //渲染 laypage分页 实例
             laypage.render({
@@ -54,9 +68,13 @@
                         dataType:"json",//返回的类型 json
                         success:function(data){
                            if(data.data){
-                                $('#target').text(data.data.target);
+                                $('#target').val(data.data.target);
+                                $('#startTime').val(data.data.start_time);
+                                $('#endTime').val(data.data.end_time);
                            }else{
-                                 $('#target').text('');
+                                 $('#target').val('');
+                                 $('#startTime').val('');
+                                $('#endTime').val('');
                            }
                         },
                         error:function(){
@@ -70,12 +88,10 @@
                         ,url:"/plan/selectDetailByOthers"//数据接口
                         ,where:{month:month,stuid:id}
                         ,cols:  [[ //表头
-                            //{field: 'month', title: '月份', width: 80, rowspan: 4} //rowspan即纵向跨越的单元格数
-                           // colspan即横跨的单元格数，这种情况下不用设置field和width
-                            {field: 'period', title: '时间', width:100}
-                           ,{field: 'knowledge', title: '知识点及掌握程度', width: 300}
-                            ,{field: 'material', title: '学习材料', width: 300}
-                           ,{field: 'inspect', title: '输出及考核方式',width:300}
+                            {field: 'period', title: '时间', minWidth:100}
+                           ,{field: 'knowledge', title: '知识点及掌握程度', minWidth: 300}
+                            ,{field: 'material', title: '学习材料', minWidth: 300}
+                           ,{field: 'inspect', title: '输出及考核方式',minWidth:300}
                         ]]
                    });
                 }

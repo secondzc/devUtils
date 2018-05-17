@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
     <link rel="stylesheet" href="../static/layui/css/layui.css"/>
     <title>student</title>
     <style>
@@ -81,9 +81,9 @@
     <header>
         <div class="top">
             <h1>华为 实习生管理信息系统</h1>
-            <ul class="layui-nav" style="width:130px;position:absolute;top:18px;right:-20px;">
+            <ul class="layui-nav" style="width:130px;position:absolute;top:18px;right:-20px;background-color:#fff;">
                 <li class="layui-nav-item">
-                    <a href="javascript:;" style="font-size:16px;color:#409eff;">更多<i class="layui-icon">&#xe61a;</i>  </a>
+                    <a href="javascript:;" style="font-size:16px;color:#409eff;">更多<i class="layui-icon">&#xe61a;</i></a>
                     <dl class="layui-nav-child"> <!-- 二级菜单 -->
                         <dd><a href="javascript:;" id="modify">安全设置</a></dd>
                         <dd><a href="javascript:;" id="logout">退出登录</a></dd>
@@ -96,14 +96,13 @@
     <section>
         <div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief" id="container">
                 <ul class="layui-tab-title">
-                  <li class="layui-this">个人中心</li>
-                  <li>培养计划</li>
-                  <li>我的留言</li>
-                  <li>月度总结</li>
-                  <!--<li>修改登录密码</li>-->
+                    <li class="layui-this">个人中心</li>
+                    <li>培养计划</li>
+                    <li>我的留言</li>
+                    <li>月度总结</li>
+                    <li>导师评价</li>
                 </ul>
                 <div class="layui-tab-content">
-                  
                   <div class="layui-tab-item layui-show">
                     <form class="layui-form" action="/stuinfo/update" method="post" id="myForm">
                         <input type="hidden" name="id" id="id"/>
@@ -246,24 +245,35 @@
                     </form>
                         
                   </div>
-
                   <!--培养计划-->
                   <div class="layui-tab-item">
-                      <table class="layui-table">
-                          <tr>
-                              <th style="width:70px;">月份</th>
-                              <td id="month"></td>
-                          </tr>
-                          <tr>
-                              <th style="width:70px;">培养目标</th>
-                              <td id="target"></td>
-                          </tr>
+                      <form class="layui-form" lay-filter="targetForm">
+                          <div class="layui-form-item">
+                              <div class="layui-inline">
+                                  <label class="layui-form-label">起始时间</label>
+                                  <div class="layui-input-inline">
+                                      <input type="text" class="layui-input" id="startTime" placeholder="yyyy-MM-dd" readonly="readonly"/>
+                                  </div>
+                              </div>
+                              <div class="layui-inline">
+                                  <label class="layui-form-label">终止时间</label>
+                                  <div class="layui-input-inline">
+                                      <input type="text" class="layui-input" id="endTime" placeholder="yyyy-MM-dd" readonly="readonly"/>
+                                  </div>
+                              </div>
+                          </div>
 
-                      </table>
+                          <div class="layui-form-item">
+                              <label class="layui-form-label">培养目标</label>
+                              <div class="layui-input-block">
+                                  <input type="text" id="target" placeholder="月度培养总目标" class="layui-input" maxlength="255"
+                                         readonly="readonly"/>
+                              </div>
+                          </div>
+                      </form>
                       <table id="hr_plan" lay-filter="hr_plan"></table>
                       <div id="plan_page" style="text-align:center"></div>
                   </div>
-                  
                   <!--我的留言-->
                   <div class="layui-tab-item">
                         <div class="layui-row">
@@ -275,7 +285,7 @@
                         
 
                                     <button class="layui-btn" id="refresh">
-                                            <i class="layui-icon">&#x1002;</i>刷新
+                                            <i class="layui-icon">&#xe669;</i>刷新
                                     </button>
 
                                 </div>
@@ -291,40 +301,58 @@
                   <!--月度总结-->
                   <div class="layui-tab-item">
                         <form class="layui-form layui-form-pane" id="summaryForm" lay-filter="summaryForm">
-                      <div class="layui-form-item">
-                          <label class="layui-form-label">月份</label>
-                          <div class="layui-input-block">
-                              <input type="text" name="month" id="summaryMonth" class="layui-input" readonly="readonly"/>
-                          </div>
+                          <div class="layui-form-item">
+                              <label class="layui-form-label">月份</label>
+                              <div class="layui-input-block">
+                                  <input type="text" name="month" id="summaryMonth" class="layui-input" readonly="readonly"/>
+                              </div>
 
-                          <label class="layui-form-label" style="height:100px;border-top:0px;">月度工作<br/>学习总结</label>
-                          <div class="layui-input-block">
-                                    <textarea name="summary" class="layui-textarea"
-                                              maxlength="4000" id="summary"  style="resize:none;border-top:0px;" readonly="readonly"></textarea>
-                          </div>
+                              <label class="layui-form-label" style="height:100px;border-top:0px;">月度工作<br/>学习总结</label>
+                              <div class="layui-input-block">
+                                        <textarea name="summary" class="layui-textarea"
+                                                  maxlength="4000" id="summary"  style="resize:none;border-top:0px;" readonly="readonly"></textarea>
+                              </div>
 
-                          <label class="layui-form-label" style="height:100px;border-top:0px;">问题和困难</label>
-                          <div class="layui-input-block">
-                                    <textarea name="question" class="layui-textarea" id="question"
-                                              maxlength="4000" style="resize:none;border-top:0px;" readonly="readonly"></textarea>
-                          </div>
+                              <label class="layui-form-label" style="height:100px;border-top:0px;">问题和困难</label>
+                              <div class="layui-input-block">
+                                        <textarea name="question" class="layui-textarea" id="question"
+                                                  maxlength="4000" style="resize:none;border-top:0px;" readonly="readonly"></textarea>
+                              </div>
 
-                          <label class="layui-form-label" style="height:100px;border-top:0px;">下个月计划</label>
-                          <div class="layui-input-block">
-                                    <textarea name="plan" class="layui-textarea" id="plan"
-                                              maxlength="4000" style="resize:none;border-top:0px;" readonly="readonly"></textarea>
-                          </div>
+                              <label class="layui-form-label" style="height:100px;border-top:0px;">下个月计划</label>
+                              <div class="layui-input-block">
+                                        <textarea name="plan" class="layui-textarea" id="plan"
+                                                  maxlength="4000" style="resize:none;border-top:0px;" readonly="readonly"></textarea>
+                              </div>
 
-                      </div>
-                      <div class="layui-form-item">
-                          <div class="layui-input-block">
-                              <button class="layui-btn"  id="summary_update" style="float:right;">编辑</button>
                           </div>
-                      </div>
-                  </form>
+                          <div class="layui-form-item">
+                              <div class="layui-input-block">
+                                  <button class="layui-btn"  id="summary_update" style="float:right;">编辑</button>
+                              </div>
+                          </div>
+                         </form>
                         <div id="summary_page" style="text-align:center"></div>
                   </div>
-
+                    <!--导师评价-->
+                    <div class="layui-tab-item">
+                        <fieldset class="layui-elem-field">
+                            <legend>导师评价</legend>
+                            <div class="layui-field-box">
+                                <p class="layui-form-label" style="margin-top:3px;">打分:</p>
+                                <div id="star"></div>
+                                <form class="layui-form">
+                                    <div class="layui-form-item layui-form-text">
+                                        <label class="layui-form-label">评语</label>
+                                        <div class="layui-input-block">
+                                             <textarea placeholder="导师还没有进行评价" class="layui-textarea" id="evaluation"
+                                                       readonly="readonly"></textarea>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </fieldset>
+                    </div>
                 </div>
               </div>
             </section>
@@ -336,7 +364,7 @@
               <script src="../static/layui/layui.js"></script>
               <script>
               //注意：选项卡 依赖 element 模块，否则无法进行功能性操作
-              layui.use(['element', 'form','laydate',"table","jquery","laypage"],function(){
+              layui.use(['element', 'form','laydate',"table","jquery","laypage","rate"],function(){
                 window.jQuery = window.$ = layui.jquery;
                 //扩展一个jquery的setform方法
                              (function ($) {
@@ -349,7 +377,8 @@
                     form=layui.form,//表单操作
                     laydate=layui.laydate,//日期操作
                     table = layui.table,//表格
-                    laypage=layui.laypage;//分页
+                    laypage=layui.laypage,//分页
+                    rate=layui.rate;//评分
                     laydate.render({
                         elem:"#hire_time"//指定日期元素
                     });
@@ -410,20 +439,22 @@
                 ,skin: '#1E9FFF' //自定义选中色值
                 ,jump: function(obj){
                     var month=obj.curr;
-                    $("#month").html('第'+ month +'个月');
                     $.ajax({
                         type:"get",//提交类型
                         url:"/plan/selectByStu",//请求的地址
                         data:{
                             month:obj.curr,//月份
-                            //stuid:id,//学生id
                         },//提交的数据
                         dataType:"json",//返回的类型 json
                         success:function(data){
                            if(data.data){
-                                $('#target').text(data.data.target);
+                                $('#target').val(data.data.target);
+                                $('#startTime').val(data.data.start_time);
+                                $('#endTime').val(data.data.end_time);
                            }else{
-                                 $('#target').text('');
+                                 $('#target').val('');
+                                 $('#startTime').val('');
+                                 $('#endTime').val('');
                            }
                         },
                         error:function(){
@@ -598,6 +629,36 @@
                         });
                     }
                   })
+               //导师评论
+               //渲染星星打分
+                rate.render({
+                    elem: '#star', //绑定元素
+                    value:0,//星星评分值
+                    readonly:true
+                });
+                //获得导师评语
+                $.ajax({
+                    type:"get",//提交类型
+                    url:"/stuinfo/selectEvaluationByStudent",//请求的地址
+                    dataType:"json",//返回的类型 json
+                    success:function(data){
+                        //需要返回该学生的月度总结的老师打分数和评语
+                        if(data.data){
+                            $('#evaluation').val(data.data.evaluation);
+                            //渲染星星打分
+                            rate.render({
+                                elem: '#star', //绑定元素
+                                value:data.data.rank,//星星评分值
+                                readonly:true
+                            });
+                        }else{
+                            $('#evaluation').val('');
+                        }
+                    },
+                    error:function(){
+                        layer.msg("请求异常，请重试");
+                    }
+                })
 
                //修改登录密码
                 $('#modify').click(function(){

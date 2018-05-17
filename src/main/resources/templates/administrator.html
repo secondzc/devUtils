@@ -54,6 +54,7 @@
             background:#fff;
             width:1000px;
             margin:0 auto;
+            margin-top:15px;
 			position:relative;
         }
         footer{
@@ -75,9 +76,10 @@
             line-height: 24px;
         }
         .upload-data{
-			margin-left:900px;
-			position:relative;
-			top:20px;
+			margin-left:800px;
+			position:absolute;
+			z-index:10;
+			top:10px;
         }
 </style>
 <body>
@@ -92,9 +94,12 @@
 	<div class="layui-fluid container" id="LAY-app-message" >
 		<div class="upload-data">
 			<button type="button" class="layui-btn" id="upload">
-				<i class="layui-icon">&#xe67c;</i>上传</button>
+				<i class="layui-icon">&#xe62f;</i>导入
+			</button>
+			<a href="/excel/download" class="layui-btn" target="_blank"><i class="layui-icon">&#xe601;</i>导出</a>
 		</div>
-			<div class="layui-card" style="padding: 5px;">
+
+			<div class="layui-card" style="padding: 5px;padding-top:15px;">
 				<!-- 三个选项卡 -->
 				<div class="layui-tab" lay-filter="tab">
 						<ul class="layui-tab-title">
@@ -115,7 +120,7 @@
 													isMutiDml="1" isConfirm="1">
 													<i class="layui-icon">&#xe640;</i>批量删除</button>
 													<button class="layui-btn" id="refreshHr">
-														<i class="layui-icon">&#x1002;</i>刷新</button>
+														<i class="layui-icon">&#xe669;</i>刷新</button>
 
 											</div>
 										</div>
@@ -134,7 +139,7 @@
 												<i class="layui-icon">&#xe640;</i>批量删除</button>
 
 												<button class="layui-btn" id="refreshTeacher">
-													<i class="layui-icon">&#x1002;</i>刷新</button>
+													<i class="layui-icon">&#xe669;</i>刷新</button>
 
 										</div>
 									</div>
@@ -171,7 +176,7 @@
 													<i class="layui-icon">&#xe640;</i>批量删除</button>
 
 													<button class="layui-btn" id="refreshStu">
-														<i class="layui-icon">&#x1002;</i>刷新</button>
+														<i class="layui-icon">&#xe669;</i>刷新</button>
 
 											</div>
 										</div>
@@ -209,23 +214,47 @@
 						,form = layui.form
 						,element = layui.element
 						,upload = layui.upload;
-//上传
+//导入基本信息
 						upload.render({
 							elem : '#upload',//绑定元素
 							url : '/excel/upload',//上传接口
 							accept : 'file',
-							//exts : 'xlsx',//允许上传的文件后缀
-  							//size : 5120 ,//最大允许上传的文件大小 kb
+							exts : 'xlsx',//允许上传的文件后缀
+  							size : 5120 ,//最大允许上传的文件大小 kb
+							before: function(obj){ //obj参数包含的信息，跟 choose回调完全一致，可参见上文。
+								var index2=layer.load(1);
+							},
 							done : function(res) {
 								//上传完毕回调
+                                layer.closeAll('loading');
 								layer.msg("上传成功！");
 								setTimeout("location.reload()",1000)
 							},
 							error : function() {
 								//请求异常回调
+								layer.close('loading');
 								window.alert("文件导入失败！系统异常，请重试！");
 							}
 						});
+//导出留言等内容
+//						$('#download').click(function(){
+//							var index1=layer.load(1);
+//							$.ajax({
+//								type:"get",
+//								url:"/excel/download",//数据接口
+//								//dataType : 'JSON',
+//								success : function(data) {
+//									layer.close(index1);
+//									layer.msg('导出信息成功',{time:1000});
+//								},
+//								error : function(e) {
+//									layer.close(index1);
+//									layer.msg("服务器繁忙！操作失败，请重试！")
+//								}
+//
+//							})
+//
+//						})
 
 //方法级渲染hr列表
 					table.render({
@@ -281,7 +310,7 @@
 										table.reload('hrTable', {url: '/hr/select'});
 									},
 									error : function(e) {
-										layer.msg("服务器繁忙！操作失败，清重试！")
+										layer.msg("服务器繁忙！操作失败，请重试！")
 									}
 								
 								});
@@ -327,7 +356,7 @@
 											table.reload('hrTable', {url: '/hr/select'});
 										},
 										error : function(e) {
-											layer.msg("服务器繁忙！操作失败，清重试！")
+											layer.msg("服务器繁忙！操作失败，请重试！")
 										}
 									//向服务端发送删除指令
 									});
@@ -367,7 +396,7 @@
 											layer.msg('成功设置为初始登录密码！',{time:1000});
 										},
 										error : function(e) {
-											layer.msg("服务器繁忙！操作失败，清重试！")
+											layer.msg("服务器繁忙！操作失败，请重试！")
 										}
 									});
 								});
@@ -446,7 +475,7 @@
 										table.reload('teacherTable', {url: '/teacher/select'});
 									},
 									error : function(e) {
-										layer.msg("服务器繁忙！操作失败，清重试！")
+										layer.msg("服务器繁忙！操作失败，请重试！")
 									}
 								
 								});
@@ -491,7 +520,7 @@
 
 										},
 										error : function(e) {
-											layer.msg("服务器繁忙！操作失败，清重试！")
+											layer.msg("服务器繁忙！操作失败，请重试！")
 										}
 									//向服务端发送删除指令
 									});
@@ -532,7 +561,7 @@
 											layer.msg('成功设置为初始登录密码！',{time:1000});
 										},
 										error : function(e) {
-											layer.msg("服务器繁忙！操作失败，清重试！")
+											layer.msg("服务器繁忙！操作失败，请重试！")
 										}
 									});
 								});
@@ -606,7 +635,7 @@
 										table.reload('studentTable', {url: '/stuinfo/selectByAdmin'});
 									},
 									error : function(e) {
-										layer.msg("服务器繁忙！操作失败，清重试！")
+										layer.msg("服务器繁忙！操作失败，请重试！")
 									}
 								
 								});
@@ -673,7 +702,7 @@
 											table.reload('studentTable', {url: '/stuinfo/selectByAdmin'});
 										},
 										error : function(e) {
-											layer.msg("服务器繁忙！操作失败，清重试！")
+											layer.msg("服务器繁忙！操作失败，请重试！")
 										}
 									//向服务端发送删除指令
 									});
@@ -734,7 +763,7 @@
 											layer.msg('成功设置为初始登录密码！',{time:1000});
 										},
 										error : function(e) {
-											layer.msg("服务器繁忙！操作失败，清重试！")
+											layer.msg("服务器繁忙！操作失败，请重试！")
 										}
 									});
 								});

@@ -40,7 +40,6 @@ public class StusummaryController extends BaseController{
         }else{
             return setQueryResponse(stusummaryList.get(0));
         }
-
     }
 
     /*

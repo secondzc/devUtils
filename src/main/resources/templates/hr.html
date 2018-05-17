@@ -82,7 +82,7 @@
         <header>
             <div class="top">
                 <h1>华为 实习生管理信息系统</h1>
-                <ul class="layui-nav" style="width:130px;position:absolute;top:18px;right:-20px;">
+                <ul class="layui-nav" style="width:130px;position:absolute;top:18px;right:-20px;background-color:#fff;">
                     <li class="layui-nav-item">
                         <a href="javascript:;" style="font-size:16px;color:#409eff;">更多<i class="layui-icon">&#xe61a;</i>  </a>
                         <dl class="layui-nav-child"> <!-- 二级菜单 -->
@@ -119,6 +119,7 @@
                     <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="plan">培养计划</a>
                     <a class="layui-btn layui-btn-xs" lay-event="summary">月度总结</a>
                     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="message">实习留言</a>
+                    <a class="layui-btn  layui-btn-xs layui-btn-normal" lay-event="evaluation">导师评价</a>
                 </script>
 
             </div>    
@@ -151,7 +152,7 @@
                     ,{field: 'teacher_job_number', title: '导师工号',align:'center', width:150}
                     ,{field: 'first_dept', title: '一级部门',align:'center', width: 150}
                     ,{field: 'second_dept', title: '二级部门',align:'center', width: 150}
-                    ,{fixed: 'right',  align:'center', toolbar: '#barDemo',minWidth:250}
+                    ,{fixed: 'right',  align:'center', toolbar: '#barDemo',minWidth:300}
                 ]]
             });
   //监听工具条
@@ -163,7 +164,7 @@
                         layer.open({
                             type : 2,
                             title:"培养计划",
-                            area : [ '700px', '450px' ],
+                            area : [ '710px', '450px' ],
                             fixed : false, //不固定
                             maxmin : true,
                             content : '../templates/hr/hr_plan.html?id='+data.id,
@@ -189,6 +190,17 @@
                             fixed : false, //不固定
                             maxmin : true,
                             content : '../templates/hr/hr_summary.html?id='+data.id,
+                            end : function() {
+                                //layui.index.render();
+                            }
+                        });
+                    }else if(layEvent==="evaluation"){
+                        layer.open({
+                            type : 2,
+                            area : [ '700px', '450px' ],
+                            fixed : false, //不固定
+                            maxmin : true,
+                            content : '../templates/hr/hr_evaluation.html?id='+data.id,
                             end : function() {
                                 //layui.index.render();
                             }

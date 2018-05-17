@@ -2,11 +2,14 @@ package com.tongyuan.testmp1.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.serializer.SerializerFeature;
+import com.tongyuan.testmp1.aop.WebLogAspect;
 import com.tongyuan.testmp1.entity.Hr;
 import com.tongyuan.testmp1.entity.Teacher;
 import com.tongyuan.testmp1.exception.AccessDeniedException;
 import com.tongyuan.testmp1.helper.PageDataResult;
 import com.tongyuan.testmp1.helper.Token;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import javax.servlet.http.HttpServletRequest;
@@ -18,6 +21,8 @@ import java.util.Map;
  * Created by zhangcy on 2018/3/28
  */
 public class BaseController {
+
+    private Logger logger = LoggerFactory.getLogger(BaseController.class);
 
     protected JSONObject setSuccessResponse(){
         JSONObject jo = new JSONObject();
@@ -94,8 +99,10 @@ public class BaseController {
     @ExceptionHandler
     public void handler(HttpServletResponse response,Exception e) throws Exception{
         if(e instanceof AccessDeniedException){
+            logger.error(e.getMessage());
             response.sendRedirect("/noPermission");
         }else {
+            logger.error(e.getMessage());
             response.sendRedirect("/myError");
         }
     }

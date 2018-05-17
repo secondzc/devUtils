@@ -2,6 +2,7 @@ package com.tongyuan.testmp1.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.tongyuan.testmp1.aop.Permission;
+import com.tongyuan.testmp1.dao.ViewMapper;
 import com.tongyuan.testmp1.entity.Hr;
 import com.tongyuan.testmp1.entity.Stuinfo;
 import com.tongyuan.testmp1.entity.Teacher;
@@ -11,6 +12,7 @@ import com.tongyuan.testmp1.helper.Token;
 import com.tongyuan.testmp1.service.StuinfoService;
 import com.tongyuan.testmp1.service.ViewService;
 import com.tongyuan.testmp1.util.SecurityUtil;
+import com.tongyuan.testmp1.viewModel.EvaluationView;
 import com.tongyuan.testmp1.viewModel.StuTeacherView;
 import com.tongyuan.testmp1.viewModel.StudentView;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +38,8 @@ public class StuinfoController extends BaseController{
     private StuinfoService stuinfoService;
     @Autowired
     private ViewService viewService;
+    @Autowired
+    private ViewMapper viewMapper;
 
     @InitBinder
     public void initBinder(WebDataBinder binder, WebRequest request) {
@@ -161,6 +165,47 @@ public class StuinfoController extends BaseController{
         String idNumber = stuinfo.getId_number();
         String pwd = PwdHelper.getPwd(idNumber);
         stuinfo.setEncrypt_password(SecurityUtil.encryptPassword(pwd));
+        stuinfoService.updateById(stuinfo);
         return setUpdateResponse();
+    }
+
+    /*
+    导师修改学生评级和学生评价
+     */
+    @Permission("teacher")
+    @PostMapping("/updateEvaluation")
+    @ResponseBody
+    public JSONObject updateEvaluation(@RequestParam("id") Integer id,
+                                       @RequestParam("rank") Integer rank,
+                                       @RequestParam("evaluation") String evaluation){
+        Stuinfo stuinfo = stuinfoService.selectById(id);
+        stuinfo.setRank(rank);
+        stuinfo.setEvaluation(evaluation);
+        stuinfoService.updateById(stuinfo);
+        return setUpdateResponse();
+    }
+
+    /*
+    hr或导师查看学生评级和学生评价
+     */
+    @Permission("hr,teacher")
+    @GetMapping("/selectEvaluationByHr")
+    @ResponseBody
+    public JSONObject selectEvaluationByHr(@RequestParam("id") Integer id){
+        EvaluationView evaluationView = viewMapper.selectEvaluationById(id);
+        return setQueryResponse(evaluationView);
+    }
+
+    /*
+    学生查看学生评级和学生评价
+     */
+    @Permission("student")
+    @GetMapping("/selectEvaluationByStudent")
+    @ResponseBody
+    public JSONObject selectEvaluationByStu(HttpServletRequest request){
+        Token token = getStudentToken(request);
+        Integer id = token.getId();
+        EvaluationView evaluationView = viewMapper.selectEvaluationById(id);
+        return setQueryResponse(evaluationView);
     }
 }
