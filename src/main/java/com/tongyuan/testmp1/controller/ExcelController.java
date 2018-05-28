@@ -42,7 +42,7 @@ public class ExcelController extends BaseController{
             return jo;
         }catch (Exception e){
             jo.put("code",1);
-            jo.put("msg","excel解析失败");
+            jo.put("msg",e.getMessage());
             return jo;
         }
     }

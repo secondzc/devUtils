@@ -227,7 +227,9 @@
 							done : function(res) {
 								//上传完毕回调
                                 layer.closeAll('loading');
-								layer.msg("上传成功！");
+								//layer.msg("上传成功！");
+								layer.msg(res.msg);
+
 								setTimeout("location.reload()",1000)
 							},
 							error : function() {

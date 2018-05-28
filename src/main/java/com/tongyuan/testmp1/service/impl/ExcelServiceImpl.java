@@ -3,12 +3,13 @@ package com.tongyuan.testmp1.service.impl;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.tongyuan.testmp1.dao.*;
 import com.tongyuan.testmp1.entity.*;
+import com.tongyuan.testmp1.exception.NumException;
+import com.tongyuan.testmp1.exception.PhoneNumException;
 import com.tongyuan.testmp1.helper.PwdHelper;
 import com.tongyuan.testmp1.service.*;
 import com.tongyuan.testmp1.util.SecurityUtil;
 import com.tongyuan.testmp1.viewModel.EvaluationView;
 import com.tongyuan.testmp1.viewModel.StudentView;
-import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
@@ -20,11 +21,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 
 import javax.servlet.ServletOutputStream;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Date;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,10 +52,14 @@ public class ExcelServiceImpl implements ExcelService {
 
     @Transactional
     @Override
-    public void parse(InputStream inputStream) throws RuntimeException {
+    public void parse(InputStream inputStream) {
+        XSSFWorkbook workbook = null;
         try {
-            XSSFWorkbook workbook = new XSSFWorkbook(inputStream);
-            //获取第一个工作表：两种方式
+            workbook = new XSSFWorkbook(inputStream);
+        } catch (IOException e) {
+            throw new RuntimeException("xssfWrokBook创建失败");
+        }
+        //获取第一个工作表：两种方式
             XSSFSheet sheet = workbook.getSheet("学生信息表");
             //读取默认的第一个sheet页
             //XSSFSheet sheet = workbook.getSheetAt(0);
@@ -71,16 +74,13 @@ public class ExcelServiceImpl implements ExcelService {
             parseStudent(sheet);
             parseTeacher(sheet1);
             parseHr(sheet2);
-        } catch (Exception e) {
-            throw new RuntimeException("excel解析失败");
-        }
     }
 
-    public void parseStudent(XSSFSheet sheet) throws RuntimeException{
+    public void parseStudent(XSSFSheet sheet){
         try {
             int firstRowNum = sheet.getFirstRowNum();
             //获取sheet中最后一行行号
-            int lastRowNum = sheet.getLastRowNum();
+            int lastRowNum = getRealRowNum(sheet,true);
 
             List<Stuinfo> stuinfoList = new ArrayList<>(100);
             int count =0;
@@ -95,47 +95,49 @@ public class ExcelServiceImpl implements ExcelService {
                 int j = row.getFirstCellNum();
 
                 XSSFCell name = row.getCell(j++);
-                stuinfo.setName(name.getStringCellValue());
+                stuinfo.setName(getString(name));
                 XSSFCell jobNum = row.getCell(j++);
-                stuinfo.setJob_number(getString(jobNum));
+                //实习生工号为8位
+                stuinfo.setJob_number(getNumber(jobNum,8));
+                //手机号为11位
                 XSSFCell phone = row.getCell(j++);
-                stuinfo.setPhone_number(getString(phone));
+                stuinfo.setPhone_number(getPhoneNum(phone));
                 XSSFCell sex = row.getCell(j++);
-                stuinfo.setSex(sex.getStringCellValue());
+                stuinfo.setSex(getString(sex));
                 XSSFCell id = row.getCell(j++);
                 stuinfo.setId_number(getString(id));
                 XSSFCell email = row.getCell(j++);
-                stuinfo.setEmail_addr(email.getStringCellValue());
+                stuinfo.setEmail_addr(getString(email));
                 XSSFCell education = row.getCell(j++);
-                stuinfo.setEducation(education.getStringCellValue());
+                stuinfo.setEducation(getString(education));
                 XSSFCell college = row.getCell(j++);
-                stuinfo.setGraduate_college(college.getStringCellValue());
+                stuinfo.setGraduate_college(getString(college));
                 XSSFCell major = row.getCell(j++);
-                stuinfo.setMajor(major.getStringCellValue());
+                stuinfo.setMajor(getString(major));
                 XSSFCell job = row.getCell(j++);
-                stuinfo.setJob(job.getStringCellValue());
+                stuinfo.setJob(getString(job));
                 XSSFCell jobDir = row.getCell(j++);
-                stuinfo.setJob_direction(jobDir.getStringCellValue());
+                stuinfo.setJob_direction(getString(jobDir));
                 XSSFCell place = row.getCell(j++);
-                stuinfo.setPlace(place.getStringCellValue());
+                stuinfo.setPlace(getString(place));
                 XSSFCell hireTime = row.getCell(j++);
-                stuinfo.setHire_time(new Date(hireTime.getDateCellValue().getTime()));
+                stuinfo.setHire_time(readDate(hireTime));
                 XSSFCell firstDept = row.getCell(j++);
-                stuinfo.setFirst_dept(firstDept.getStringCellValue());
+                stuinfo.setFirst_dept(getString(firstDept));
                 XSSFCell secondDept = row.getCell(j++);
-                stuinfo.setSecond_dept(secondDept.getStringCellValue());
+                stuinfo.setSecond_dept(getString(secondDept));
                 XSSFCell hrName = row.getCell(j++);
-                stuinfo.setHr_name(hrName.getStringCellValue());
+                stuinfo.setHr_name(getString(hrName));
                 XSSFCell hrJobNum = row.getCell(j++);
                 stuinfo.setHr_job_number(getString(hrJobNum));
                 XSSFCell teacherName = row.getCell(j++);
-                stuinfo.setTeacher_name(teacherName.getStringCellValue());
+                stuinfo.setTeacher_name(getString(teacherName));
                 XSSFCell teacherJobNum = row.getCell(j++);
                 stuinfo.setTeacher_job_number(getString(teacherJobNum));
                 XSSFCell quitTime = row.getCell(j++);
-                stuinfo.setQuit_time(new Date(quitTime.getDateCellValue().getTime()));
+                stuinfo.setQuit_time(readDate(quitTime));
                 XSSFCell quitReason = row.getCell(j++);
-                stuinfo.setQuit_reason(quitReason.getStringCellValue());
+                stuinfo.setQuit_reason(getString(quitReason));
 
                 //设置初始密码:身份证后六位
                 String idcard = getString(id);
@@ -149,15 +151,20 @@ public class ExcelServiceImpl implements ExcelService {
             if(stuinfoList.size()>0){
                 stuinfoService.insertBatch(stuinfoList);
             }
+        } catch (NumException e){
+            throw new NumException();
+        }
+        catch (PhoneNumException e){
+            throw new PhoneNumException();
         } catch (Exception e) {
-            throw new RuntimeException("excel解析失败");
+            throw new RuntimeException("excel解析student失败");
         }
     }
-    public void parseTeacher(XSSFSheet sheet) throws RuntimeException{
+    public void parseTeacher(XSSFSheet sheet){
         try {
             int firstRowNum = sheet.getFirstRowNum();
             //获取sheet中最后一行行号
-            int lastRowNum = sheet.getLastRowNum();
+            int lastRowNum = getRealRowNum(sheet,false);
 
             List<Teacher> teacherList = new ArrayList<>();
             for(int i = firstRowNum+1; i <= lastRowNum; i++){
@@ -166,11 +173,11 @@ public class ExcelServiceImpl implements ExcelService {
                 int j = row.getFirstCellNum();
 
                 XSSFCell firstDept = row.getCell(j++);
-                teacher.setFirst_dept(firstDept.getStringCellValue());
+                teacher.setFirst_dept(getString(firstDept));
                 XSSFCell secondDept = row.getCell(j++);
-                teacher.setSecond_dept(secondDept.getStringCellValue());
+                teacher.setSecond_dept(getString(secondDept));
                 XSSFCell name = row.getCell(j++);
-                teacher.setName(name.getStringCellValue());
+                teacher.setName(getString(name));
                 XSSFCell jobNum = row.getCell(j++);
                 teacher.setJob_number(getString(jobNum));
 
@@ -183,14 +190,14 @@ public class ExcelServiceImpl implements ExcelService {
             }
             teacherService.insertBatch(teacherList);
         } catch (Exception e) {
-            throw new RuntimeException("excel解析失败");
+            throw new RuntimeException("excel解析teacher失败");
         }
     }
-    public void parseHr(XSSFSheet sheet) throws RuntimeException{
+    public void parseHr(XSSFSheet sheet){
         try {
             int firstRowNum = sheet.getFirstRowNum();
             //获取sheet中最后一行行号
-            int lastRowNum = sheet.getLastRowNum();
+            int lastRowNum = getRealRowNum(sheet,false);
 
             List<Hr> hrList = new ArrayList<>();
             for(int i = firstRowNum+1; i <= lastRowNum; i++){
@@ -199,11 +206,11 @@ public class ExcelServiceImpl implements ExcelService {
                 int j = row.getFirstCellNum();
 
                 XSSFCell firstDept = row.getCell(j++);
-                hr.setFirst_dept(firstDept.getStringCellValue());
+                hr.setFirst_dept(getString(firstDept));
                 XSSFCell secondDept = row.getCell(j++);
-                hr.setSecond_dept(secondDept.getStringCellValue());
+                hr.setSecond_dept(getString(secondDept));
                 XSSFCell name = row.getCell(j++);
-                hr.setName(name.getStringCellValue());
+                hr.setName(getString(name));
                 XSSFCell jobNum = row.getCell(j++);
                 hr.setJob_number(getString(jobNum));
 
@@ -215,20 +222,7 @@ public class ExcelServiceImpl implements ExcelService {
             }
             hrService.insertBatch(hrList);
         } catch (Exception e) {
-            throw new RuntimeException("excel解析失败");
-        }
-    }
-
-    /**
-     * 不能确定excel中的工号是string还是number类型，进行转换一下
-     * @param xssfCell
-     * @return
-     */
-    public String getString(XSSFCell xssfCell){
-        if(xssfCell.getCellType() == xssfCell.CELL_TYPE_NUMERIC){
-            return String.valueOf(xssfCell.getNumericCellValue()).split("\\.")[0];
-        }else{
-            return xssfCell.getStringCellValue();
+            throw new RuntimeException("excel解析hr失败");
         }
     }
 
@@ -360,4 +354,95 @@ public class ExcelServiceImpl implements ExcelService {
             dataRow.createCell(j++).setCellValue(evaluationView.getEvaluation());
         }
     }
+
+    /*
+    获取日期值
+     */
+    Date readDate(XSSFCell cell){
+        if(null==cell || null == cell.getDateCellValue()){
+            return null;
+        }else{
+            return new Date(cell.getDateCellValue().getTime());
+        }
+    }
+
+    /*
+    获取真实行数
+     */
+    int getRealRowNum(XSSFSheet sheet,boolean isStudent){
+        int lastNum = sheet.getLastRowNum();
+        int realNum = 1;
+        while(realNum<=lastNum+1){
+            Row row = sheet.getRow(realNum);
+            if(null == row){
+                return realNum-1;
+            }
+            XSSFCell cell;
+            if(isStudent){
+                cell = (XSSFCell)row.getCell(1);
+            }else{
+                cell = (XSSFCell)row.getCell(3);
+            }
+            if("".equals(getString(cell))){
+                break;
+            }
+            realNum++;
+        }
+        return realNum-1;
+    }
+
+    /*
+    获取excel中 n位的数字(当n大于6时）
+     */
+    String getNumber(XSSFCell cell,Integer n){
+        try{
+        if(null==cell){
+            return "";
+        }
+        if(cell.CELL_TYPE_NUMERIC == cell.getCellType()){
+            String part0 = String.valueOf(cell.getNumericCellValue()).split("\\.")[0];
+            String part1 = String.valueOf(cell.getNumericCellValue()).split("\\.")[1];
+            return part0+part1.substring(0,n-1);
+        }else if(cell.CELL_TYPE_STRING == cell.getCellType()){
+            return cell.getStringCellValue();
+        }else{
+            return "";
+        }}
+        catch(Exception e){
+            throw new NumException();
+        }
+    }
+
+    /*
+    获取手机号 (11位）
+     */
+    String getPhoneNum(XSSFCell cell){
+        if(null==cell){
+            return "";
+        }
+        if(cell.CELL_TYPE_NUMERIC == cell.getCellType()){
+            String num = String.valueOf(cell.getNumericCellValue()).split("E")[1];
+            if(!num.equals("11")){
+                throw new PhoneNumException();
+            }
+        }
+        return getNumber(cell,11);
+    }
+
+    /**
+     * 不能确定excel中的工号是string还是number类型，进行转换一下
+     * @param xssfCell
+     * @return
+     */
+    public String getString(XSSFCell xssfCell){
+        if(xssfCell==null){
+            return "";
+        }
+        if(xssfCell.getCellType() == xssfCell.CELL_TYPE_NUMERIC){
+            return String.valueOf(xssfCell.getNumericCellValue()).split("\\.")[0];
+        }else{
+            return xssfCell.getStringCellValue();
+        }
+    }
+
 }
