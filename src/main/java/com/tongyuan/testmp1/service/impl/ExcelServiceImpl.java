@@ -67,9 +67,9 @@ public class ExcelServiceImpl implements ExcelService {
             XSSFSheet sheet2 = workbook.getSheet("HR信息表");
 
             //先清除老数据
-            stuinfoService.delete(null);
-            hrService.delete(null);
-            teacherService.delete(null);
+//            stuinfoService.delete(null);
+//            hrService.delete(null);
+//            teacherService.delete(null);
 
             parseStudent(sheet);
             parseTeacher(sheet1);
@@ -256,32 +256,36 @@ public class ExcelServiceImpl implements ExcelService {
         row.createCell(j++).setCellValue("学习材料");
         row.createCell(j++).setCellValue("输出及考核方式");
         List<Plandetail> plandetailList = plandetailMapper.selectList(null);
+        //rowCount生成excel行数的counter
+        int k=1;
         for(int i=0;i<plandetailList.size();i++){
-            Row dataRow = sheet.createRow(i+1);
             Plandetail plandetail = plandetailList.get(i);
             Integer stuid = plandetail.getStuid();
             StudentView studentView = viewMapper.selectStuViewById(stuid);
-            String name = studentView.getName();
-            String jobNum = studentView.getJob_number();
-            String target = null;
-            Integer month = plandetail.getMonth();
-            List<Stuplan> stuplanList = stuplanMapper.selectList(new EntityWrapper<Stuplan>().eq("month",month).eq("stuid",stuid));
-            if(stuplanList!=null && 1==stuplanList.size()){
-                target = stuplanList.get(0).getTarget();
-            }
-            String period = plandetail.getPeriod();
-            String knowledge = plandetail.getKnowledge();
-            String material = plandetail.getMaterial();
-            String inspect = plandetail.getInspect();
+            if(studentView!=null){
+                Row dataRow = sheet.createRow(k++);
+                String name = studentView.getName();
+                String jobNum = studentView.getJob_number();
+                String target = null;
+                Integer month = plandetail.getMonth();
+                List<Stuplan> stuplanList = stuplanMapper.selectList(new EntityWrapper<Stuplan>().eq("month",month).eq("stuid",stuid));
+                if(stuplanList!=null && 1==stuplanList.size()){
+                    target = stuplanList.get(0).getTarget();
+                }
+                String period = plandetail.getPeriod();
+                String knowledge = plandetail.getKnowledge();
+                String material = plandetail.getMaterial();
+                String inspect = plandetail.getInspect();
 
-            j = 0;
-            dataRow.createCell(j++).setCellValue(name);
-            dataRow.createCell(j++).setCellValue(jobNum);
-            dataRow.createCell(j++).setCellValue(target);
-            dataRow.createCell(j++).setCellValue(period);
-            dataRow.createCell(j++).setCellValue(knowledge);
-            dataRow.createCell(j++).setCellValue(material);
-            dataRow.createCell(j++).setCellValue(inspect);
+                j = 0;
+                dataRow.createCell(j++).setCellValue(name);
+                dataRow.createCell(j++).setCellValue(jobNum);
+                dataRow.createCell(j++).setCellValue(target);
+                dataRow.createCell(j++).setCellValue(period);
+                dataRow.createCell(j++).setCellValue(knowledge);
+                dataRow.createCell(j++).setCellValue(material);
+                dataRow.createCell(j++).setCellValue(inspect);
+            }
         }
     }
     void createSummaryExcel(XSSFSheet sheet){
@@ -294,20 +298,24 @@ public class ExcelServiceImpl implements ExcelService {
         row.createCell(j++).setCellValue("下个月计划");
 
         List<Stusummary> stusummaryList = stusummaryMapper.selectList(null);
+        //rowCount生成excel行数的counter
+        int k=1;
         for(int i=0;i<stusummaryList.size();i++){
-            Row dataRow = sheet.createRow(i+1);
             Stusummary stusummary = stusummaryList.get(i);
             Integer stuid = stusummary.getStuid();
             StudentView studentView = viewMapper.selectStuViewById(stuid);
-            String name = studentView.getName();
-            String jobNum = studentView.getJob_number();
+            if(studentView!=null){
+                Row dataRow = sheet.createRow(k++);
+                String name = studentView.getName();
+                String jobNum = studentView.getJob_number();
 
-            j=0;
-            dataRow.createCell(j++).setCellValue(name);
-            dataRow.createCell(j++).setCellValue(jobNum);
-            dataRow.createCell(j++).setCellValue(stusummary.getSummary());
-            dataRow.createCell(j++).setCellValue(stusummary.getQuestion());
-            dataRow.createCell(j++).setCellValue(stusummary.getPlan());
+                j=0;
+                dataRow.createCell(j++).setCellValue(name);
+                dataRow.createCell(j++).setCellValue(jobNum);
+                dataRow.createCell(j++).setCellValue(stusummary.getSummary());
+                dataRow.createCell(j++).setCellValue(stusummary.getQuestion());
+                dataRow.createCell(j++).setCellValue(stusummary.getPlan());
+            }
         }
 
     }
@@ -321,18 +329,21 @@ public class ExcelServiceImpl implements ExcelService {
 
         List<Stumessage> stumessageList = stumessageMapper.selectList(null);
         for(int i=0;i<stumessageList.size();i++){
-            Row dataRow = sheet.createRow(i+1);
             Stumessage stumessage = stumessageList.get(i);
             Integer stuid = stumessage.getStuid();
             StudentView studentView = viewMapper.selectStuViewById(stuid);
-            String name = studentView.getName();
-            String jobNum = studentView.getJob_number();
+            int k=1;
+            if(studentView!=null){
+                Row dataRow = sheet.createRow(k++);
+                String name = studentView.getName();
+                String jobNum = studentView.getJob_number();
 
-            j=0;
-            dataRow.createCell(j++).setCellValue(name);
-            dataRow.createCell(j++).setCellValue(jobNum);
-            dataRow.createCell(j++).setCellValue(stumessage.getType());
-            dataRow.createCell(j++).setCellValue(stumessage.getMessage());
+                j=0;
+                dataRow.createCell(j++).setCellValue(name);
+                dataRow.createCell(j++).setCellValue(jobNum);
+                dataRow.createCell(j++).setCellValue(stumessage.getType());
+                dataRow.createCell(j++).setCellValue(stumessage.getMessage());
+            }
         }
     }
     void createEvaluationExcel(XSSFSheet sheet){
@@ -344,14 +355,17 @@ public class ExcelServiceImpl implements ExcelService {
         row.createCell(j++).setCellValue("评价内容");
 
         List<EvaluationView> evaluationViewList = viewMapper.selectAllEvaluations();
+        int k=1;
         for(int i=0;i<evaluationViewList.size();i++){
             EvaluationView evaluationView = evaluationViewList.get(i);
-            Row dataRow =  sheet.createRow(i+1);
-            j=0;
-            dataRow.createCell(j++).setCellValue(evaluationView.getName());
-            dataRow.createCell(j++).setCellValue(evaluationView.getJob_number());
-            dataRow.createCell(j++).setCellValue(evaluationView.getRank()==null?"":String.valueOf(evaluationView.getRank()));
-            dataRow.createCell(j++).setCellValue(evaluationView.getEvaluation());
+            if(evaluationView.getRank()!=null || evaluationView.getEvaluation()!=null){
+                Row dataRow =  sheet.createRow(k++);
+                j=0;
+                dataRow.createCell(j++).setCellValue(evaluationView.getName());
+                dataRow.createCell(j++).setCellValue(evaluationView.getJob_number());
+                dataRow.createCell(j++).setCellValue(evaluationView.getRank()==null?"":String.valueOf(evaluationView.getRank()));
+                dataRow.createCell(j++).setCellValue(evaluationView.getEvaluation());
+            }
         }
     }
 
