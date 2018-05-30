@@ -251,7 +251,8 @@ public class ExcelServiceImpl implements ExcelService {
         row.createCell(j++).setCellValue("姓名");
         row.createCell(j++).setCellValue("工号");
         row.createCell(j++).setCellValue("培养目标");
-        row.createCell(j++).setCellValue("时间");
+        row.createCell(j++).setCellValue("所属月份");
+        row.createCell(j++).setCellValue("阶段");
         row.createCell(j++).setCellValue("知识点及掌握程度");
         row.createCell(j++).setCellValue("学习材料");
         row.createCell(j++).setCellValue("输出及考核方式");
@@ -268,9 +269,11 @@ public class ExcelServiceImpl implements ExcelService {
                 String jobNum = studentView.getJob_number();
                 String target = null;
                 Integer month = plandetail.getMonth();
+                String startAndEndTime = null;
                 List<Stuplan> stuplanList = stuplanMapper.selectList(new EntityWrapper<Stuplan>().eq("month",month).eq("stuid",stuid));
                 if(stuplanList!=null && 1==stuplanList.size()){
                     target = stuplanList.get(0).getTarget();
+                    startAndEndTime = stuplanList.get(0).getStart_time().toString()+" 至 "+stuplanList.get(0).getEnd_time().toString();
                 }
                 String period = plandetail.getPeriod();
                 String knowledge = plandetail.getKnowledge();
@@ -281,6 +284,7 @@ public class ExcelServiceImpl implements ExcelService {
                 dataRow.createCell(j++).setCellValue(name);
                 dataRow.createCell(j++).setCellValue(jobNum);
                 dataRow.createCell(j++).setCellValue(target);
+                dataRow.createCell(j++).setCellValue(startAndEndTime);
                 dataRow.createCell(j++).setCellValue(period);
                 dataRow.createCell(j++).setCellValue(knowledge);
                 dataRow.createCell(j++).setCellValue(material);
